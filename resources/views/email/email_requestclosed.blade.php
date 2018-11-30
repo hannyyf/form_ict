@@ -277,7 +277,7 @@
                                                         <th width="180px">Tanggal Pakai</th>
                                                         <th width="300px">Keterangan / Jenis Manfaat</th>
                                                         <th width="300px">Perkiraan Budget</th>
-                                                        <th width="300px">Kode Item</th>
+                                                      
                                                     </tr>
                                                     </thead>
                                                     @foreach($datafetch as $data)
@@ -290,7 +290,7 @@
                                                             <td style="text-align: center;">{{ $data->tglpakai }}</td>
                                                             <td style="text-align: center;">{{ $data->notemanfaat }}</td>
                                                             <td style="text-align: center;">{{ $data->perkiraanbudget }}</td>
-                                                            <td style="text-align: center;">{{ $data->kodeitem }}</td>
+                                                           
                                                         </tr>
                                                     </tbody>
                                                      @endforeach

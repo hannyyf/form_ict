@@ -42,6 +42,7 @@ class MappingController extends Controller
      */
     public function store(Request $request)
     {
+      dd($request);
         date_default_timezone_set('Asia/Jakarta');
         $datenow  = date('Y-m-d H:i:s');
         $dtnow    = date('Y-m-d');

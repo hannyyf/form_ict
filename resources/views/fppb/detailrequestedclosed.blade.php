@@ -12,8 +12,15 @@
                 $('#btnreject').prop('disabled', false);
             }
         });
-
     });
+
+    function change_checkbox(el){
+        if(el.checked){
+            $('#btnClose').prop('disabled',false);
+        }else{
+            $('#btnClose').prop('disabled',true);
+        }
+    }
 
     $(document).ready(function($){
         $('.budget').mask('000,000,000,000', {reverse: true});
@@ -86,7 +93,7 @@
                         <tbody id="listitem">
                         <tr>
                             <td style="width: 3%">
-                                <input type="checkbox" value="{{$data->seqid}}"" name="selected[]">
+                                <input type="checkbox" value="{{$data->seqid}}" name="selected[]" onchange="change_checkbox(this)">
                             </td>
                             <td style="width: 2%">
                                 {{ $data->seqid }}
@@ -134,7 +141,7 @@
                     </table>
                 </div>
                 <div class="form-actions">
-                  <button type="submit" class="btn btn-md btn-primary" name="action" value="closed"> Closed</button>
+                  <button type="submit" class="btn btn-md btn-primary" name="action" value="closed" id="btnClose" disabled> Closed</button>
                   <button type="submit" class="btn btn-md btn-danger" name="action" id="btnreject" value="reject" disabled> Reject</button>
                 </div>
                 <div class="col-md-6 pull-left" style="margin-left: : 25px">

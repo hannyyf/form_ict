@@ -6,6 +6,15 @@
         $('.budget').mask('000,000,000,000', {reverse: true});
         $('.qty').mask('0,000,000', {reverse: true});
     });
+
+    function change_checkbox(el){
+        var i;
+        if(el.checked){
+            $('#btnRequestClose').prop('disabled',false);
+        }else{
+            $('#btnRequestClose').prop('disabled',true);
+        }
+    }
 </script>
 <!--breadcrumbs-->
   <div id="content-header">
@@ -78,7 +87,7 @@
                         <tbody id="listitem">
                         <tr>
                             <td style="width: 3%">
-                                <input type="checkbox" value="<?php echo e($data->seqid); ?>"" name="selected[]">
+                                <input type="checkbox" value="<?php echo e($data->seqid); ?>" name="selected[]" class="selected" id="selected<?php echo e($data->seqid); ?>" onchange="change_checkbox(this)">
                             </td>
                             <td style="width: 2%">
                                 <?php echo e($data->seqid); ?>
@@ -132,7 +141,7 @@
                     </table>
                 </div>
                 <div class="form-actions">
-                  <button type="submit" class="btn btn-md btn-primary" name="action" value="approve">Request Close</button>
+                  <button type="submit" class="btn btn-md btn-primary request" name="action" value="approve" id="btnRequestClose" disabled>Request Close</button>
                 </div>
 
                 <div class="col-md-4 pull-right" style="margin-right: 25px" >

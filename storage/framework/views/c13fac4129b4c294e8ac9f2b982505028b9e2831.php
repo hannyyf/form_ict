@@ -2,6 +2,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.min.js"></script>
 <script type="text/javascript">
+$.jMaskGlobals.watchDataMask = true;
     $(document).ready(function(){     
         $('.budget').keyup(function() {
             if ($(this).val().length == 0) {
@@ -10,14 +11,51 @@
                 $('#btnproses').prop('disabled', false);
             }
         });
+
+    //     function tambahItem(line) {
+    //     var rowItem = $('#tableitem' + line);
+    //     var i = $('#tableitem'+line+ ' tr').size() + 1;
+    //     row = 
+    //         '<tr>' +
+    //             '<td style="width: 90%;padding: 0px"><select class="span11" name="kodeitem[]" id="kodeitem'+line+'" required>' +
+    //             '<option value="">--Pilih Kode Item--</option>'+
+    //                 '<?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>' +
+    //                     '<option value="<?php echo e($product->idqad); ?>"><?php echo e($product->nmprod); ?> - <?php echo e($product->idqad); ?></option>' +
+    //                 '<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>' +
+    //                 '</select>' +
+    //              '<div style="margin-top: 5px">' +
+    //                 '<input type="text" class="span11" name="linekodeitem[]" id="product'+line+'" value="'+line+'" style="display:none; width:350px;">' +
+    //             '</div>' +
+    //             '</td>' +
+    //         '</tr>'
+    //     rowItem.append(row); 
+    //     i++;
+    //     return false;
+    // };
+    
+    $('.addbudget').on('click', function() {
+        var id = this.id;
+        var split = id.split('addBudgetId');
+        var line = split[1];
+        var rowItem = $('#tablebudget' + line);
+        var i = $('#tablebudget'+line+ ' tr').size() + 1;
+        row = 
+            '<tr>' +
+                '<td style="width: 90%;padding: 0px"><input class="budget span11" type="text" name="budget[]" id="budget'+line+'" style="width: 90%" data-mask="000,000,000,000" data-mask-reverse="true" required>' +
+                 '<div style="margin-top: 5px">' +
+                    '<input type="text" class="span11" name="linebudget[]" id="budgetline'+line+'" value="'+line+'" style="display:none; width:350px;">' +
+                '</div>' +
+                '</td>' +
+            '</tr>'
+        rowItem.append(row); 
+        i++;
+        return false;
     });
 
-    $(document).ready(function($){
-        $('.budget').mask('000,000,000,000', {reverse: true});
-        $('.qty').mask('0,000,000', {reverse: true});
-    });
-
-    function tambahItem(line) {
+    $('.additemcode').on('click', function() {
+        var id = this.id;
+        var split = id.split('addItem');
+        var line = split[1];
         var rowItem = $('#tableitem' + line);
         var i = $('#tableitem'+line+ ' tr').size() + 1;
         row = 
@@ -36,25 +74,14 @@
         rowItem.append(row); 
         i++;
         return false;
-    };
+    })
+});
 
-    function tambahBudget(line) {
-         // $('.budget').mask('000,000,000,000', {reverse: true});
-        var rowItem = $('#tablebudget' + line);
-        var i = $('#tablebudget'+line+ ' tr').size() + 1;
-        // $('#budgetline'+y).mask('0,000,000', {reverse: true});
-        row = 
-            '<tr>' +
-                '<td style="width: 90%;padding: 0px"><input class="budget span11" type="text" name="budget[]" id="budget'+line+'" style="width: 90%" required>' +
-                 '<div style="margin-top: 5px">' +
-                    '<input type="text" class="span11" name="linebudget[]" id="budgetline'+line+'" value="'+line+'" style="display:none; width:350px;">' +
-                '</div>' +
-                '</td>' +
-            '</tr>'
-        rowItem.append(row); 
-        i++;
-        return false;
-    };
+    $(document).ready(function($){
+        $('.budget').mask('000,000,000,000', {reverse: true});
+        $('.qty').mask('0,000,000', {reverse: true});
+    });
+
 </script>
 <!--breadcrumbs-->
   <div id="content-header">
@@ -168,7 +195,8 @@
                                                 </div>
                                             </td>
                                             <td style="width: 10%;padding: 0px">
-                                                <a href="#" id="addBudget<?php echo e($data->seqid); ?>" class=" btn btn-sm btn-primary addbudget" onclick="tambahBudget(<?php echo e($data->seqid); ?>)">+</a>
+                                                <!-- <a href="#" id="addBudgetId<?php echo e($data->seqid); ?>" class=" btn btn-sm btn-primary addbudget">+</a> -->
+                                                <button class="addbudget btn btn-sm btn-primary" id="addBudgetId<?php echo e($data->seqid); ?>">+</button>
                                             </td>
                                         </tr>
                                     </table>
@@ -193,7 +221,8 @@
                                                 </div>
                                             </td>
                                             <td style="width: 10%;padding: 0px">
-                                                <a href="#" id="addItem<?php echo e($data->seqid); ?>" class=" btn btn-sm btn-primary additemcode" onclick="tambahItem(<?php echo e($data->seqid); ?>)">+</a>
+                                                <!-- <a href="#" id="addItem<?php echo e($data->seqid); ?>" class=" btn btn-sm btn-primary additemcode" onclick="tambahItem(<?php echo e($data->seqid); ?>)">+</a> -->
+                                                <button class="additemcode btn btn-sm btn-primary" id="addItem<?php echo e($data->seqid); ?>">+</button>
                                             </td>
                                         </tr>
                                     </table>

@@ -89,7 +89,7 @@
 
 <div class="container-fluid">
     <div class="row-fluid">
-        <form action="<?php echo e(route('requestfppb.store')); ?>" method="post" class="form-horizontal" name="myForm" onsubmit="return validateForm()">
+        <form action="<?php echo e(route('requestfppb.store')); ?>" method="post" class="form-horizontal" name="myForm">
                 <?php echo e(csrf_field()); ?>
 
         <div class="span12">
