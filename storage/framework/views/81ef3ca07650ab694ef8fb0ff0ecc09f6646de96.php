@@ -107,14 +107,13 @@
                                 <textarea class="span11" type="text" name="keterangan[]" id="keterangan" rows="5" cols="40" readonly ="readonly" style="display:none;"><?php echo $data->notemanfaat;?></textarea>
                             </td>
                             <td style="width: 10%">
-                                <label class="budget"> <?php echo e($data->perkiraanbudget); ?> </label>
+                                <label class="budget"><?php echo e($data->perkiraanbudget); ?></label>
                                 <input class="budget span11" type="text" name="budget[]" id="budget" value="<?php echo e($data->perkiraanbudget); ?>" readonly ="readonly" style="display:none;">
                             </td>
                             <td style="width: 15%">
                                 <?php $__currentLoopData = $kodeitems; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kodeitem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <?php if($data->seqid == $kodeitem->seqid): ?>
-                                <?php echo e($kodeitem->kodeitem); ?>
-
+                                <?php echo e($kodeitem->kodeitem); ?> <br>
                                 
                                 <input class="span11" type="text" name="kodeitem[]" id="kodeitem" value="<?php echo e($kodeitem->kodeitem); ?>" style="display:none;" readonly="readonly">
                                 <?php endif; ?>
