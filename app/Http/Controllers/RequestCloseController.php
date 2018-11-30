@@ -274,24 +274,24 @@ class RequestCloseController extends Controller
         switch ($request->input('action')) {
             case 'closed':
             foreach ($request->selected as $key => $value) {
-            $updatereqclosed = DB::table('tr_fppb_detail')
-                                    ->where('notrx','=',$request->nofppb)
-                                    ->where('seqid','=',$request->selected[$key])
-                                    ->update([
-                                        'isrequestclosed'   => 2,
-                                        'isitemclosed'      => 1,
-                                        'dtitemclosed'      => $datenow
-                                    ]);
-            }        
-            // update dtmodified tabel fppb header
-            DB::table('tr_fppb_header')
+            DB::table('tr_fppb_detail')
                 ->where('notrx','=',$request->nofppb)
+                ->where('seqid','=',$request->selected[$key])
                 ->update([
-                    'dtmodified'    => $datenow,
-                    'isclosed'      => 1,
-                    'dtclosed'      => $datenow
+                    'isrequestclosed'   => 2,
+                    'isitemclosed'      => 1,
+                    'dtitemclosed'      => $datenow
                 ]);
 
+             $getdetailclosed =  DB::table('tr_fppb_detail')
+                                    ->select('*')
+                                    ->where('notrx','=',$request->nofppb)
+                                    ->where('seqid','=',$request->selected[$key])
+                                    ->get();
+            }
+
+
+            
             // cek masih ada yang belum di closed atau engga
             $getdetail = DB::table('tr_fppb_detail')
                             ->select('*')
@@ -323,7 +323,46 @@ class RequestCloseController extends Controller
                     'dtfrom'        => $datenow,
                     'dtthru'        => $dtthru
                 ]);
+
+                // update dtmodified tabel fppb header
+                DB::table('tr_fppb_header')
+                    ->where('notrx','=',$request->nofppb)
+                    ->update([
+                        'dtmodified'    => $datenow,
+                        'isclosed'      => 1,
+                        'dtclosed'      => $datenow
+                    ]);
+
+            } else {
+                // update dtmodified tabel fppb header
+                DB::table('tr_fppb_header')
+                    ->where('notrx','=',$request->nofppb)
+                    ->update([
+                        'dtmodified'    => $datenow,
+                        'isclosed'      => 0,
+                    ]);
             }
+
+            // cek ke tabel header, masuk kategori mana
+            $header = DB::table('tr_fppb_header')
+                            ->select('*')
+                            ->where('notrx','=',$request->nofppb)
+                            ->first();
+            $kategori = DB::table('masterkategori')
+                            ->select('*')
+                            ->where('idkategori','=',$header->kategorifppb)
+                            ->first();
+            $emailict = $kategori->email;
+
+            // fungsi kirim email notifikasi close ke ict first layer
+            Mail::send('email.email_close', [
+                    'nofppb'    => $request->nofppb,
+                    'datafetch' => $getdetailclosed
+                ], function ($message) use ($request, $emailict, $getdetailclosed) {
+                    $message->subject('Notifikasi Request close FPPB nomor '.$request->nofppb);
+                    $message->from('info@djabesmen.net', 'Info');
+                    $message->to($emailict);
+                });
 
                 return redirect()->route('serahterima.reindex')->with('alert-success','Request FPPB dengan nomor '.$request->nofppb.' Berhasil di Closed ');
             break;

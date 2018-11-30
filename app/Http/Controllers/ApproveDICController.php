@@ -104,7 +104,10 @@ class ApproveDICController extends Controller
                             'datafetch' => $detail
                         ], function ($message) use ($request, $emailict, $detail) {
                             $message->from('info@djabesmen.net', 'Info');
+<<<<<<< HEAD
                             // $message->to($emailict)->subject('Notifikasi request FPPB nomor '.$request->nofppb);
+=======
+>>>>>>> 19af5d033d1b886b52e9a010502bff02c25c1038
                             $message->to($emailict)->subject('Notifikasi request FPPB nomor '.$request->nofppb);
                         });
                     DB::commit();
@@ -200,8 +203,11 @@ class ApproveDICController extends Controller
                         ], function ($message) use ($request, $emailrequester, $detail, $appraiser, $emaildivhead) {
                             $message->subject('Notifikasi request FPPB nomor'.$request->nofppb);
                             $message->from('info@djabesmen.net', 'Info');
+<<<<<<< HEAD
                             // $message->to($emailrequester);
                             // $message->cc($emaildivhead);
+=======
+>>>>>>> 19af5d033d1b886b52e9a010502bff02c25c1038
                             $message->to($emailrequester);
                             $message->cc($emaildivhead);
                         });

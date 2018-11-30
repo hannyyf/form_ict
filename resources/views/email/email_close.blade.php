@@ -243,6 +243,12 @@
                 background-color: #34495e !important;
                 border-color: #34495e !important; } }
     </style>
+    <script type="text/javascript">
+     $(document).ready(function($){
+        $('.budget').mask('000,000,000,000', {reverse: true});
+    });
+    </script>
+   
 </head>
 <body class="">
 <table border="0" cellpadding="0" cellspacing="0" class="body">
@@ -260,8 +266,8 @@
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <p>Dear Requester,</p>
-                                        <p>Mohon untuk dapat melakukan close request terhadap FPPB dengan nomor <b>{{ $nofppb }}</b>, dengan detail sebagai berikut :</p>
+                                        <p>Dear ICT,</p>
+                                        <p>Request FPPB dengan nomor <b>{{ $nofppb }}</b> sudah di close, dengan detail item yang diclose sebagai berikut :</p>
 
                                         <table border="0" cellpadding="0" cellspacing="0">
                                             <tbody>
@@ -277,7 +283,7 @@
                                                         <th width="180px">Tanggal Pakai</th>
                                                         <th width="300px">Keterangan / Jenis Manfaat</th>
                                                         <th width="300px">Perkiraan Budget</th>
-                                                        <th width="300px">Kode Item</th>
+                                                       
                                                     </tr>
                                                     </thead>
                                                     @foreach($datafetch as $data)
@@ -289,8 +295,7 @@
                                                             <td style="text-align: center;">{{ $data->satuan }}</td>
                                                             <td style="text-align: center;">{{ $data->tglpakai }}</td>
                                                             <td style="text-align: center;">{{ $data->notemanfaat }}</td>
-                                                            <td style="text-align: center;">{{ $data->perkiraanbudget }}</td>
-                                                            <td style="text-align: center;">{{ $data->kodeitem }}</td>
+                                                            <td style="text-align: center;"><label class="budget">{{ $data->perkiraanbudget }}</label></td>
                                                         </tr>
                                                     </tbody>
                                                      @endforeach

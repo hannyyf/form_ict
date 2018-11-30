@@ -300,7 +300,11 @@ class RequestFPPBController extends Controller
                                 'datafetch' => $detail
                             ], function ($message) use ($request, $emailspv, $numbering, $divnama, $detail) {
                             $message->from('info@djabesmen.net', 'Info');
+<<<<<<< HEAD
                             $message->to($emailspv)->subject('Request for approval '.$numbering);
+=======
+                            $message->to( $emailspv)->subject('Request for approval '.$numbering);
+>>>>>>> 19af5d033d1b886b52e9a010502bff02c25c1038
                     });
 
                     DB::commit();

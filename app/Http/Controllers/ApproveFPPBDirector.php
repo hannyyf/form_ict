@@ -269,8 +269,11 @@ class ApproveFPPBDirector extends Controller
                             $message->from('info@djabesmen.net', 'Info');
                             $message->to($emailrequester);
                             $message->cc($emaildivhead);
+<<<<<<< HEAD
                             //  $message->to('hannyfauzia2@gmail.com');
                             // $message->cc('hannyfauzia2@gmail.com');
+=======
+>>>>>>> 19af5d033d1b886b52e9a010502bff02c25c1038
                         });
                     DB::commit();
                     return redirect()->route('approvedirector.index')->with('alert-success','Data FPPB dengan nomor '.$request->nofppb.' telah di reject. Notifikasi email akan disampaikan ke requester.');
