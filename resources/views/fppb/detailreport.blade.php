@@ -98,13 +98,13 @@
                                 <textarea class="span11" type="text" name="keterangan[]" id="keterangan" rows="5" cols="40" readonly ="readonly" style="display:none;"><?php echo $data->notemanfaat;?></textarea>
                             </td>
                             <td style="width: 10%">
-                                <label class="budget"> {{ $data->perkiraanbudget }} </label>
+                                <label class="budget">{{ $data->perkiraanbudget }}</label>
                                 <input class="budget span11" type="text" name="budget[]" id="budget" value="{{ $data->perkiraanbudget }}" readonly ="readonly" style="display:none;">
                             </td>
                             <td style="width: 15%">
                                 @foreach ($kodeitems as $kodeitem)
                                 @if ($data->seqid == $kodeitem->seqid)
-                                {{ $kodeitem->kodeitem }}
+                                {{ $kodeitem->kodeitem }} <br>
                                 
                                 <input class="span11" type="text" name="kodeitem[]" id="kodeitem" value="{{ $kodeitem->kodeitem }}" style="display:none;" readonly="readonly">
                                 @endif
