@@ -109,6 +109,7 @@ class MappingController extends Controller
               'dtthru'        => $dtthru
           ]);
 
+
           $nofppb   = $request->nofppb;
           $noteict  = $request->noteict;
           $notedir  = $request->notedir;
@@ -119,8 +120,8 @@ class MappingController extends Controller
           $send = $this->sendInBound($url,$getxml);
           Storage::put($nofppb.'.xml', $getxml); //simpan file xml ke storage
           // dd($send->response);
-
-         // cek requester
+		
+		// cek requester
          $getrequester = DB::table('tr_fppb_header')
                   ->select('*')
                   ->where('notrx','=',$request->nofppb)
@@ -140,18 +141,19 @@ class MappingController extends Controller
                         ->get();
           
           $emailict = 'ictopr@djabesmen.co.id';
-
+        
           if($send[0] == 'success') {
             DB::commit();
-              // fungsi kirim email notifikasi reject ke user
+			
+			 // fungsi kirim email notifikasi reject ke user
               Mail::send('email.email_generate_pr', [
                 'nofppb'    => $nofppb,
                 'datafetch' => $detail
-            ], function ($message) use ($request, $emailrequester, $detail) {
+            ], function ($message) use ($request, $emailrequester, $detail, $emailict) {
                 $message->subject('Informasi pembuatan requisition FPPB nomor'.$request->nofppb);
                 $message->from('info@djabesmen.net', 'Info');
-                $message->to('hannyfauzia2@gmail.com');
-                $message->cc('hannyfauzia2@gmail.com');
+                $message->to($emailrequester);
+                $message->cc($emailict);
             });
 
               return redirect()->route('mappingict.index')->with('alert-success','Data FPPB dengan nomor '.$request->nofppb.' Berhasil di Update ');

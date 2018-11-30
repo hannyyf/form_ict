@@ -15,9 +15,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('/home', 'HomeController@reIndex')->name('home');
 Route::get('/index', 'HomeController@reIndex');
-
+Route::get('/home', 'HomeController@index')->name('home');
 //djmapplogin
 Route::post('djmapplogin', 'ApiController@GetLogin');
 

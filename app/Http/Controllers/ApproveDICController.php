@@ -105,7 +105,7 @@ class ApproveDICController extends Controller
                         ], function ($message) use ($request, $emailict, $detail) {
                             $message->from('info@djabesmen.net', 'Info');
                             // $message->to($emailict)->subject('Notifikasi request FPPB nomor '.$request->nofppb);
-                            $message->to('hannyfauzia2@gmail.com')->subject('Notifikasi request FPPB nomor '.$request->nofppb);
+                            $message->to($emailict)->subject('Notifikasi request FPPB nomor '.$request->nofppb);
                         });
                     DB::commit();
                     return redirect()->route('approvedic.index')->with('alert-success','Data FPPB dengan nomor '.$request->nofppb.' Berhasil di Approve ');
@@ -173,7 +173,7 @@ class ApproveDICController extends Controller
                     $getdivhead = DB::table('approvalstatus')
                                     ->select('*')
                                     ->where('notrx','=',$request->nofppb)
-                                    ->where('approvaltype','=','Div Head User')
+                                    ->where('approvaltype','=',2)
                                     ->where('statustype','=','Approve')
                                     ->first();
                     $divhead = $getdivhead->nik;
@@ -202,8 +202,8 @@ class ApproveDICController extends Controller
                             $message->from('info@djabesmen.net', 'Info');
                             // $message->to($emailrequester);
                             // $message->cc($emaildivhead);
-                            $message->to('hannyfauzia2@gmail.com');
-                            $message->cc('hannyfauzia2@gmail.com');
+                            $message->to($emailrequester);
+                            $message->cc($emaildivhead);
                         });
                     DB::commit();
                     return redirect()->route('approvedic.index')->with('alert-success','Data FPPB dengan nomor '.$request->nofppb.' telah di reject. Notifikasi email akan disampaikan ke requester.');

@@ -124,7 +124,7 @@ class RequestCloseController extends Controller
             ], function ($message) use ($request, $emailrequester, $detail) {
                 $message->subject('Request closed FPPB nomor'.$request->nofppb);
                 $message->from('info@djabesmen.net', 'Info');
-                $message->to('hannyfauzia2@gmail.com');
+                $message->to($emailrequester);
             });
 
         // cek masih ada yang belum di request closed atau engga
@@ -372,7 +372,7 @@ class RequestCloseController extends Controller
                 ], function ($message) use ($request, $emailict, $getdetailreject) {
                     $message->subject('Request closed FPPB nomor'.$request->nofppb);
                     $message->from('info@djabesmen.net', 'Info');
-                    $message->to('hannyfauzia2@gmail.com');
+                    $message->to($emailict);
                 });
          
             return redirect()->route('serahterima.reindex')->with('alert-success','Request FPPB dengan nomor '.$request->nofppb.' Berhasil di Update ');
