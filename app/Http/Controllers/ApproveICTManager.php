@@ -114,7 +114,7 @@ class ApproveICTManager extends Controller
                             'datafetch' => $detail
                         ], function ($message) use ($request, $emaildic, $detail) {
                             $message->from('info@djabesmen.net', 'Info');
-                            $message->to('hannyfauzia2@gmail.com')->subject('Request for approval '.$request->nofppb);
+                            $message->to($emaildic)->subject('Request for approval '.$request->nofppb);
                         });
 
                     
@@ -211,8 +211,8 @@ class ApproveICTManager extends Controller
                         ], function ($message) use ($request, $emailrequester, $detail, $appraiser, $emaildivhead) {
                             $message->subject('Notifikasi request FPPB nomor'.$request->nofppb);
                             $message->from('info@djabesmen.net', 'Info');
-                            $message->to('hannyfauzia2@gmail.com');
-                            $message->cc('hannyfauzia2@gmail.com');
+                            $message->to($emailrequester);
+                            $message->cc($emaildivhead);
                         });
                     DB::commit();
                     return redirect()->route('approvedirector.index')->with('alert-success','Data FPPB dengan nomor '.$request->nofppb.' telah di reject. Notifikasi email akan disampaikan ke requester.');

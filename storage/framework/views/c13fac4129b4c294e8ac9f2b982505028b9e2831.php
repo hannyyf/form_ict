@@ -13,7 +13,6 @@
     });
 
     $(document).ready(function($){
-        console.log('cek saat ketik budget');
         $('.budget').mask('000,000,000,000', {reverse: true});
         $('.qty').mask('0,000,000', {reverse: true});
     });
@@ -40,21 +39,20 @@
     };
 
     function tambahBudget(line) {
+         // $('.budget').mask('000,000,000,000', {reverse: true});
         var rowItem = $('#tablebudget' + line);
         var i = $('#tablebudget'+line+ ' tr').size() + 1;
-        var y = $('#tablebudget'+line).size();
         // $('#budgetline'+y).mask('0,000,000', {reverse: true});
         row = 
             '<tr>' +
                 '<td style="width: 90%;padding: 0px"><input class="budget span11" type="text" name="budget[]" id="budget'+line+'" style="width: 90%" required>' +
                  '<div style="margin-top: 5px">' +
-                    '<input type="text" class="span11" name="linebudget[]" id="budgetline'+y+'" value="'+line+'" style="display:none; width:350px;">' +
+                    '<input type="text" class="span11" name="linebudget[]" id="budgetline'+line+'" value="'+line+'" style="display:none; width:350px;">' +
                 '</div>' +
                 '</td>' +
             '</tr>'
         rowItem.append(row); 
         i++;
-        y++;
         return false;
     };
 </script>

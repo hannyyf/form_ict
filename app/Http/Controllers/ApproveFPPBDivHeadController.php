@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Http\Controllers;
@@ -105,9 +106,7 @@ class ApproveFPPBDivHeadController extends Controller
                             'datafetch' => $detail
                         ], function ($message) use ($request, $emaildir, $detail) {
                             $message->from('info@djabesmen.net', 'Info');
-                        //     $message->to($emaildir)->subject('Request for approval '.$request->nofppb);
-                        // });
-                             $message->to('hannyfauzia2@gmail.com')->subject('Request for approval '.$request->nofppb);
+                            $message->to($emaildir)->subject('Request for approval '.$request->nofppb);
                         });
                     // DB::commit();
                     return redirect()->route('approvedivhead.index')->with('alert-success','Data FPPB dengan nomor '.$request->nofppb.' Berhasil di Approve ');
@@ -185,9 +184,7 @@ class ApproveFPPBDivHeadController extends Controller
                             'datafetch' => $detail
                         ], function ($message) use ($request, $emailrequester, $detail, $appraiser) {
                             $message->from('info@djabesmen.net', 'Info');
-                        //     $message->to($emailrequester)->subject('Notifikasi request FPPB nomor'.$request->nofppb);
-                        // });
-                            $message->to('hannyfauzia2@gmail.com')->subject('Notifikasi request FPPB nomor'.$request->nofppb);
+                            $message->to($emailrequester)->subject('Notifikasi request FPPB nomor'.$request->nofppb);
                         });
                     // DB::commit();
                     return redirect()->route('approvedivhead.index')->with('alert-success','Data FPPB dengan nomor '.$request->nofppb.' telah di reject. Notifikasi email akan disampaikan ke requester.');

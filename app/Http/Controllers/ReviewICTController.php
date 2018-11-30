@@ -130,7 +130,7 @@ class ReviewICTController extends Controller
                     'datafetch' => $detail
                 ], function ($message) use ($request, $emailictmgr, $detail) {
                     $message->from('info@djabesmen.net', 'Info');
-                    $message->to('hannyfauzia2@gmail.com')->subject('Request for approval '.$request->nofppb);
+                    $message->to($emailictmgr)->subject('Request for approval '.$request->nofppb);
                 });
             DB::commit();
             return redirect()->route('reviewict.index')->with('alert-success','Data FPPB dengan nomor '.$request->nofppb.' Berhasil di Update ');

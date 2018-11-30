@@ -90,7 +90,7 @@
 
 <div class="container-fluid">
     <div class="row-fluid">
-        <form action="{{ route('requestfppb.store') }}" method="post" class="form-horizontal" name="myForm" onsubmit="return validateForm()">
+        <form action="{{ route('requestfppb.store') }}" method="post" class="form-horizontal" name="myForm">
                 {{ csrf_field() }}
         <div class="span12">
             <div class="control-group">

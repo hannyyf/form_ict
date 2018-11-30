@@ -138,9 +138,7 @@ class ApproveFPPBDirector extends Controller
                             'datafetch' => $detail
                         ], function ($message) use ($request, $emailict, $detail) {
                             $message->from('info@djabesmen.net', 'Info');
-                        //     $message->to($emailict)->subject('Request for review '.$request->nofppb);
-                        // });
-                            $message->to('hannyfauzia2@gmail.com')->subject('Request for review '.$request->nofppb);
+                            $message->to($emailict)->subject('Request for review '.$request->nofppb);
                         });
                     
                     DB::commit();
@@ -267,10 +265,8 @@ class ApproveFPPBDirector extends Controller
                         ], function ($message) use ($request, $emailrequester, $detail, $appraiser, $emaildivhead) {
                             $message->subject('Notifikasi request FPPB nomor'.$request->nofppb);
                             $message->from('info@djabesmen.net', 'Info');
-                            // $message->to($emailrequester);
-                            // $message->cc($emaildivhead);
-                             $message->to('hannyfauzia2@gmail.com');
-                            $message->cc('hannyfauzia2@gmail.com');
+                            $message->to($emailrequester);
+                            $message->cc($emaildivhead);
                         });
                     DB::commit();
                     return redirect()->route('approvedirector.index')->with('alert-success','Data FPPB dengan nomor '.$request->nofppb.' telah di reject. Notifikasi email akan disampaikan ke requester.');

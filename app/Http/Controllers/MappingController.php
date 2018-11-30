@@ -147,11 +147,11 @@ class MappingController extends Controller
               Mail::send('email.email_generate_pr', [
                 'nofppb'    => $nofppb,
                 'datafetch' => $detail
-            ], function ($message) use ($request, $emailrequester, $detail) {
+            ], function ($message) use ($request, $emailrequester, $detail, $emailict) {
                 $message->subject('Informasi pembuatan requisition FPPB nomor'.$request->nofppb);
                 $message->from('info@djabesmen.net', 'Info');
-                $message->to('hannyfauzia2@gmail.com');
-                $message->cc('hannyfauzia2@gmail.com');
+                $message->to($emailrequester);
+                $message->cc($emailict);
             });
 
               return redirect()->route('mappingict.index')->with('alert-success','Data FPPB dengan nomor '.$request->nofppb.' Berhasil di Update ');

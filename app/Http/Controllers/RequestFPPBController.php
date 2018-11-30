@@ -300,7 +300,7 @@ class RequestFPPBController extends Controller
                                 'datafetch' => $detail
                             ], function ($message) use ($request, $emailspv, $numbering, $divnama, $detail) {
                             $message->from('info@djabesmen.net', 'Info');
-                            $message->to('hannyfauzia2@gmail.com')->subject('Request for approval '.$numbering);
+                            $message->to( $emailspv)->subject('Request for approval '.$numbering);
                     });
 
                     DB::commit();
@@ -626,7 +626,7 @@ class RequestFPPBController extends Controller
                     ], function ($message) use ($request, $emailspv, $detail) {
                         $message->subject('Request for approval '.$request->nofppb);
                         $message->from('info@djabesmen.net', 'Info');
-                        $message->to('hannyfauzia2@gmail.com');
+                        $message->to($emailspv);
                     });
 
                      DB::commit();
