@@ -84,7 +84,6 @@ class RequestFPPBController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         date_default_timezone_set('Asia/Jakarta');
         $datenow = date('Y-m-d H:i:s');
         // cek data user login
@@ -136,39 +135,51 @@ class RequestFPPBController extends Controller
                     foreach ($request->no as $key => $no) {
                         $qty = intval(str_replace(',','',$request->qty[$key]));
 
-                        if ($request->jenisbarang[$key] == 'other') {
+                        // if ($request->jenisbarang[$key] == 'other') {
                             
-                            DB::table('tr_fppb_detail')
-                                ->insert([
-                                    'notrx'         => $numbering,
-                                    'seqid'         => $request->no[$key],
-                                    'jenisbarang'   => $request->product[$key],
-                                    'qty'           => $qty,
-                                    'satuan'        => $request->satuan[$key],
-                                    'tglpakai'      => $request->tanggalpakai[$key],
-                                    'notemanfaat'   => $request->keterangan[$key],
-                                    'kodeitem'      => $request->kodeitem[$key]
-                                ]);
-                        } else {
+                        //     DB::table('tr_fppb_detail')
+                        //         ->insert([
+                        //             'notrx'         => $numbering,
+                        //             'seqid'         => $request->no[$key],
+                        //             'jenisbarang'   => $request->product[$key],
+                        //             'qty'           => $qty,
+                        //             'satuan'        => $request->satuan[$key],
+                        //             'tglpakai'      => $request->tanggalpakai[$key],
+                        //             'notemanfaat'   => $request->keterangan[$key],
+                        //             'kodeitem'      => $request->kodeitem[$key]
+                        //         ]);
+                        // } else {
 
-                            $product = DB::table('master_product')
-                                        ->select('*')
-                                        ->where('idqad','=',$request->jenisbarang[$key])
-                                        ->first();
-                            $productname = $product->nmprod;
+                        //     $product = DB::table('master_product')
+                        //                 ->select('*')
+                        //                 ->where('idqad','=',$request->jenisbarang[$key])
+                        //                 ->first();
+                        //     $productname = $product->nmprod;
 
-                            DB::table('tr_fppb_detail')
-                                ->insert([
-                                    'notrx'         => $numbering,
-                                    'seqid'         => $request->no[$key],
-                                    'jenisbarang'   => $productname,
-                                    'kodeitem'      => $request->kodeitem[$key],
-                                    'qty'           => $qty,
-                                    'satuan'        => $request->satuan[$key],
-                                    'tglpakai'      => $request->tanggalpakai[$key],
-                                    'notemanfaat'   => $request->keterangan[$key]
-                                ]);
-                        }
+                        //     DB::table('tr_fppb_detail')
+                        //         ->insert([
+                        //             'notrx'         => $numbering,
+                        //             'seqid'         => $request->no[$key],
+                        //             'jenisbarang'   => $productname,
+                        //             'kodeitem'      => $request->kodeitem[$key],
+                        //             'qty'           => $qty,
+                        //             'satuan'        => $request->satuan[$key],
+                        //             'tglpakai'      => $request->tanggalpakai[$key],
+                        //             'notemanfaat'   => $request->keterangan[$key]
+                        //         ]);
+                        // }
+
+                        DB::table('tr_fppb_detail')
+                            ->insert([
+                                'notrx'         => $numbering,
+                                'seqid'         => $request->no[$key],
+                                'jenisbarang'   => $request->jenisbarang[$key],
+                                'qty'           => $qty,
+                                'satuan'        => $request->satuan[$key],
+                                'tglpakai'      => $request->tanggalpakai[$key],
+                                'notemanfaat'   => $request->keterangan[$key]
+                                // 'kodeitem'      => $request->kodeitem[$key]
+                            ]);
                     }
 
                     DB::commit();
@@ -223,39 +234,51 @@ class RequestFPPBController extends Controller
 
                     foreach ($request->no as $key => $no) {
                         $qty = intval(str_replace(',','',$request->qty[$key]));
-                        if ($request->jenisbarang[$key] == 'other') {
-                            
-                            DB::table('tr_fppb_detail')
-                                ->insert([
-                                    'notrx'         => $numbering,
-                                    'seqid'         => $request->no[$key],
-                                    'jenisbarang'   => $request->product[$key],
-                                    'kodeitem'      => $request->kodeitem[$key],
-                                    'qty'           => $qty,
-                                    'satuan'        => $request->satuan[$key],
-                                    'tglpakai'      => $request->tanggalpakai[$key],
-                                    'notemanfaat'   => $request->keterangan[$key]
-                                ]);
-                        } else {
-                            // cari deskripsi product
-                            $product = DB::table('master_product')
-                                        ->select('*')
-                                        ->where('idqad','=',$request->jenisbarang[$key])
-                                        ->first();
-                            $productname = $product->nmprod;
 
                             DB::table('tr_fppb_detail')
                                 ->insert([
                                     'notrx'         => $numbering,
                                     'seqid'         => $request->no[$key],
-                                    'jenisbarang'   => $productname,
-                                    'kodeitem'      => $request->kodeitem[$key],
+                                    'jenisbarang'   => $request->jenisbarang[$key],
+                                    // 'kodeitem'      => $request->kodeitem[$key],
                                     'qty'           => $qty,
                                     'satuan'        => $request->satuan[$key],
                                     'tglpakai'      => $request->tanggalpakai[$key],
                                     'notemanfaat'   => $request->keterangan[$key]
                                 ]);
-                        }
+                        // if ($request->jenisbarang[$key] == 'other') {
+                            
+                        //     DB::table('tr_fppb_detail')
+                        //         ->insert([
+                        //             'notrx'         => $numbering,
+                        //             'seqid'         => $request->no[$key],
+                        //             'jenisbarang'   => $request->product[$key],
+                        //             'kodeitem'      => $request->kodeitem[$key],
+                        //             'qty'           => $qty,
+                        //             'satuan'        => $request->satuan[$key],
+                        //             'tglpakai'      => $request->tanggalpakai[$key],
+                        //             'notemanfaat'   => $request->keterangan[$key]
+                        //         ]);
+                        // } else {
+                        //     // cari deskripsi product
+                        //     $product = DB::table('master_product')
+                        //                 ->select('*')
+                        //                 ->where('idqad','=',$request->jenisbarang[$key])
+                        //                 ->first();
+                        //     $productname = $product->nmprod;
+
+                        //     DB::table('tr_fppb_detail')
+                        //         ->insert([
+                        //             'notrx'         => $numbering,
+                        //             'seqid'         => $request->no[$key],
+                        //             'jenisbarang'   => $productname,
+                        //             'kodeitem'      => $request->kodeitem[$key],
+                        //             'qty'           => $qty,
+                        //             'satuan'        => $request->satuan[$key],
+                        //             'tglpakai'      => $request->tanggalpakai[$key],
+                        //             'notemanfaat'   => $request->keterangan[$key]
+                        //         ]);
+                        // }
                     }
 
                     DB::table('approvalstatus')->insert([
@@ -385,75 +408,99 @@ class RequestFPPBController extends Controller
                              ->first();
 
                 if (is_null($data)) {
-                    if ($request->jenisbarang[$key] == 'other') {
+                    DB::table('tr_fppb_detail')
+                        ->insert([
+                            'notrx'         => $request->nofppb,
+                            'seqid'         => $request->no[$key],
+                            'jenisbarang'   => $request->jenisbarang[$key],
+                            'qty'           => $qty,
+                            'satuan'        => $request->satuan[$key],
+                            'tglpakai'      => $request->tanggalpakai[$key],
+                            'notemanfaat'   => $request->keterangan[$key]
+                        ]);
+
+                    // if ($request->jenisbarang[$key] == 'other') {
                             
-                            DB::table('tr_fppb_detail')
-                                ->insert([
-                                    'notrx'         => $request->nofppb,
-                                    'seqid'         => $request->no[$key],
-                                    'jenisbarang'   => $request->product[$key],
-                                    'qty'           => $qty,
-                                    'satuan'        => $request->satuan[$key],
-                                    'tglpakai'      => $request->tanggalpakai[$key],
-                                    'notemanfaat'   => $request->keterangan[$key]
-                                ]);
-                        } else {
+                    //         DB::table('tr_fppb_detail')
+                    //             ->insert([
+                    //                 'notrx'         => $request->nofppb,
+                    //                 'seqid'         => $request->no[$key],
+                    //                 'jenisbarang'   => $request->product[$key],
+                    //                 'qty'           => $qty,
+                    //                 'satuan'        => $request->satuan[$key],
+                    //                 'tglpakai'      => $request->tanggalpakai[$key],
+                    //                 'notemanfaat'   => $request->keterangan[$key]
+                    //             ]);
+                    //     } else {
 
-                            $product = DB::table('master_product')
-                                        ->select('*')
-                                        ->where('idqad','=',$request->jenisbarang[$key])
-                                        ->first();
-                            $productname = $product->nmprod;
+                    //         $product = DB::table('master_product')
+                    //                     ->select('*')
+                    //                     ->where('idqad','=',$request->jenisbarang[$key])
+                    //                     ->first();
+                    //         $productname = $product->nmprod;
 
-                            DB::table('tr_fppb_detail')
-                                ->insert([
-                                    'notrx'         => $request->nofppb,
-                                    'seqid'         => $request->no[$key],
-                                    'jenisbarang'   => $productname,
-                                    'kodeitem'      => $request->kodeitem[$key],
-                                    'qty'           => $qty,
-                                    'satuan'        => $request->satuan[$key],
-                                    'tglpakai'      => $request->tanggalpakai[$key],
-                                    'notemanfaat'   => $request->keterangan[$key]
-                                ]);
-                        }
+                    //         DB::table('tr_fppb_detail')
+                    //             ->insert([
+                    //                 'notrx'         => $request->nofppb,
+                    //                 'seqid'         => $request->no[$key],
+                    //                 'jenisbarang'   => $productname,
+                    //                 'kodeitem'      => $request->kodeitem[$key],
+                    //                 'qty'           => $qty,
+                    //                 'satuan'        => $request->satuan[$key],
+                    //                 'tglpakai'      => $request->tanggalpakai[$key],
+                    //                 'notemanfaat'   => $request->keterangan[$key]
+                    //             ]);
+                    //     }
 
                 } else {
-                    if (is_null($request->kodeitem[$key])) {
-                            DB::table('tr_fppb_detail')
-                                ->where('notrx','=',$request->nofppb)
-                                ->where('seqid','=',$request->no[$key])
-                                ->update([
-                                    'notrx'         => $request->nofppb,
-                                    'seqid'         => $request->no[$key],
-                                    'jenisbarang'   => $request->product[$key],
-                                    'qty'           => $qty,
-                                    'satuan'        => $request->satuan[$key],
-                                    'tglpakai'      => $request->tanggalpakai[$key],
-                                    'notemanfaat'   => $request->keterangan[$key]
-                                ]);
-                    } else {
+                    DB::table('tr_fppb_detail')
+                        ->where('notrx','=',$request->nofppb)
+                        ->where('seqid','=',$request->no[$key])
+                        ->update([
+                            'notrx'         => $request->nofppb,
+                            'seqid'         => $request->no[$key],
+                            'jenisbarang'   => $request->jenisbarang[$key],
+                            'qty'           => $qty,
+                            'satuan'        => $request->satuan[$key],
+                            'tglpakai'      => $request->tanggalpakai[$key],
+                            'notemanfaat'   => $request->keterangan[$key]
+                        ]);
 
-                        $product = DB::table('master_product')
-                                ->select('*')
-                                ->where('idqad','=',$request->jenisbarang[$key])
-                                ->first();
-                        $productname = $product->nmprod;
+                    // if (is_null($request->kodeitem[$key])) {
+                    //         DB::table('tr_fppb_detail')
+                    //             ->where('notrx','=',$request->nofppb)
+                    //             ->where('seqid','=',$request->no[$key])
+                    //             ->update([
+                    //                 'notrx'         => $request->nofppb,
+                    //                 'seqid'         => $request->no[$key],
+                    //                 'jenisbarang'   => $request->product[$key],
+                    //                 'qty'           => $qty,
+                    //                 'satuan'        => $request->satuan[$key],
+                    //                 'tglpakai'      => $request->tanggalpakai[$key],
+                    //                 'notemanfaat'   => $request->keterangan[$key]
+                    //             ]);
+                    // } else {
 
-                        DB::table('tr_fppb_detail')
-                            ->where('notrx','=',$request->nofppb)
-                            ->where('seqid','=',$request->no[$key])
-                            ->update(
-                                ['notrx'        => $request->nofppb,
-                                 'seqid'        => $request->no[$key],
-                                 'jenisbarang'  => $productname,
-                                 'kodeitem'     => $request->kodeitem[$key],
-                                 'qty'          => $qty,
-                                 'satuan'       => $request->satuan[$key],
-                                 'tglpakai'     => $request->tanggalpakai[$key],
-                                 'notemanfaat'  => $request->keterangan[$key]
-                             ]);
-                    }
+                    //     $product = DB::table('master_product')
+                    //             ->select('*')
+                    //             ->where('idqad','=',$request->jenisbarang[$key])
+                    //             ->first();
+                    //     $productname = $product->nmprod;
+
+                    //     DB::table('tr_fppb_detail')
+                    //         ->where('notrx','=',$request->nofppb)
+                    //         ->where('seqid','=',$request->no[$key])
+                    //         ->update(
+                    //             ['notrx'        => $request->nofppb,
+                    //              'seqid'        => $request->no[$key],
+                    //              'jenisbarang'  => $productname,
+                    //              'kodeitem'     => $request->kodeitem[$key],
+                    //              'qty'          => $qty,
+                    //              'satuan'       => $request->satuan[$key],
+                    //              'tglpakai'     => $request->tanggalpakai[$key],
+                    //              'notemanfaat'  => $request->keterangan[$key]
+                    //          ]);
+                    // }
                     
                     }
                 }
@@ -490,75 +537,98 @@ class RequestFPPBController extends Controller
                                  ->first();
 
                     if (is_null($data)) {
-                        if ($request->jenisbarang[$key] == 'other') {
+                         DB::table('tr_fppb_detail')
+                            ->insert([
+                                'notrx'         => $request->nofppb,
+                                'seqid'         => $request->no[$key],
+                                'jenisbarang'   => $request->jenisbarang[$key],
+                                // 'kodeitem'      => $request->kodeitem[$key],
+                                'qty'           => $qty,
+                                'satuan'        => $request->satuan[$key],
+                                'tglpakai'      => $request->tanggalpakai[$key],
+                                'notemanfaat'   => $request->keterangan[$key]
+                            ]);
+                        // if ($request->jenisbarang[$key] == 'other') {
                                 
-                                DB::table('tr_fppb_detail')
-                                    ->insert([
-                                        'notrx'         => $request->nofppb,
-                                        'seqid'         => $request->no[$key],
-                                        'jenisbarang'   => $request->product[$key],
-                                        'kodeitem'      => $request->kodeitem[$key],
-                                        'qty'           => $qty,
-                                        'satuan'        => $request->satuan[$key],
-                                        'tglpakai'      => $request->tanggalpakai[$key],
-                                        'notemanfaat'   => $request->keterangan[$key]
-                                    ]);
-                            } else {
-                                $product = DB::table('master_product')
-                                            ->select('*')
-                                            ->where('idqad','=',$request->jenisbarang[$key])
-                                            ->first();
-                                $productname = $product->nmprod;
+                        //         DB::table('tr_fppb_detail')
+                        //             ->insert([
+                        //                 'notrx'         => $request->nofppb,
+                        //                 'seqid'         => $request->no[$key],
+                        //                 'jenisbarang'   => $request->jenisbarang[$key],
+                        //                 // 'kodeitem'      => $request->kodeitem[$key],
+                        //                 'qty'           => $qty,
+                        //                 'satuan'        => $request->satuan[$key],
+                        //                 'tglpakai'      => $request->tanggalpakai[$key],
+                        //                 'notemanfaat'   => $request->keterangan[$key]
+                        //             ]);
+                        //     } else {
+                        //         $product = DB::table('master_product')
+                        //                     ->select('*')
+                        //                     ->where('idqad','=',$request->jenisbarang[$key])
+                        //                     ->first();
+                        //         $productname = $product->nmprod;
 
-                                DB::table('tr_fppb_detail')
-                                    ->insert([
-                                        'notrx'         => $request->nofppb,
-                                        'seqid'         => $request->no[$key],
-                                        'jenisbarang'   => $productname,
-                                        'kodeitem'      => $request->kodeitem[$key],
-                                        'qty'           => $qty,
-                                        'satuan'        => $request->satuan[$key],
-                                        'tglpakai'      => $request->tanggalpakai[$key],
-                                        'notemanfaat'   => $request->keterangan[$key]
-                                    ]);
-                            }
+                        //         DB::table('tr_fppb_detail')
+                        //             ->insert([
+                        //                 'notrx'         => $request->nofppb,
+                        //                 'seqid'         => $request->no[$key],
+                        //                 'jenisbarang'   => $productname,
+                        //                 'kodeitem'      => $request->kodeitem[$key],
+                        //                 'qty'           => $qty,
+                        //                 'satuan'        => $request->satuan[$key],
+                        //                 'tglpakai'      => $request->tanggalpakai[$key],
+                        //                 'notemanfaat'   => $request->keterangan[$key]
+                        //             ]);
+                        //     }
 
                     } else {
-                        if (is_null($request->kodeitem[$key])) {
-                                DB::table('tr_fppb_detail')
-                                    ->where('notrx','=',$request->nofppb)
-                                    ->where('seqid','=',$request->no[$key])
-                                    ->update([
-                                        'notrx'         => $request->nofppb,
-                                        'seqid'         => $request->no[$key],
-                                        'jenisbarang'   => $request->product[$key],
-                                        'qty'           => $qty,
-                                        'satuan'        => $request->satuan[$key],
-                                        'tglpakai'      => $request->tanggalpakai[$key],
-                                        'notemanfaat'   => $request->keterangan[$key]
-                                    ]);
-                        } else {
+                         DB::table('tr_fppb_detail')
+                            ->where('notrx','=',$request->nofppb)
+                            ->where('seqid','=',$request->no[$key])
+                            ->update([
+                                'notrx'         => $request->nofppb,
+                                'seqid'         => $request->no[$key],
+                                'jenisbarang'   => $request->jenisbarang[$key],
+                                'qty'           => $qty,
+                                'satuan'        => $request->satuan[$key],
+                                'tglpakai'      => $request->tanggalpakai[$key],
+                                'notemanfaat'   => $request->keterangan[$key]
+                            ]);
+                        // if (is_null($request->kodeitem[$key])) {
+                        //         DB::table('tr_fppb_detail')
+                        //             ->where('notrx','=',$request->nofppb)
+                        //             ->where('seqid','=',$request->no[$key])
+                        //             ->update([
+                        //                 'notrx'         => $request->nofppb,
+                        //                 'seqid'         => $request->no[$key],
+                        //                 'jenisbarang'   => $request->product[$key],
+                        //                 'qty'           => $qty,
+                        //                 'satuan'        => $request->satuan[$key],
+                        //                 'tglpakai'      => $request->tanggalpakai[$key],
+                        //                 'notemanfaat'   => $request->keterangan[$key]
+                        //             ]);
+                        // } else {
 
-                            $product = DB::table('master_product')
-                                    ->select('*')
-                                    ->where('idqad','=',$request->jenisbarang[$key])
-                                    ->first();
-                            $productname = $product->nmprod;
+                        //     $product = DB::table('master_product')
+                        //             ->select('*')
+                        //             ->where('idqad','=',$request->jenisbarang[$key])
+                        //             ->first();
+                        //     $productname = $product->nmprod;
 
-                            DB::table('tr_fppb_detail')
-                                ->where('notrx','=',$request->nofppb)
-                                ->where('seqid','=',$request->no[$key])
-                                ->update(
-                                    ['notrx'        => $request->nofppb,
-                                     'seqid'        => $request->no[$key],
-                                     'jenisbarang'  => $productname,
-                                     'kodeitem'     => $request->kodeitem[$key],
-                                     'qty'          => $qty,
-                                     'satuan'       => $request->satuan[$key],
-                                     'tglpakai'     => $request->tanggalpakai[$key],
-                                     'notemanfaat'  => $request->keterangan[$key]
-                                 ]);
-                        }
+                        //     DB::table('tr_fppb_detail')
+                        //         ->where('notrx','=',$request->nofppb)
+                        //         ->where('seqid','=',$request->no[$key])
+                        //         ->update(
+                        //             ['notrx'        => $request->nofppb,
+                        //              'seqid'        => $request->no[$key],
+                        //              'jenisbarang'  => $productname,
+                        //              'kodeitem'     => $request->kodeitem[$key],
+                        //              'qty'          => $qty,
+                        //              'satuan'       => $request->satuan[$key],
+                        //              'tglpakai'     => $request->tanggalpakai[$key],
+                        //              'notemanfaat'  => $request->keterangan[$key]
+                        //          ]);
+                        // }
                         
                         }
                     }

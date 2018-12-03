@@ -36,6 +36,7 @@ class ApproveICTManager extends Controller
      */
     public function store(Request $request)
     {
+      //   dd($request);
         date_default_timezone_set('Asia/Jakarta');
         $datenow = date('Y-m-d H:i:s');
         $username = Auth::user()->username;
@@ -67,7 +68,8 @@ class ApproveICTManager extends Controller
                         ->where('notrx','=',$request->nofppb)
                         ->update([
                             'dtmodified'        => $datenow,
-                            'isfullapproved'    => 0
+                            'isfullapproved'    => 0,
+                            'noteict'           => $request->noteict
                         ]);
 
                     // update current status approval

@@ -122,8 +122,11 @@
     <li>
         <a href="{{ url('/detailrequested') }}" title="Approve Request Close" class="tip-right"><i class="fas fa-user-check"></i><span>Approve Request Close</span></a>
     </li>
-     <li>
+    <li>
         <a href="{{ url('/report') }}" title="Report Monitoring" class="tip-right"><i class="icon icon-search"></i><span>Report Monitoring</span></a>
+    </li>
+    <li>
+        <a href="{{ route('transfer.index') }}" title="Transfer FPPB" class="tip-right"><i class="fas fa-exchange-alt"></i><span>Transfer FPPB</span></a>
     </li>
 
     @elseif (Auth::user()->jabatan == 'dic')

@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ReportMonitoringController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $username = Auth::user()->username;
@@ -32,44 +27,19 @@ class ReportMonitoringController extends Controller
         return view('fppb.listreport',['datas' => $datas]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function indexTransfer()
     {
-        //
+        $username = Auth::user()->username;
+        $datas  = DB::table('vw_listtransfer')
+                    ->select('*')
+                    ->where('nik','=',$username)
+                    ->orderBy('notrx','asc')
+                    ->get();
+
+        return view('fppb.listtransfer',['datas' => $datas]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($notrx)
     {
         $data       = DB::table('vw_transaksi')
@@ -102,28 +72,38 @@ class ReportMonitoringController extends Controller
                                     ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+     public function editTransfer($notrx)
     {
-        //
+        $data       = DB::table('vw_transaksi')
+                     ->select('*')
+                     ->where('notrx','=',$notrx)
+                     ->get();
+
+        $dataheader = DB::table('vw_listrequest')
+                     ->select('*')
+                     ->where('notrx','=',$notrx)
+                     ->first();
+
+        $datalog    = DB::table('vw_log')
+                     ->select('*')
+                     ->where('notrx','=',$notrx)
+                     ->orderBy('dtfrom','asc')
+                     ->get();
+
+       $kodeitems  = DB::table('generate_pr')
+                        ->select('*')
+                        ->where('notrx','=',$notrx)
+                        ->get();
+
+
+        return view('fppb.detailtransfer',[
+                                    'datafetch' => $data,
+                                    'header'    => $dataheader,
+                                    'datalog'   => $datalog,
+                                    'kodeitems' => $kodeitems
+                                    ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 
     public function filter(Request $request) {
         $nofppb     = $request->get('nofppb');
@@ -133,5 +113,61 @@ class ReportMonitoringController extends Controller
                         ->orderBy('notrx','asc')
                         ->get();
         return view('fppb.listreport',['datas' => $datas]);
+    }
+
+    public function findTransfer(Request $request) {
+        $nofppb     = $request->get('nofppb');
+        $datas      = DB::table('vw_listtransfer')
+                        ->select('*')
+                        ->where('notrx','=',$nofppb)
+                        ->orderBy('notrx','asc')
+                        ->get();
+        return view('fppb.listtransfer',['datas' => $datas]);
+    }
+
+    public function getKategori(Request $request) {
+        $data      = DB::table('masterkategori')
+                        ->select('*')
+                        ->where('deskripsi','like','operational%')
+                        ->get();
+        $output = '<option value="">--Pilih Kategori--</option>';
+            foreach ($data as $row) {
+                $output .= '<option value="' .$row->idkategori.'">'.$row->deskripsi.'</option>';
+            }
+            
+        echo $output;
+    }
+
+     public function updateKategori(Request $request) {
+        DB::table('tr_fppb_header')
+            ->where('notrx','=',$request->nofppbmodal)
+            ->update([
+                'kategorifppb'  => $request->kategorimodal
+            ]);
+
+        // cek data detail
+        $detail = DB::table('tr_fppb_detail')
+                     ->select('*')
+                     ->where('notrx','=',$request->nofppbmodal)
+                     ->get();
+
+
+        // cek email ict first layer
+        $ict = DB::table('masterkategori')
+                ->select('*')
+                ->where('idkategori','=',$request->kategorimodal)
+                ->first();
+        $emailict = $ict->email;
+
+        // fungsi kirim email notifikasi ke ict first layer
+        Mail::send('email.email_transfer', [
+                'nofppb'    => $request->nofppb,
+                'datafetch' => $detail
+            ], function ($message) use ($request, $emailict, $detail) {
+                $message->from('info@djabesmen.net', 'Info');
+                $message->to($emailict)->subject('Informasi transfer FPPB nomor '.$request->nofppb);
+            });
+
+        return redirect()->route('transfer.index')->with('alert-success','Data FPPB dengan nomor '.$request->nofppbmodal.' Berhasil di Transfer ! ');
     }
 }

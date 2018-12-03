@@ -134,7 +134,6 @@ $.jMaskGlobals.watchDataMask = true;
                             <td style="width: 20%">
                                 {{ $data->jenisbarang }}
                                 <input class="span11" type="text" name="jenisbarang[]" id="jenisbarang" readonly = "readonly" style="display:none;" value="{{ $data->jenisbarang }}">
-                                
                             </td>
                             <td style="width: 4%">
                                 {{ $data->qty }}
@@ -170,7 +169,7 @@ $.jMaskGlobals.watchDataMask = true;
                                         </tr>
                                     </table>
                                     @else
-                                    <input class="budget span11" type="text" name="budget[]" id="budget" value="{{ $data->perkiraanbudget }}" readonly>
+                                    <input class="budget span11" type="text" name="budget[]" id="budget" value="{{ $data->perkiraanbudget }}">
                                     <input type="text" class="span11" name="linebudget[]" id="budgetline" value="{{ $data->seqid }}" style="display:none; width:350px;">
                                     @endif                   
                             </td>
@@ -196,7 +195,7 @@ $.jMaskGlobals.watchDataMask = true;
                                         </tr>
                                     </table>
                                     @else
-                                    <input type="text" name="kodeitem[]" id="kodeitem" value="{{ $data->kodeitem }}" readonly>
+                                    <input type="text" name="kodeitem[]" id="kodeitem" value="{{ $data->kodeitem }}"readonly>
                                     <input type="text" class="span11" name="linekodeitem[]" id="product" value="{{ $data->seqid }}" style="display:none; width:350px;">
                                  @endif
                             </td>

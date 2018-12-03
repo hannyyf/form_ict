@@ -165,10 +165,21 @@ class ReviewICTController extends Controller
                      ->orderBy('dtfrom','asc')
                      ->get();
 
+        $getproduct = DB::table('master_product')
+                    ->select('*')
+                    ->orderBy('nmprod','ASC')
+                    ->get();
+
+         $getuom = DB::table('master_uom')
+                    ->select('*')
+                    ->get();
+
         return view('fppb.detailfppbict',[
                                     'datafetch' => $data,
                                     'header'    => $dataheader,
-                                    'datalog'   => $datalog
+                                    'datalog'   => $datalog,
+                                    'products'  => $getproduct,
+                                    'getuom'    => $getuom
                                     ]);
     }
 }

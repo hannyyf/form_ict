@@ -260,8 +260,8 @@
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <p>Dear Requester,</p>
-                                        <p>FPPB yang sudah di request dengan nomor <b>{{ $nofppb }}</b> sudah dibuatkan requisition dengan detail sebagai berikut :</p>
+                                        <p>Dear ICT,</p>
+                                        <p>Anda mendapatkan data transfer FPPB, mohon segera lakukan follow up terhadap FPPB dengan nomor <b>{{ $nofppb }}</b>, dengan detail sebagai berikut :</p>
 
                                         <table border="0" cellpadding="0" cellspacing="0">
                                             <tbody>
@@ -276,22 +276,17 @@
                                                         <th width="70px">Satuan</th>
                                                         <th width="180px">Tanggal Pakai</th>
                                                         <th width="300px">Keterangan / Jenis Manfaat</th>
-                                                        <th width="300px">Perkiraan Budget</th>
-                                                        <th width="300px">Kode Item</th>
                                                     </tr>
                                                     </thead>
-                                                    @php $no = 1; @endphp
                                                     @foreach($datafetch as $data)
                                                     <tbody id="listitem">
                                                         <tr>
-                                                            <td style="text-align: center;">{{ $no++ }}</td>
+                                                            <td style="text-align: center;">{{ $data->seqid }}</td>
                                                             <td style="text-align: center;">{{ $data->jenisbarang }}</td>
                                                             <td style="text-align: center;">{{ $data->qty }}</td>
                                                             <td style="text-align: center;">{{ $data->satuan }}</td>
                                                             <td style="text-align: center;">{{ $data->tglpakai }}</td>
                                                             <td style="text-align: center;">{{ $data->notemanfaat }}</td>
-                                                            <td style="text-align: center;">{{ $data->perkiraanbudget }}</td>
-                                                            <td style="text-align: center;">{{ $data->kodeitem }}</td>
                                                         </tr>
                                                     </tbody>
                                                      @endforeach

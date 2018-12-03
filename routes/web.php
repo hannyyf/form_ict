@@ -62,3 +62,8 @@ Route::post('/closedrequest','RequestCloseController@storeEdit');
 Route::resource('report','ReportMonitoringController');
 Route::get('detailreport/{notrx}','ReportMonitoringController@edit');
 Route::get('/filter', 'ReportMonitoringController@filter')->name('report.filter');
+Route::get('/listtransfer', 'ReportMonitoringController@indexTransfer')->name('transfer.index');
+Route::get('/find', 'ReportMonitoringController@findTransfer')->name('transfer.find');
+Route::get('detailtransfer/{notrx}','ReportMonitoringController@editTransfer');
+Route::get('/kategori', 'ReportMonitoringController@getKategori')->name('transfer.loadkategori');
+Route::post('/updatekategori','ReportMonitoringController@updateKategori')->name('transfer.updatekategori');

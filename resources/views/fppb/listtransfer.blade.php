@@ -5,7 +5,7 @@
         var nofppb = $('#nofppb').val();
         console.log('nofppb', nofppb);
         $.ajax({
-            url:"{{ route('report.filter') }}",
+            url:"{{ route('transfer.find') }}",
             method:"GET",
             data:{nofppb:nofppb},
             success:function(result)
@@ -13,25 +13,31 @@
                 console.log('resulttttttttttttt',result);
             }
         });
-    }
+    };
 </script>
 
 <!--breadcrumbs-->
   <div id="content-header">
-    <div id="breadcrumb"> <a href="{{ url('/index') }}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="#" class="current">List Report Monitoring FPPB</a></div>
-    <h1>List Report Monitoring FPPB</h1>
+    <div id="breadcrumb"> <a href="{{ url('/index') }}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="#" class="current">List Transfer FPPB</a></div>
+    <h1>List Transfer FPPB</h1>
   </div>
 <!--End-breadcrumbs-->
 
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
+            @if(Session::has('alert-success'))
+                <div class="alert alert-success">
+                    <strong>{{ \Illuminate\Support\Facades\Session::get('alert-success') }}</strong>
+                </div>
+            @endif
+
             <div class="widget-box">
                 <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
                   <h5>Cari FPPB</h5>
                 </div>
                 <div class="widget-content nopadding">
-                  <form class="form-horizontal" action="{{ route('report.filter') }}" method="get">
+                  <form class="form-horizontal" action="{{ route('transfer.find') }}" method="get">
                      <div class="control-group">
                       <label class="control-label">No FPPB</label>
                       <div class="controls">
@@ -73,7 +79,7 @@
                                 <td>{{ $data->div_nama }}</td>
                                 <td>{{ $data->statustype }} {{$data->approvaltype}}</td>
                                 <td>
-                                    <form action="{{ url('/detailreport/'.$data->notrx) }}" method="get">
+                                    <form action="{{ url('/detailtransfer/'.$data->notrx) }}" method="get">
                                         <button class="btn btn-sm btn-primary" type="submit">Detail</button>
                                     </form>
                                 </td>
@@ -91,4 +97,5 @@
         </div>
     </div>
 </div>
+
 @endsection

@@ -10,11 +10,6 @@ use Mail;
 
 class RequestCloseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         date_default_timezone_set('Asia/Jakarta');
@@ -38,11 +33,6 @@ class RequestCloseController extends Controller
         return view('fppb.listserahterima',['data'=>$data]);
     }
 
-      /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function indexRequested()
     {
         date_default_timezone_set('Asia/Jakarta');
@@ -70,14 +60,6 @@ class RequestCloseController extends Controller
         return view('fppb.listrequestclose',['data'=>$data]);
     }
 
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         date_default_timezone_set('Asia/Jakarta');
@@ -178,13 +160,6 @@ class RequestCloseController extends Controller
         return redirect()->route('serahterima.index')->with('alert-success','Permintaan penutupan request FPPB dengan nomor '.$request->nofppb.' Berhasil di Update ');
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($notrx)
     {
         $data = DB::table('vw_transaksi')
@@ -220,12 +195,7 @@ class RequestCloseController extends Controller
                                     ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function editRequested($notrx)
     {
         $data = DB::table('vw_transaksi')
@@ -258,12 +228,6 @@ class RequestCloseController extends Controller
                                     ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function storeEdit(Request $request)
     {
         date_default_timezone_set('Asia/Jakarta');

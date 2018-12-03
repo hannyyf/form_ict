@@ -13,13 +13,14 @@
             '<tr>' +
                 '<td style="width: 3%"><input class="span11" type="text" name="no[]" style="width:100%;" value="'+i+'" required></td>' + 
                 '<td style="width: 25%">' +
-                '<select class="form-control jenisbarangc" name="jenisbarang[]" id="jenisbarang'+i+'" style="width: 100%" required>' +
-                    '<option value="">Pilih Product</option>' +
-                '@foreach($products as $product)' +
-                    '<option value="{{ $product->idqad }}">{{ $product->nmprod }} - {{ $product->idqad }}</option>' +
-                '@endforeach' +
-                    '<option value="other">Other</option>' +
-                '</select>' +
+                '<input class="span11" type="text" name="jenisbarang[]" id="jenisbarang" style="width:100%;"  required>' +
+                // '<select class="form-control jenisbarangc" name="jenisbarang[]" id="jenisbarang'+i+'" style="width: 100%" required>' +
+                //     '<option value="">Pilih Product</option>' +
+                // '@foreach($products as $product)' +
+                //     '<option value="{{ $product->idqad }}">{{ $product->nmprod }} - {{ $product->idqad }}</option>' +
+                // '@endforeach' +
+                //     '<option value="other">Other</option>' +
+                // '</select>' +
                 '<div style="margin-top: 5px">' +
                     '<input class="span11" type="text" name="product[]" id="product'+i+'" style="display: none; width:350px;">' +
                      '<input type="text" class="span11" name="kodeitem[]" id="kodeitem'+i+'" style="display: none;">' +
@@ -27,9 +28,15 @@
                 '</td>' +
                 '<td style="width: 5%"><input class="span11" type="text" name="qty[]" style="width:80%;" required></td>' +
                 '<td style="width: 4%">' +
-                        '<select class="form-control" name="satuan[]" id="satuan'+i+'" style="width: 100%" required>' +
-                            '<option value="">Pilih Satuan</option>' +
-                        '</select>' +
+                        // '<select class="form-control" name="satuan[]" id="satuan'+i+'" style="width: 100%" required>' +
+                        //     '<option value="">Pilih Satuan</option>' +
+                        // '</select>' +
+                        '<select class="form-control span11" name="satuan[]" id="satuan1" style="width:100%" required>' +
+                        '<option value="">Pilih Satuan</option>'+
+                        '@foreach($getuom as $uom)'+
+                        '<option value="{{ $uom->iduom }}">{{ $uom->iduom }} - {{ $uom->keterangan }}</option>'+
+                        '@endforeach'+
+                    '</select>'+      
                 '</td>' +
                 '<td style="width: 5%"><input class="span11" type="date" name="tanggalpakai[]" required></td>' +
                 '<td style="width: 20%"><textarea class="span11" type="text" name="keterangan[]" rows="5" cols="40" required></textarea></td>' +
@@ -149,8 +156,9 @@
                             <input class="span11" type="text" name="no[]" id="no" style="width:100%;" value="{{ $data->seqid }}" required>
                         </td >
                         <td style="width: 25%">
-                             <select class="form-control jenisbarangc" name="jenisbarang[]" id="jenisbarang{{ $data->seqid }}" style="width: 100%" required>
-                                <option value="{{ $data->kodeitem }}">{{ $data->jenisbarang }}</option>
+                            <input class="span11" type="text" name="jenisbarang[]" id="jenisbarang" style="width:100%;" value = "{{ $data->jenisbarang }}" required>
+                            <!--  <select class="form-control jenisbarangc" name="jenisbarang[]" id="jenisbarang{{ $data->seqid }}" style="width: 100%" required>
+                                <option value="{{ $data->kodeitem }}">C</option>
                                 <option disabled="true">Choose One</option>
                                 @foreach($products as $product)
                                 <option value="{{ $product->idqad }}">{{ $product->nmprod }} - {{ $product->idqad }}</option>
@@ -160,7 +168,7 @@
                             <div style="margin-top: 5px">
                                 <input type="text" name="product[]" id="product{{ $data->seqid }}" style="display: none; width:100%" value="{{ $data->jenisbarang }}">
                                 <input type="text" class="span11" name="kodeitem[]" id="kodeitem{{ $data->seqid }}" style="display: none;">
-                            </div>
+                            </div> -->
                         </td>
                         <td style="width: 5%">
                             <input class="span11" type="text" name="qty[]" id="qty" style="width:80%;" value="{{ $data->qty }}" required>
@@ -168,6 +176,10 @@
                         <td style="width: 4%">
                              <select class="form-control " name="satuan[]" id="satuan{{ $data->seqid }}" style="width: 100%" required>
                                 <option value="{{ $data->satuan }}">{{ $data->satuan }}</option>
+                                <option disabled="true">Pilih Satuan</option>
+                                @foreach($getuom as $uom)
+                                <option value="{{ $uom->iduom }}">{{ $uom->iduom }} - {{ $uom->keterangan }}</option>
+                                @endforeach
                             </select>
                         </td>
                         <td style="width: 3%">

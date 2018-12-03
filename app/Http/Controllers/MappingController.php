@@ -42,7 +42,6 @@ class MappingController extends Controller
      */
     public function store(Request $request)
     {
-      dd($request);
         date_default_timezone_set('Asia/Jakarta');
         $datenow  = date('Y-m-d H:i:s');
         $dtnow    = date('Y-m-d');
@@ -51,7 +50,7 @@ class MappingController extends Controller
 
         DB::beginTransaction();
         try {
-          foreach ($request->no as $key => $value) { // looping sebanyak data yang dipilih
+          foreach ($request->no as $key => $value) { // looping sebanyak data
             // disini nanti code buat mapping ke qadnya ya
             $updatekodeitem = DB::table('tr_fppb_detail')
                                 ->where('notrx','=',$request->nofppb)
@@ -63,9 +62,7 @@ class MappingController extends Controller
                                 ]);
           }
 
-          foreach ($request->kodeitem as $key => $value) {
-            $budget = intval(str_replace(',','',$request->budget[$key]));
-
+          foreach ($request->kodeitem as $key => $value) { // looping sebanyak kode item
             $getdetailitem = DB::table('master_product')
                               ->select('*')
                               ->where('idqad','=',$request->kodeitem[$key])
@@ -78,10 +75,30 @@ class MappingController extends Controller
                   'seqid'     => $request->linekodeitem[$key],
                   'tglpr'     => $dtnow,
                   'kodeitem'  => $request->kodeitem[$key],
-                  'budget'    => $budget,
                   'satuan'    => $satuanitem
                 ]);
           }
+
+          foreach ($request->budget as $key => $value) { // looping sebanyak budget
+            $budget = intval(str_replace(',','',$request->budget[$key]));         
+            // insert ke tabel generate pr, data ini akan dipakai untuk mapping ke qad
+            DB::table('generate_pr')
+                ->where('notrx','=',$request->nofppb)
+                ->where('seqid','=',$request->linebudget[$key])
+                ->update([
+                  'budget'    => $budget
+                ]);
+          }
+          /*Start mencari sitecode dari kategori yang sudah dipilih*/
+          $header   = DB::table('tr_fppb_header')
+                        ->select('*')
+                        ->where('notrx','=',$request->nofppb)
+                        ->first();
+          $kategori   = DB::table('masterkategori')
+                        ->select('*')
+                        ->where('idkategori','=',$header->kategorifppb)
+                        ->first();
+          /*End mencari sitecode dari kategori yang sudah dipilih*/
 
           // update dtmodified tabel fppb header
           DB::table('tr_fppb_header')
@@ -110,17 +127,20 @@ class MappingController extends Controller
               'dtthru'        => $dtthru
           ]);
 
-          $nofppb   = $request->nofppb;
-          $noteict  = $request->noteict;
-          $notedir  = $request->notedir;
+          $nofppb     = $request->nofppb;
+          $noteict    = $request->noteict;
+          $notedir    = $request->notedir;
+          $sitecode   = $kategori->sitecode;
+          $emailict   = $kategori->email; // email ict first layer
+          $emailopr   = 'ictopr@djabesmen.co.id'; // email ict opr global
+
           // $url    = 'http://qaddjm2016:8080/qxilive/services/QdocWebService';
           $url    = 'http://qaddjm2016:8080/qxisim/services/QdocWebService';
-          $getxml = $this->xml($nofppb,$dtnow,$noteict,$notedir);
+          $getxml = $this->xml($nofppb,$dtnow,$noteict,$notedir,$sitecode);
           
           $send = $this->sendInBound($url,$getxml);
           Storage::put($nofppb.'.xml', $getxml); //simpan file xml ke storage
-          // dd($send->response);
-
+          
          // cek requester
          $getrequester = DB::table('tr_fppb_header')
                   ->select('*')
@@ -139,8 +159,6 @@ class MappingController extends Controller
                         ->select('*')
                         ->where('notrx','=',$nofppb)
                         ->get();
-          
-          $emailict = 'ictopr@djabesmen.co.id';
 
           if($send[0] == 'success') {
             DB::commit();
@@ -148,11 +166,12 @@ class MappingController extends Controller
               Mail::send('email.email_generate_pr', [
                 'nofppb'    => $nofppb,
                 'datafetch' => $detail
-            ], function ($message) use ($request, $emailrequester, $detail, $emailict) {
+            ], function ($message) use ($request, $emailrequester, $detail, $emailict, $emailopr) {
                 $message->subject('Informasi pembuatan requisition FPPB nomor'.$request->nofppb);
                 $message->from('info@djabesmen.net', 'Info');
                 $message->to($emailrequester);
-                $message->cc($emailict);
+                // $message->cc($emailict, $emailopr);
+                $message->cc($emailict, 'theblues.purple@gmail.com');
             });
 
               return redirect()->route('mappingict.index')->with('alert-success','Data FPPB dengan nomor '.$request->nofppb.' Berhasil di Update ');
@@ -172,12 +191,9 @@ class MappingController extends Controller
               DB::rollback();
               return redirect()->route('mappingict.index')->with('alert-success','Data FPPB dengan nomor '.$request->nofppb.' gagal di mapping dengan warning '.$expresp2[0].' ');
 
-            // return ['loginbound'=>$send[0]];
           } else {
             return ['loginbound'=>'error']; 
           }
-          // DB::commit();
-          // return redirect()->route('mappingict.index')->with('alert-success','Data FPPB dengan nomor '.$request->nofppb.' Berhasil di Update ');
         } catch (\Exception $e) {
             DB::rollback();
             throw $e;
@@ -223,7 +239,7 @@ class MappingController extends Controller
                                     ]);
     }
 
-    public function xml($nofppb,$datenow,$noteict,$notedir) {
+    public function xml($nofppb,$datenow,$noteict,$notedir,$sitecode) {
         $xml = '
               <soapenv:Envelope xmlns="urn:schemas-qad-com:xml-services"
                 xmlns:qcom="urn:schemas-qad-com:xml-services:common"
@@ -292,6 +308,7 @@ class MappingController extends Controller
                         <rqmRqbyUserid>bta</rqmRqbyUserid>
                         <rqmEndUserid>ASA</rqmEndUserid>
                         <rqmRmks>'.$nofppb.'</rqmRmks>
+                        <rqmCc>3601</rqmCc>
                         <rqmSite>djm-ac</rqmSite>
                         <rqmEntity>DJM</rqmEntity>
                         <rqmProject>NOPRJECT</rqmProject>
@@ -309,6 +326,8 @@ class MappingController extends Controller
                         <requisitionTransComment>
                           <operation>A</operation>
                           <cmtSeq>1</cmtSeq>
+                          <cmtCmmt>'.trim($sitecode).'/'.$nofppb.'</cmtCmmt>
+                          <cmtCmmt></cmtCmmt>
                           <cmtCmmt>'.$noteict.'</cmtCmmt>
                           <cmtCmmt>'.$notedir.'</cmtCmmt>
                           <prtOnQuote>false</prtOnQuote>
@@ -348,7 +367,6 @@ class MappingController extends Controller
                           <rqdUm>'.trim($detail->satuan).'</rqdUm>
                           <rqdPurCost>'.$detail->budget.'</rqdPurCost>
                           <rqdNeedDate>'.$detail->tglpakai.'</rqdNeedDate>
-                          <rqdAcct></rqdAcct>
                           <rqdProject>NOPRJECT</rqdProject>
                           <desc1>'.$detail->jenisbarang.'</desc1>
                           <rqdLotRcpt>false</rqdLotRcpt>
@@ -358,6 +376,8 @@ class MappingController extends Controller
                             <lineDetailTransComment>
                               <operation>A</operation>
                               <cmtSeq>1</cmtSeq>
+                              <cmtCmmt>'.trim($sitecode).'/'.$nofppb.'</cmtCmmt>
+                              <cmtCmmt> </cmtCmmt>
                               <cmtCmmt>'.$detail->notemanfaat.'</cmtCmmt>
                               <prtOnQuote>true</prtOnQuote>
                               <prtOnSo>false</prtOnSo>
