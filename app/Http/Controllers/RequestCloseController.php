@@ -54,7 +54,7 @@ class RequestCloseController extends Controller
                              ->where('dtfrom','<=',$datenow)
                              ->where('dtthru','>=',$datenow)
                              ->orderBy('notrx','desc')
-                             ->groupBy('notrx','nik','dtfppb','isfullapproved','div_nama', 'approvaltype','dtfrom', 'dtthru','isfullrequestclose','requestedby')
+                             ->groupBy('notrx','nik','dtfppb','isfullapproved','div_nama', 'approvaltype','dtfrom', 'dtthru','isfullrequestclose','requestedby', 'isrequestclosed')
                              ->get();
 
         return view('fppb.listrequestclose',['data'=>$data]);

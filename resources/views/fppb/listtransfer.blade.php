@@ -1,5 +1,8 @@
 @extends('base')
 @section('content')
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript">
     function filter() {
         var nofppb = $('#nofppb').val();
@@ -14,6 +17,11 @@
             }
         });
     };
+
+    $(document).ready(function(){
+        $('#table-data').DataTable();
+        console.log( $('#table-data').DataTable());
+    });
 </script>
 
 <!--breadcrumbs-->
@@ -58,7 +66,7 @@
                 <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
                 </div>
                 <div class="widget-content nopadding">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped" id="table-data">
                         <thead>
                         <tr>
                             <th>No.</th>

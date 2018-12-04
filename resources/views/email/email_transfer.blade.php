@@ -296,6 +296,9 @@
                                             <tr>
                                                 <td><p>&nbsp;</p></td>
                                             </tr>
+                                            <tr>
+                                                <td><p>Keterangan : {{ $keterangan }}</p></td>
+                                            </tr>
                                             </tbody>
                                         </table>
                                     </td>

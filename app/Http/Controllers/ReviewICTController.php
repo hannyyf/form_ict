@@ -52,6 +52,7 @@ class ReviewICTController extends Controller
      */
     public function store(Request $request)
     {
+
         date_default_timezone_set('Asia/Jakarta');
         $datenow = date('Y-m-d H:i:s');
         $username = Auth::user()->username;
@@ -91,13 +92,31 @@ class ReviewICTController extends Controller
             // update perkiraan budget per item
             foreach ($request->no as $key => $value) {
                 $budget = intval(str_replace(',','',$request->budget[$key]));
-                DB::table('tr_fppb_detail')
-                    ->where('notrx','=',$request->nofppb)
-                    ->where('seqid','=',$request->no[$key])
-                    ->update(
-                        ['perkiraanbudget'  => $budget
-                     ]);
+
+                if ($request->jenisbarang[$key] != 'other') {
+                   $getproduct = DB::table('master_product')
+                                ->select('*')
+                                ->where('idqad','=',$request->jenisbarang[$key])
+                                ->first();
+
+                    DB::table('tr_fppb_detail')
+                        ->where('notrx','=',$request->nofppb)
+                        ->where('seqid','=',$request->no[$key])
+                        ->update([
+                            'perkiraanbudget'  => $budget,
+                            'kodeitem'         => $request->jenisbarang[$key],
+                            'jenisbarang'      => $getproduct->nmprod
+                         ]);
+                } else {
+                    DB::table('tr_fppb_detail')
+                        ->where('notrx','=',$request->nofppb)
+                        ->where('seqid','=',$request->no[$key])
+                        ->update([
+                            'jenisbarang'   => $request->product[$key],
+                            'satuan'        => $request->satuan[$key]
+                        ]);
                 }
+            }
 
             $getdivfrommaster = DB::table('vw_master_division')
                                     ->select('*')

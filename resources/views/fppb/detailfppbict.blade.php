@@ -18,7 +18,7 @@
         });
     });
 
-    $(document).on('change', '.jenisbarangc', function (e) {
+    $(document).on('change', '.selectpicker', function (e) {
     var id = this.id;
     var split = id.split('jenisbarang');
     var line = split[1];
@@ -117,11 +117,11 @@
                             <td style="width: 20%">
                                 <!-- {{ $data->jenisbarang }}
                                 <input class="span11" type="text" name="jenisbarang[]" id="jenisbarang" readonly = "readonly" style="display:none;" value="{{ $data->jenisbarang }}"> -->
-                            <select class="form-control jenisbarangc" name="jenisbarang[]" id="jenisbarang{{ $data->seqid }}" style="width: 100%" required>
+                            <select class="form-control selectpicker" name="jenisbarang[]" id="jenisbarang{{ $data->seqid }}" style="width: 100%" required>
                                 <option value="{{ $data->jenisbarang }}">{{ $data->jenisbarang }}</option>
                                 <option disabled="true">Choose One</option>
                                 @foreach($products as $product)
-                                <option value="{{ $product->idqad }}">{{ $product->nmprod }} - {{ $product->idqad }}</option>
+                                <option value="{{ $product->idqad }}">{{ $product->nmprod }}</option>
                                 @endforeach
                                 <option value="other">Other</option>
                             </select>
@@ -139,7 +139,7 @@
                             <td style="width: 4%">
                                <!--  {{ $data->satuan }}
                                 <input class="span11" type="text" name="satuan[]" id="satuan" readonly = "readonly" style="display:none;" value="{{ $data->satuan }}"> -->
-                            <select class="form-control " name="satuan[]" id="satuan{{ $data->seqid }}" style="width: 100%" required>
+                            <select class="form-control " name="satuan[]" id="satuan{{ $data->seqid }}" style="width: 100%"  data-show-subtext="true" data-live-search="true" required>
                                 <option value="{{ $data->satuan }}">{{ $data->satuan }}</option>
                                 <option disabled="true">Pilih Satuan</option>
                                 @foreach($getuom as $uom)

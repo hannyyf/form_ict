@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
+use Mail;
 
 class ReportMonitoringController extends Controller
 {
@@ -158,14 +159,16 @@ class ReportMonitoringController extends Controller
                 ->where('idkategori','=',$request->kategorimodal)
                 ->first();
         $emailict = $ict->email;
+        $keterangan = $request->keteranganmodal;
 
         // fungsi kirim email notifikasi ke ict first layer
         Mail::send('email.email_transfer', [
-                'nofppb'    => $request->nofppb,
-                'datafetch' => $detail
-            ], function ($message) use ($request, $emailict, $detail) {
+                'nofppb'    => $request->nofppbmodal,
+                'datafetch' => $detail,
+                'keterangan' => $keterangan
+            ], function ($message) use ($request, $emailict, $detail, $keterangan) {
                 $message->from('info@djabesmen.net', 'Info');
-                $message->to($emailict)->subject('Informasi transfer FPPB nomor '.$request->nofppb);
+                $message->to($emailict)->subject('Informasi transfer FPPB nomor '.$request->nofppbmodal);
             });
 
         return redirect()->route('transfer.index')->with('alert-success','Data FPPB dengan nomor '.$request->nofppbmodal.' Berhasil di Transfer ! ');
