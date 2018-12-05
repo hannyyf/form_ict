@@ -3,21 +3,26 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function($){
-        $('.budget').mask('000,000,000,000', {reverse: true});
-        $('.qty').mask('0,000,000', {reverse: true});
+    var $j = $.noConflict(true);
+    $j(document).ready(function($){
+        $j('.budget').mask('000,000,000,000', {reverse: true});
+        $j('.qty').mask('0,000,000', {reverse: true});
     });
 
-    $(document).ready(function(){   
-        $('#noteict').keyup(function() {
-       if ($(this).val().length == 0) {
-            $('#btnsubmit').prop('disabled',true);
+    $j(document).ready(function(){   
+        $j('#noteict').keyup(function() {
+       if ($j(this).val().length == 0) {
+            $j('#btnsubmit').prop('disabled',true);
         } else {
-            $('#btnsubmit').prop('disabled', false);
+            $j('#btnsubmit').prop('disabled', false);
         } 
         });
     });
 
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+<script type="text/javascript">
     $(document).on('change', '.selectpicker', function (e) {
     var id = this.id;
     var split = id.split('jenisbarang');
@@ -49,6 +54,7 @@
     });
 });
 </script>
+
 <!--breadcrumbs-->
   <div id="content-header">
     <div id="breadcrumb"> <a href="{{ url('/index') }}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="#" class="tip-bottom">List Review ICT</a><a href="#" class="current">Detail</a></div>
@@ -117,7 +123,7 @@
                             <td style="width: 20%">
                                 <!-- {{ $data->jenisbarang }}
                                 <input class="span11" type="text" name="jenisbarang[]" id="jenisbarang" readonly = "readonly" style="display:none;" value="{{ $data->jenisbarang }}"> -->
-                            <select class="form-control selectpicker" name="jenisbarang[]" id="jenisbarang{{ $data->seqid }}" style="width: 100%" required>
+                            <select class="form-control selectpicker" name="jenisbarang[]" id="jenisbarang{{ $data->seqid }}" style="width: 100%" data-show-subtext="true" data-live-search="true" required>
                                 <option value="{{ $data->jenisbarang }}">{{ $data->jenisbarang }}</option>
                                 <option disabled="true">Choose One</option>
                                 @foreach($products as $product)
