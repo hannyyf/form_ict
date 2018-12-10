@@ -99,6 +99,15 @@ class RequestCloseController extends Controller
                     ->first();
         $emailrequester = $getemail->employee_email;
 
+        // case jika email di dbmastercontroll kosong ambil dari tabel user
+          if(empty($emailrequester) || is_null($emailrequester)) {
+              $user = DB::table('users')
+                      ->select('*')
+                      ->where('username','=',$requester)
+                      ->first();
+              $emailrequester = $user->email;
+          }
+
         // fungsi kirim email notifikasi reject ke user
         Mail::send('email.email_requestclosed', [
                 'nofppb'    => $request->nofppb,

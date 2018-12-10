@@ -137,6 +137,16 @@ class ReviewICTController extends Controller
                             ->first();
             $emailictmgr = $getemail->employee_email;
 
+            // case jika email di dbmastercontroll kosong ambil dari tabel user
+              if(empty($emailictmgr) || is_null($emailictmgr)) {
+                  $user = DB::table('users')
+                          ->select('*')
+                          ->where('username','=',$getdataictmgr->nikictmgr)
+                          ->first();
+                  $emailictmgr = $user->email;
+              }
+
+
             $detail = DB::table('tr_fppb_detail')
                              ->select('*')
                              ->where('notrx','=',$request->nofppb)

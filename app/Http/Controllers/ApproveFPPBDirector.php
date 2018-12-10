@@ -227,6 +227,15 @@ class ApproveFPPBDirector extends Controller
                                 ->first();
                     $emailrequester = $getemail->employee_email;
 
+                    // case jika email di dbmastercontroll kosong ambil dari tabel user
+                    if(empty($emailrequester) || is_null($emailrequester)) {
+                        $user = DB::table('users')
+                                ->select('*')
+                                ->where('username','=',$requester)
+                                ->first();
+                        $emailrequester = $user->email;
+                    }
+
                     // cek data appraiser dari master employee
                     $getappraiser = DB::table('vw_master_employee')
                                     ->select('*')
@@ -249,6 +258,15 @@ class ApproveFPPBDirector extends Controller
                                         ->where('employee_id_bias','=',$divhead)
                                         ->first();
                     $emaildivhead = $getemaildivhead->employee_email;
+
+                    // case jika email di dbmastercontroll kosong ambil dari tabel user
+                    if(empty($emaildivhead) || is_null($emaildivhead)) {
+                        $user = DB::table('users')
+                                ->select('*')
+                                ->where('username','=',$divhead)
+                                ->first();
+                        $emaildivhead = $user->email;
+                    }
 
                     $detail = DB::table('tr_fppb_detail')
                                      ->select('*')

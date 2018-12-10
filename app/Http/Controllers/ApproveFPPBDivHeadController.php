@@ -85,13 +85,16 @@ class ApproveFPPBDivHeadController extends Controller
                                         ->select('*')
                                         ->where('div_id_bias','=',$divcode)
                                         ->first();
-
-                    // // cek email direktur dari master employee
-                    // $getemail = DB::table('vw_master_employee')
-                    //             ->select('*')
-                    //             ->where('employee_id_bias','=',$getmappingdir->nikdirektur)
-                    //             ->first();
                     $emaildir = $getmappingdir->employee_email;
+
+                     // case jika email di dbmastercontroll kosong ambil dari tabel user
+                    if(empty($emaildir) || is_null($emaildir)) {
+                        $user = DB::table('users')
+                                ->select('*')
+                                ->where('username','=',$getmappingdir->employee_id_bias)
+                                ->first();
+                        $emaildir = $user->email;
+                    }
 
                     $detail = DB::table('tr_fppb_detail')
                                      ->select('*')
@@ -161,6 +164,15 @@ class ApproveFPPBDivHeadController extends Controller
                                 ->where('employee_id_bias','=',$requester)
                                 ->first();
                     $emailrequester = $getemail->employee_email;
+
+                    // case jika email di dbmastercontroll kosong ambil dari tabel user
+                    if(empty($emailrequester) || is_null($emailrequester)) {
+                        $user = DB::table('users')
+                                ->select('*')
+                                ->where('username','=',$requester)
+                                ->first();
+                        $emailrequester = $user->email;
+                    }
 
                     // cek data appraiser dari master employee
                     $getappraiser = DB::table('vw_master_employee')

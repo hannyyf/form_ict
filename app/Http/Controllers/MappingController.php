@@ -152,9 +152,19 @@ class MappingController extends Controller
           // cek email user dari master employee
           $getemail = DB::table('vw_master_employee')
                   ->select('*')
-                  ->where('employee_id_bias','=',$requester)
+                  ->where('employee_id_bias','=',$emailrequester)
                   ->first();
           $emailrequester = $getemail->employee_email;
+
+          // case jika email di dbmastercontroll kosong ambil dari tabel user
+          if(empty($emailrequester) || is_null($emailrequester)) {
+              $user = DB::table('users')
+                      ->select('*')
+                      ->where('username','=',$emailrequester)
+                      ->first();
+              $emailrequester = $user->email;
+          }
+                    
           if($send[0] == 'success') {
               $getnopr = substr($send[8],-9,-1);
               DB::table('generate_pr')
