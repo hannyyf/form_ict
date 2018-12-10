@@ -275,8 +275,8 @@
                                                         <th width="70px">Qty</th>
                                                         <th width="70px">Satuan</th>
                                                         <th width="180px">Tanggal Pakai</th>
-                                                        <th width="300px">Keterangan / Jenis Manfaat</th>
-                                                        <th width="300px">Perkiraan Budget</th>
+                                                        <th width="350px">Keterangan / Jenis Manfaat</th>
+                                                        <th width="200px">Perkiraan Budget</th>
                                                     </tr>
                                                     </thead>
                                                     @foreach($datafetch as $data)
@@ -287,7 +287,7 @@
                                                             <td style="text-align: center;">{{ $data->qty }}</td>
                                                             <td style="text-align: center;">{{ $data->satuan }}</td>
                                                             <td style="text-align: center;">{{ $data->tglpakai }}</td>
-                                                            <td style="text-align: center;">{{ $data->notemanfaat }}</td>
+                                                            <td style="text-align: left;">{{ $data->notemanfaat }}</td>
                                                             <td style="text-align: center;">{{ $data->perkiraanbudget }}</td>
                                                         </tr>
                                                     </tbody>

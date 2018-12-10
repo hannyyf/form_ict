@@ -288,7 +288,7 @@
                                                             <td style="text-align: center;">{{ $data->qty }}</td>
                                                             <td style="text-align: center;">{{ $data->satuan }}</td>
                                                             <td style="text-align: center;">{{ $data->tglpakai }}</td>
-                                                            <td style="text-align: center;">{{ $data->notemanfaat }}</td>
+                                                            <td style="text-align: left;">{{ $data->notemanfaat }}</td>
                                                             <td style="text-align: center;">{{ $data->perkiraanbudget }}</td>
                                                            
                                                         </tr>

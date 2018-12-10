@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Ramsey\Uuid\Uuid;
 use Mail;
 use Illuminate\Support\Facades\Storage;
+use Orchestra\Parser\Xml\Facade as XmlParser;
 
 class MappingController extends Controller
 {
@@ -138,8 +139,8 @@ class MappingController extends Controller
           $url    = 'http://qaddjm2016:8080/qxisim/services/QdocWebService';
           $getxml = $this->xml($nofppb,$dtnow,$noteict,$notedir,$sitecode);
           
-          $send = $this->sendInBound($url,$getxml);
-          Storage::put($nofppb.'.xml', $getxml); //simpan file xml ke storage
+          $send = $this->sendInBound($url,$getxml, $nofppb);
+          Storage::disk('local')->put($nofppb.'.xml', $getxml); //simpan file xml ke storage
           
          // cek requester
          $getrequester = DB::table('tr_fppb_header')
@@ -154,14 +155,17 @@ class MappingController extends Controller
                   ->where('employee_id_bias','=',$requester)
                   ->first();
           $emailrequester = $getemail->employee_email;
+          if($send[0] == 'success') {
+              $getnopr = substr($send[8],-9,-1);
+              DB::table('generate_pr')
+                  ->where ('notrx','=',$nofppb)
+                  ->update(['prnumber' => $getnopr]);
 
-          $detail = DB::table('vw_mapping_qad')
+              $detail = DB::table('vw_mapping_qad')
                         ->select('*')
                         ->where('notrx','=',$nofppb)
                         ->get();
-
-          if($send[0] == 'success') {
-            DB::commit();
+              DB::commit();
               // fungsi kirim email notifikasi reject ke user
               Mail::send('email.email_generate_pr', [
                 'nofppb'    => $nofppb,
@@ -185,11 +189,31 @@ class MappingController extends Controller
               return redirect()->route('mappingict.index')->with('alert-success','Data FPPB dengan nomor '.$request->nofppb.' gagal di mapping dengan error '.$expresp2[0].' ');
 
           } elseif($send[0] == 'warning') {
+              $getnopr = substr($send[8],-9,-1);
+              DB::table('generate_pr')
+                  ->where ('notrx','=',$nofppb)
+                  ->update(['prnumber' => $getnopr]);
+
+              $detail = DB::table('vw_mapping_qad')
+                        ->select('*')
+                        ->where('notrx','=',$nofppb)
+                        ->get();
 
               $expresp = explode('+0700', $send[8]);
               $expresp2 = explode('0MfgPro', $expresp[1]);
-              DB::rollback();
-              return redirect()->route('mappingict.index')->with('alert-success','Data FPPB dengan nomor '.$request->nofppb.' gagal di mapping dengan warning '.$expresp2[0].' ');
+              DB::commit();
+              // fungsi kirim email notifikasi reject ke user
+              Mail::send('email.email_generate_pr', [
+                'nofppb'    => $nofppb,
+                'datafetch' => $detail
+            ], function ($message) use ($request, $emailrequester, $detail, $emailict, $emailopr) {
+                $message->subject('Informasi pembuatan requisition FPPB nomor'.$request->nofppb);
+                $message->from('info@djabesmen.net', 'Info');
+                $message->to($emailrequester);
+                // $message->cc($emailict, $emailopr);
+                $message->cc($emailict, 'theblues.purple@gmail.com');
+            });
+              return redirect()->route('mappingict.index')->with('alert-success','Data FPPB dengan nomor '.$request->nofppb.' berhasil di mapping dengan warning '.$expresp2[0].' ');
 
           } else {
             return ['loginbound'=>'error']; 
@@ -377,7 +401,7 @@ class MappingController extends Controller
                               <operation>A</operation>
                               <cmtSeq>1</cmtSeq>
                               <cmtCmmt>'.trim($sitecode).'/'.$nofppb.'</cmtCmmt>
-                              <cmtCmmt> </cmtCmmt>
+                              <cmtCmmt></cmtCmmt>
                               <cmtCmmt>'.$detail->notemanfaat.'</cmtCmmt>
                               <prtOnQuote>true</prtOnQuote>
                               <prtOnSo>false</prtOnSo>
@@ -406,7 +430,7 @@ class MappingController extends Controller
       return $xml;
     }
 
-    public function sendInbound($url, $xml) {
+    public function sendInbound($url, $xml, $nofppb) {
        try {
         $ch = curl_init();
 
@@ -428,6 +452,7 @@ class MappingController extends Controller
 
         // Send to remote and return data to caller.
         $result = curl_exec($ch);
+        Storage::disk('local_two')->put($nofppb.'.xml', $result); //simpan file xml ke storage
 
         // file_put_contents('public/generatepr.xml', $result, FILE_APPEND);
 
@@ -442,6 +467,7 @@ class MappingController extends Controller
         $xpath = new \DOMXPath($doc);
 
         $bla = [];
+        
         foreach($xpath->query('/soapenv:Envelope/soapenv:Body', $context) as $node ) {
             $bla = $node->nodeValue;
         }

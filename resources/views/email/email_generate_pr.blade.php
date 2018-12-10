@@ -261,7 +261,7 @@
                                 <tr>
                                     <td>
                                         <p>Dear Requester,</p>
-                                        <p>FPPB yang sudah di request dengan nomor <b>{{ $nofppb }}</b> sudah dibuatkan requisition dengan detail sebagai berikut :</p>
+                                        <p>FPPB yang sudah di request dengan nomor <b>{{ $nofppb }}</b> sudah dibuatkan requisition dengan nomor <b> {{ $datafetch[0]->prnumber }} </b>dengan detail sebagai berikut :</p>
 
                                         <table border="0" cellpadding="0" cellspacing="0">
                                             <tbody>
@@ -289,7 +289,7 @@
                                                             <td style="text-align: center;">{{ $data->qty }}</td>
                                                             <td style="text-align: center;">{{ $data->satuan }}</td>
                                                             <td style="text-align: center;">{{ $data->tglpakai }}</td>
-                                                            <td style="text-align: center;">{{ $data->notemanfaat }}</td>
+                                                            <td style="text-align: left;">{{ $data->notemanfaat }}</td>
                                                             <td style="text-align: center;">{{ $data->perkiraanbudget }}</td>
                                                             <td style="text-align: center;">{{ $data->kodeitem }}</td>
                                                         </tr>
