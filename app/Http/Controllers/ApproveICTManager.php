@@ -204,7 +204,7 @@ class ApproveICTManager extends Controller
                     $getdivhead = DB::table('approvalstatus')
                                     ->select('*')
                                     ->where('notrx','=',$request->nofppb)
-                                    ->where('approvaltype','=','Div Head User')
+                                    ->where('approvaltype','=',2)
                                     ->where('statustype','=','Approve')
                                     ->first();
                     $divhead = $getdivhead->nik;

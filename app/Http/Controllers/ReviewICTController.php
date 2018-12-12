@@ -52,7 +52,6 @@ class ReviewICTController extends Controller
      */
     public function store(Request $request)
     {
-
         date_default_timezone_set('Asia/Jakarta');
         $datenow = date('Y-m-d H:i:s');
         $username = Auth::user()->username;

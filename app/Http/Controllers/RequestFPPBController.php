@@ -508,7 +508,7 @@ class RequestFPPBController extends Controller
                         'datafetch' => $detail
                     ], function ($message) use ($request, $emailspv, $detail) {
                         $message->subject('Request for approval '.$request->nofppb);
-                        $message->from('info@djabesmen.net', 'Info');
+                        $message->from('auto@djabesmen.net', 'Info');
                         $message->to($emailspv);
                     });
 

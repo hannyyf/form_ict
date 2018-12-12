@@ -52,23 +52,32 @@ class MappingController extends Controller
         DB::beginTransaction();
         try {
           foreach ($request->no as $key => $value) { // looping sebanyak data
+            $getdetailitem = DB::table('master_product')
+                              ->select('*')
+                              ->where('idqad','=',$request->jenisbarang[$key])
+                              ->first();                
+            $deskripsiitem = $getdetailitem->nmprod; 
+
             // disini nanti code buat mapping ke qadnya ya
-            $updatekodeitem = DB::table('tr_fppb_detail')
-                                ->where('notrx','=',$request->nofppb)
-                                ->where('seqid','=',$request->no[$key])
-                                ->update([
-                                    // 'kodeitem'  => $request->kodeitem[$key],
-                                    'ispr'      => 1,
-                                    'dtpr'      => $datenow
-                                ]);
+            DB::table('tr_fppb_detail')
+                ->where('notrx','=',$request->nofppb)
+                ->where('seqid','=',$request->no[$key])
+                ->update([
+                    // 'kodeitem'  => $request->kodeitem[$key],
+                    'ispr'        => 1,
+                    'dtpr'        => $datenow,
+                    'jenisbarang' => $deskripsiitem,
+                    'satuan'      => $request->satuan[$key],
+                ]);
           }
 
           foreach ($request->kodeitem as $key => $value) { // looping sebanyak kode item
             $getdetailitem = DB::table('master_product')
                               ->select('*')
                               ->where('idqad','=',$request->kodeitem[$key])
-                              ->first();
-            $satuanitem = $getdetailitem->satuan;                
+                              ->first();                
+            $satuanitem = $getdetailitem->satuan;
+            $deskripsiitem = $getdetailitem->nmprod;                
             // insert ke tabel generate pr, data ini akan dipakai untuk mapping ke qad
             DB::table('generate_pr')
                 ->insert([
@@ -129,15 +138,45 @@ class MappingController extends Controller
           ]);
 
           $nofppb     = $request->nofppb;
-          $noteict    = $request->noteict;
-          $notedir    = $request->notedir;
+          $noteict    = $header->noteict;
+          $notedir    = $header->notedir;
           $sitecode   = $kategori->sitecode;
           $emailict   = $kategori->email; // email ict first layer
           $emailopr   = 'ictopr@djabesmen.co.id'; // email ict opr global
 
+          $getdetail = DB::table('vw_mapping_qad')
+                        ->select('*')
+                        ->where('notrx','=',$nofppb)
+                        ->get();
+          $arr = array();
+          foreach ($getdetail as $detail) {   
+              $length = strlen($detail->notemanfaat);
+              $notes  = $detail->notemanfaat; 
+              $start  = 0;
+              $max    = 75;
+              $line   = ($max/75);
+              $data   = $length/75;
+              
+              if ($length > 75) {
+              for($i = 0; $i < $data; $i++) {
+                  if($length >= $max) {
+                    $text   = substr($notes, $start, $max);
+                    $notes  = substr($notes, $max);
+                    array_push($arr, $text);
+                  } else {
+                    $text = substr($notes, ($start));
+                    array_push($arr, $text);
+                  }
+                  $length = strlen($notes);
+                }
+              } else {
+                array_push($arr, $detail->notemanfaat);
+              }                
+          }
+
           // $url    = 'http://qaddjm2016:8080/qxilive/services/QdocWebService';
           $url    = 'http://qaddjm2016:8080/qxisim/services/QdocWebService';
-          $getxml = $this->xml($nofppb,$dtnow,$noteict,$notedir,$sitecode);
+          $getxml = $this->xml($nofppb,$dtnow,$noteict,$notedir,$sitecode,$getdetail,$arr);
           
           $send = $this->sendInBound($url,$getxml, $nofppb);
           Storage::disk('local')->put($nofppb.'.xml', $getxml); //simpan file xml ke storage
@@ -152,7 +191,7 @@ class MappingController extends Controller
           // cek email user dari master employee
           $getemail = DB::table('vw_master_employee')
                   ->select('*')
-                  ->where('employee_id_bias','=',$emailrequester)
+                  ->where('employee_id_bias','=',$requester)
                   ->first();
           $emailrequester = $getemail->employee_email;
 
@@ -265,15 +304,20 @@ class MappingController extends Controller
                     ->orderBy('nmprod','ASC')
                     ->get();
 
+         $getuom = DB::table('master_uom')
+                    ->select('*')
+                    ->get();
+
         return view('fppb.detailmapping',[
                                     'datafetch' => $data,
                                     'header'    => $dataheader,
                                     'datalog'   => $datalog,
-                                    'products'   => $getproduct
+                                    'products'   => $getproduct,
+                                    'getuom'    => $getuom
                                     ]);
     }
 
-    public function xml($nofppb,$datenow,$noteict,$notedir,$sitecode) {
+    public function xml($nofppb,$datenow,$noteict,$notedir,$sitecode, $getdetail, $arr) {
         $xml = '
               <soapenv:Envelope xmlns="urn:schemas-qad-com:xml-services"
                 xmlns:qcom="urn:schemas-qad-com:xml-services:common"
@@ -380,17 +424,8 @@ class MappingController extends Controller
                           <prtOnDo>false</prtOnDo>
                           <prtOnIntern>false</prtOnIntern>
                         </requisitionTransComment>';
-
-            $getdetail = DB::table('tr_fppb_detail')
-                          ->join('generate_pr', function ($join) {
-                            $join->on('tr_fppb_detail.notrx', '=', 'generate_pr.notrx');
-                            $join->on('tr_fppb_detail.seqid','=','generate_pr.seqid');
-                          })
-                          ->select('tr_fppb_detail.notrx', 'tr_fppb_detail.jenisbarang', 'tr_fppb_detail.qty', 'tr_fppb_detail.tglpakai', 'tr_fppb_detail.notemanfaat', 'generate_pr.budget','generate_pr.seqid', 'generate_pr.kodeitem', 'generate_pr.satuan')
-                          ->where('tr_fppb_detail.notrx','=',$nofppb)
-                          ->get();
-            $no = 1;
-            foreach ($getdetail as $detail) {
+            $no = 1;   
+            foreach ($getdetail as $detail) {             
              $xml .=    '<lineDetail>
                           <operation>A</operation>
                           <line>'.$no++.'</line>
@@ -399,21 +434,24 @@ class MappingController extends Controller
                           <rqdPart>'.$detail->kodeitem.'</rqdPart>
                           <rqdReqQty>'.$detail->qty.'</rqdReqQty>
                           <rqdUm>'.trim($detail->satuan).'</rqdUm>
-                          <rqdPurCost>'.$detail->budget.'</rqdPurCost>
+                          <rqdPurCost>'.$detail->perkiraanbudget.'</rqdPurCost>
                           <rqdNeedDate>'.$detail->tglpakai.'</rqdNeedDate>
                           <rqdProject>NOPRJECT</rqdProject>
                           <desc1>'.$detail->jenisbarang.'</desc1>
                           <rqdLotRcpt>false</rqdLotRcpt>
                           <rqdUmConv>1</rqdUmConv>
-                          <rqdMaxCost>'.$detail->budget.'</rqdMaxCost>
+                          <rqdMaxCost>'.$detail->perkiraanbudget.'</rqdMaxCost>
                           <lineCmmts>true</lineCmmts>
                             <lineDetailTransComment>
                               <operation>A</operation>
                               <cmtSeq>1</cmtSeq>
                               <cmtCmmt>'.trim($sitecode).'/'.$nofppb.'</cmtCmmt>
-                              <cmtCmmt></cmtCmmt>
-                              <cmtCmmt>'.$detail->notemanfaat.'</cmtCmmt>
-                              <prtOnQuote>true</prtOnQuote>
+                              <cmtCmmt></cmtCmmt>';
+                              foreach ($arr as $key => $value) {
+                              $xml .=   '<cmtCmmt>'.$arr[$key].'</cmtCmmt>';
+                              }
+                              
+              $xml .=         '<prtOnQuote>true</prtOnQuote>
                               <prtOnSo>false</prtOnSo>
                               <prtOnInvoice>false</prtOnInvoice>
                               <prtOnPacklist>false</prtOnPacklist>

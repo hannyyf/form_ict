@@ -56,12 +56,47 @@ $.jMaskGlobals.watchDataMask = true;
         return false;
     })
 });
-
     $(document).ready(function($){
         $('.budget').mask('000,000,000,000', {reverse: true});
         $('.qty').mask('0,000,000', {reverse: true});
     });
+</script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+<script type="text/javascript">
+    var $j = $.noConflict(true);
+   $j(document).on('change', '.selectpicker', function (e) {
+    var id = this.id;
+    var split = id.split('jenisbarang');
+    var line = split[1];
+    var b = $j('#jenisbarang' + line).val();
+    console.log('cek id value', b);
+    if (b == 'other') {
+        $j("#product"+line+"").show();
+        $j("#kodeitem"+line+"").val('');
+        
+    } else {
+        $j("#product"+line+"").hide();
+        $j("#kodeitem"+line+"").val(b);
+    };
+
+    /*fungsi menyesuaikan uom dengan jenis yang dipilih*/
+    var select = $j('#jenisbarang' + line).attr('id');
+    var value = $j('#jenisbarang' + line).val();
+    var dependent = $j('#jenisbarang' + line).data('dependent');
+    var _token = $j('input[name="_token"]').val();
+    console.log('cek select', select);
+    $.ajax({
+        url:"{{ route('requestfppb.fetch') }}",
+        method:"POST",
+        data:{select:select, value:value, _token: _token, dependent:dependent},
+        success:function(result)
+        {
+            $('#satuan' +line).html(result);
+        }
+    });
+});
 </script>
 <!--breadcrumbs-->
   <div id="content-header">
@@ -132,17 +167,31 @@ $.jMaskGlobals.watchDataMask = true;
                                 
                             </td >
                             <td style="width: 20%">
-                                {{ $data->jenisbarang }}
-                                <input class="span11" type="text" name="jenisbarang[]" id="jenisbarang" readonly = "readonly" style="display:none;" value="{{ $data->jenisbarang }}">
+                                <!-- {{ $data->jenisbarang }}
+                                <input class="span11" type="text" name="jenisbarang[]" id="jenisbarang" readonly = "readonly" style="display:none;" value="{{ $data->jenisbarang }}"> -->
+                            <select class="form-control selectpicker" name="jenisbarang[]" id="jenisbarang{{ $data->seqid }}" style="width: 100%" data-show-subtext="true" data-live-search="true" required>
+                                <option value="{{ $data->kodeitem }}">{{ $data->jenisbarang }}</option>
+                                <option disabled="true">Choose One</option>
+                                @foreach($products as $product)
+                                <option value="{{ $product->idqad }}">{{ $product->nmprod }}</option>
+                                @endforeach
+                            </select>                                
                             </td>
                             <td style="width: 4%">
                                 {{ $data->qty }}
                                 <input class="span11" type="text" name="qty[]" id="qty" readonly = "readonly" style="display:none;" value="{{ $data->qty }}">
                                 
                             </td>
-                            <td style="width: 3%">
-                                {{ $data->satuan }}
-                                <input class="span11" type="text" name="satuan[]" id="satuan" readonly = "readonly" style="display:none;" value="{{ $data->satuan }}">
+                            <td style="width: 5%">
+                               <!--  {{ $data->satuan }}
+                                <input class="span11" type="text" name="satuan[]" id="satuan" readonly = "readonly" style="display:none;" value="{{ $data->satuan }}"> -->
+                            <select class="form-control " name="satuan[]" id="satuan{{ $data->seqid }}" style="width: 100%"  data-show-subtext="true" data-live-search="true" required>
+                                <option value="{{ $data->satuan }}">{{ $data->satuan }}</option>
+                                <option disabled="true">Pilih Satuan</option>
+                                @foreach($getuom as $uom)
+                                <option value="{{ $uom->iduom }}">{{ $uom->iduom }} - {{ $uom->keterangan }}</option>
+                                @endforeach
+                            </select>
                             </td>
                             <td style="width:8%">
                                 {{ $data->tglpakai }}
@@ -173,7 +222,7 @@ $.jMaskGlobals.watchDataMask = true;
                                     <input type="text" class="span11" name="linebudget[]" id="budgetline" value="{{ $data->seqid }}" style="display:none; width:350px;">
                                     @endif                   
                             </td>
-                            <td style="width: 20%;">
+                            <td style="width: 10%;">
                                  @if ($data->kodeitem == '' || $data->kodeitem == null)
                                     <table class="itemscode" id="tableitem{{ $data->seqid }}">
                                         <tr>
@@ -195,7 +244,7 @@ $.jMaskGlobals.watchDataMask = true;
                                         </tr>
                                     </table>
                                     @else
-                                    <input type="text" name="kodeitem[]" id="kodeitem" value="{{ $data->kodeitem }}"readonly>
+                                    <input type="text" name="kodeitem[]" id="kodeitem{{ $data->seqid }}" value="{{ $data->kodeitem }}"readonly style="width: 90%">
                                     <input type="text" class="span11" name="linekodeitem[]" id="product" value="{{ $data->seqid }}" style="display:none; width:350px;">
                                  @endif
                             </td>
