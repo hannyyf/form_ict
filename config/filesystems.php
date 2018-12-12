@@ -48,6 +48,11 @@ return [
             'root' => storage_path('app/tempXML'),
         ],
 
+        'local_two' => [
+            'driver' => 'local',
+            'root' => storage_path('app/resultXML'),
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
