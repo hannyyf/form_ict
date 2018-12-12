@@ -93,7 +93,7 @@ class ReviewICTController extends Controller
                 $budget = intval(str_replace(',','',$request->budget[$key]));
 
                 if ($request->jenisbarang[$key] != 'other') {
-                   $getproduct = DB::table('master_product')
+                   $getproduct = DB::table('vw_master_product')
                                 ->select('*')
                                 ->where('idqad','=',$request->jenisbarang[$key])
                                 ->first();
@@ -193,8 +193,9 @@ class ReviewICTController extends Controller
                      ->orderBy('dtfrom','asc')
                      ->get();
 
-        $getproduct = DB::table('master_product')
+        $getproduct = DB::table('vw_master_product')
                     ->select('*')
+                    ->where('groups','=','ICT')
                     ->orderBy('nmprod','ASC')
                     ->get();
 

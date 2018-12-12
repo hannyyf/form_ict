@@ -57,8 +57,9 @@ class RequestFPPBController extends Controller
                         ->where('deskripsi','like','operational%')
                         ->get();
 
-        $getproduct = DB::table('master_product')
+        $getproduct = DB::table('vw_master_product')
                         ->select('*')
+                        ->where('groups','=','ICT')
                         ->orderBy('nmprod','ASC')
                         ->get();
 
@@ -302,8 +303,9 @@ class RequestFPPBController extends Controller
                      ->select('*')
                      ->get();
 
-        $getproduct = DB::table('master_product')
+        $getproduct = DB::table('vw_master_product')
                     ->select('*')
+                    ->where('groups','=','ICT')
                     ->orderBy('nmprod','ASC')
                     ->get();
 
@@ -541,7 +543,7 @@ class RequestFPPBController extends Controller
             
             echo $output;
         } else {
-            $data = DB::table('master_product')
+            $data = DB::table('vw_master_product')
                     ->select('satuan')
                     ->where('idqad','=',$value)
                     ->first();

@@ -52,7 +52,7 @@ class MappingController extends Controller
         DB::beginTransaction();
         try {
           foreach ($request->no as $key => $value) { // looping sebanyak data
-            $getdetailitem = DB::table('master_product')
+            $getdetailitem = DB::table('vw_master_product')
                               ->select('*')
                               ->where('idqad','=',$request->jenisbarang[$key])
                               ->first();                
@@ -72,7 +72,7 @@ class MappingController extends Controller
           }
 
           foreach ($request->kodeitem as $key => $value) { // looping sebanyak kode item
-            $getdetailitem = DB::table('master_product')
+            $getdetailitem = DB::table('vw_master_product')
                               ->select('*')
                               ->where('idqad','=',$request->kodeitem[$key])
                               ->first();                
@@ -299,8 +299,9 @@ class MappingController extends Controller
                      ->orderBy('dtfrom','asc')
                      ->get();
 
-       $getproduct = DB::table('master_product')
+       $getproduct = DB::table('vw_master_product')
                     ->select('*')
+                    ->where('groups','=','ICT')
                     ->orderBy('nmprod','ASC')
                     ->get();
 
