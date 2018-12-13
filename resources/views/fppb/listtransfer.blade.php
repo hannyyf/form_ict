@@ -19,8 +19,10 @@
     };
 
     $(document).ready(function(){
-        $('#table-data').DataTable();
-        console.log( $('#table-data').DataTable());
+        var data = {!! json_encode($datas) !!};
+        if(data.length > 0) {
+            $('#table-data').DataTable();
+        }
     });
 </script>
 
