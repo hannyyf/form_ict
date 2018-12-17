@@ -170,6 +170,21 @@
                          @endforeach
                     </table>
                 </div>
+
+                <div class="control-group">
+                    @if($header->lampiran == null)
+                    <div class="controls pull-left" style="margin: 10px" >
+                        <label for="file">Lampiran</label>
+                        <input type="file" name="filename" id="file" value="">
+                    </div>
+                    @else
+                    <div class="controls pull-left" style="margin: 10px" >
+                        <label for="file">Lampiran</label>
+                        <a href="/uploads/{{ $header->lampiran }}"> {{$header->lampiran}} </a>
+                    </div>
+                    @endif
+                </div>
+            
                 <div class="form-actions">
                   <button type="submit" class="btn btn-sm btn-primary" name="action" id="btnsubmit" value="approve" disabled>Submit Review</button>
                 </div>

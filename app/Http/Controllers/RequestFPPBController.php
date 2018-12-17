@@ -90,7 +90,6 @@ class RequestFPPBController extends Controller
         // cek data user login
         $username = Auth::user()->username;
         $dtthru = '2079-06-06 23:59:00'; // nilai maksimum untuk type smalldatetime
-
         switch ($request->input('action')) {
             case 'save':
                 DB::beginTransaction();
@@ -123,15 +122,39 @@ class RequestFPPBController extends Controller
                     //format numbering                
                     $numbering = 'FPPB-'.date('mY').'-'.sprintf("%03d",$jumlah);
 
-                    //insert ke tabel trxfppbheader
-                    FPPBHeader::insert([
-                        'notrx'         => $numbering,
-                        'divcode'       => $request->divisi,
-                        'dtfppb'        => $datenow,
-                        'issend'        => 0,
-                        'kategorifppb'  => $request->kategori,
-                        'requestedby'   => $username
-                    ]);
+                    if(empty($request->file('filename')) || is_null($request->file('filename'))) {
+                        //insert ke tabel trxfppbheader
+                        FPPBHeader::insert([
+                            'notrx'         => $numbering,
+                            'divcode'       => $request->divisi,
+                            'dtfppb'        => $datenow,
+                            'issend'        => 0,
+                            'kategorifppb'  => $request->kategori,
+                            'requestedby'   => $username
+                        ]);
+
+                    } else {
+                        //upload file
+                        $file = $request->file('filename');
+                        $destinationPath='uploads';
+                        $filename = $file->getClientOriginalName();
+                        if($file->move($destinationPath,$file->getClientOriginalName())){
+                            echo "<img src='uploads/".$filename."'>";
+                        }
+
+                        //insert ke tabel trxfppbheader
+                        FPPBHeader::insert([
+                            'notrx'         => $numbering,
+                            'divcode'       => $request->divisi,
+                            'dtfppb'        => $datenow,
+                            'issend'        => 0,
+                            'kategorifppb'  => $request->kategori,
+                            'requestedby'   => $username,
+                            'lampiran'      => $filename
+                        ]);
+
+                    }
+                    
 
                     foreach ($request->no as $key => $no) {
                         $qty = intval(str_replace(',','',$request->qty[$key]));
@@ -188,15 +211,39 @@ class RequestFPPBController extends Controller
                     //format numbering                
                     $numbering = 'FPPB-'.date('mY').'-'.sprintf("%03d",$jumlah);
 
-                    //insert ke tabel trxfppbheader
-                    FPPBHeader::insert([
-                        'notrx'         => $numbering,
-                        'divcode'       => $request->divisi,
-                        'dtfppb'        => $datenow,
-                        'issend'        => 1,
-                        'kategorifppb'  => $request->kategori,
-                        'requestedby'   => $username
-                    ]);
+                    if(empty($request->file('filename')) || is_null($request->file('filename'))) {
+                        //insert ke tabel trxfppbheader
+                        FPPBHeader::insert([
+                            'notrx'         => $numbering,
+                            'divcode'       => $request->divisi,
+                            'dtfppb'        => $datenow,
+                            'issend'        => 1,
+                            'kategorifppb'  => $request->kategori,
+                            'requestedby'   => $username
+                        ]);
+
+                    } else {
+                        //upload file
+                        $file = $request->file('filename');
+                        $destinationPath='uploads';
+                        $filename = $file->getClientOriginalName();
+                        if($file->move($destinationPath,$file->getClientOriginalName())){
+                            echo "<img src='uploads/".$filename."'>";
+                        }
+
+                        //insert ke tabel trxfppbheader
+                        FPPBHeader::insert([
+                            'notrx'         => $numbering,
+                            'divcode'       => $request->divisi,
+                            'dtfppb'        => $datenow,
+                            'issend'        => 1,
+                            'kategorifppb'  => $request->kategori,
+                            'requestedby'   => $username,
+                            'lampiran'      => $filename
+                        ]);
+
+                    }
+                    
 
                     foreach ($request->no as $key => $no) {
                         $qty = intval(str_replace(',','',$request->qty[$key]));
@@ -332,12 +379,32 @@ class RequestFPPBController extends Controller
             case 'update':
             DB::beginTransaction();
             try {
-                // update dtmodified tabel fppb header
-                DB::table('tr_fppb_header')
-                    ->where('notrx','=',$request->nofppb)
-                    ->update([
-                        'dtmodified'    => $datenow
-                    ]);
+                
+                if(empty($request->file('filename')) || is_null($request->file('filename'))) {
+                    // update dtmodified tabel fppb header
+                    DB::table('tr_fppb_header')
+                        ->where('notrx','=',$request->nofppb)
+                        ->update([
+                            'dtmodified'    => $datenow
+                        ]);
+                } else {
+                    //upload file
+                    $file = $request->file('filename');
+                    $destinationPath='uploads';
+                    $filename = $file->getClientOriginalName();
+                    if($file->move($destinationPath,$file->getClientOriginalName())){
+                        echo "<img src='uploads/".$filename."'>";
+                    }
+
+                    // update dtmodified tabel fppb header
+                    DB::table('tr_fppb_header')
+                        ->where('notrx','=',$request->nofppb)
+                        ->update([
+                            'dtmodified'    => $datenow,
+                            'lampiran'      => $filename
+                        ]);
+                }
+
 
                 foreach ($request->no as $key => $value) {
                 $seqid = $request->no[$key];
@@ -391,6 +458,7 @@ class RequestFPPBController extends Controller
                 DB::beginTransaction();
                 try {
 
+                if(empty($request->file('filename')) || is_null($request->file('filename'))) {
                     // update tabel fppb header
                     DB::table('tr_fppb_header')
                         ->where('notrx','=',$request->nofppb)
@@ -398,6 +466,24 @@ class RequestFPPBController extends Controller
                             'issend'        => 1,
                             'dtmodified'    => $datenow
                         ]);
+                } else {
+                    //upload file
+                    $file = $request->file('filename');
+                    $destinationPath='uploads';
+                    $filename = $file->getClientOriginalName();
+                    if($file->move($destinationPath,$file->getClientOriginalName())){
+                        echo "<img src='uploads/".$filename."'>";
+                    }
+
+                    // update dtmodified tabel fppb header
+                    DB::table('tr_fppb_header')
+                        ->where('notrx','=',$request->nofppb)
+                        ->update([
+                            'issend'        => 1,
+                            'dtmodified'    => $datenow,
+                            'lampiran'      => $filename
+                        ]);
+                }
                     
                     foreach ($request->no as $key => $no) {
                     $seqid = $request->no[$key];

@@ -93,7 +93,7 @@
 
 <div class="container-fluid">
     <div class="row-fluid">
-        <form action="{{ url('/update') }}" method="post" class="form-horizontal"> 
+        <form action="{{ url('/update') }}" method="post" class="form-horizontal" enctype="multipart/form-data"> 
                 {{ csrf_field() }}
         <div class="span12">
         <div class="control-group">
@@ -192,6 +192,20 @@
                 </tbody>
                  @endforeach
                 </table>
+            </div>
+
+            <div class="control-group">
+                @if($header->lampiran == null)
+                <div class="controls pull-left" style="margin: 10px" >
+                    <label for="file">Lampiran</label>
+                    <input type="file" name="filename" id="file" value="">
+                </div>
+                @else
+                <div class="controls pull-left" style="margin: 10px" >
+                    <label for="file">Lampiran</label>
+                    <a href="/uploads/{{ $header->lampiran }}"> {{$header->lampiran}} </a>
+                </div>
+                @endif
             </div>
                 <div class="form-actions">
                   <button type="submit" class="btn btn-md btn-primary" name="action" value="update">Update</button>
