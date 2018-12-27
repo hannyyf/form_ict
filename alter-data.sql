@@ -1047,3 +1047,12 @@ SELECT        id, kdprod, nmprod, satuan, [groups], idqad, id_DTU
 FROM            dbMaster.dbo.qad_product
 
 GO
+
+ALTER VIEW [dbo].[vw_transaksi] AS
+select a.divcode, a.dtfppb, a.noteict, a.issend, a.dtmodified, a.lampiran, b.*, c.*, d.*, e.prnumber
+from dbFormICT.dbo.tr_fppb_header a
+JOIN dbFormICT.dbo.tr_fppb_detail b ON a.notrx = b.notrx
+JOIN dbMasterControl.dbo.master_division c on a.divcode = c.div_id_bias
+JOIN dbFormICT.dbo.masterkategori d on a.kategorifppb = d.idkategori
+LEFT JOIN generate_pr e on (b.notrx = e.notrx and b.seqid = e.seqid)
+where c.div_id like'djabesmen%'

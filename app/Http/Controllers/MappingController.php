@@ -85,7 +85,8 @@ class MappingController extends Controller
                   'seqid'     => $request->linekodeitem[$key],
                   'tglpr'     => $dtnow,
                   'kodeitem'  => $request->kodeitem[$key],
-                  'satuan'    => $satuanitem
+                  'satuan'    => $satuanitem,
+                  'sitecode'  => $request->site
                 ]);
           }
 
@@ -141,6 +142,9 @@ class MappingController extends Controller
           $noteict    = $header->noteict;
           $notedir    = $header->notedir;
           $sitecode   = $kategori->sitecode;
+          $site       = $request->site;
+          $arrsite    = explode("-", $site);
+          $domain     = $arrsite[0];
           $emailict   = $kategori->email; // email ict first layer
           $emailopr   = 'ictopr@djabesmen.co.id'; // email ict opr global
 
@@ -149,6 +153,8 @@ class MappingController extends Controller
                         ->where('notrx','=',$nofppb)
                         ->get();
           $arr = array();
+
+          // buat membatasi karakter di comment karena perbaris maksimal 76 karekter
           foreach ($getdetail as $detail) {   
               $length = strlen($detail->notemanfaat);
               $notes  = $detail->notemanfaat; 
@@ -176,24 +182,17 @@ class MappingController extends Controller
 
           // $url    = 'http://qaddjm2016:8080/qxilive/services/QdocWebService';
           $url    = 'http://qaddjm2016:8080/qxisim/services/QdocWebService';
-          $getxml = $this->xml($nofppb,$dtnow,$noteict,$notedir,$sitecode,$getdetail,$arr);
+          $getxml = $this->xml($nofppb,$dtnow,$noteict,$notedir,$sitecode,$getdetail,$arr,$site,$domain);
           
           $send = $this->sendInBound($url,$getxml, $nofppb);
           Storage::disk('local')->put($nofppb.'.xml', $getxml); //simpan file xml ke storage
           
          // cek requester
-         $getrequester = DB::table('tr_fppb_header')
-                  ->select('*')
-                  ->where('notrx','=',$request->nofppb)
-                  ->first();
-          $requester = $getrequester->requestedby;
-
-          // cek email user dari master employee
-          $getemail = DB::table('vw_master_employee')
-                  ->select('*')
-                  ->where('employee_id_bias','=',$requester)
-                  ->first();
-          $emailrequester = $getemail->employee_email;
+         $getrequester = DB::table('vw_header')
+                          ->select('*')
+                          ->where('notrx','=',$request->nofppb)
+                          ->first();
+          $emailrequester = $getrequester->employee_email;
 
           // case jika email di dbmastercontroll kosong ambil dari tabel user
           if(empty($emailrequester) || is_null($emailrequester)) {
@@ -224,7 +223,7 @@ class MappingController extends Controller
                 $message->from('info@djabesmen.net', 'Info');
                 $message->to($emailrequester);
                 // $message->cc($emailict, $emailopr);
-                $message->cc($emailict, 'theblues.purple@gmail.com');
+                $message->cc([$emailict, 'tes.notifemail@gmail.com']);
             });
 
               return redirect()->route('mappingict.index')->with('alert-success','Data FPPB dengan nomor '.$request->nofppb.' Berhasil di Update ');
@@ -301,7 +300,7 @@ class MappingController extends Controller
 
        $getproduct = DB::table('vw_master_product')
                     ->select('*')
-                    ->where('groups','=','ICT')
+                    ->where('group','=','ICT')
                     ->orderBy('nmprod','ASC')
                     ->get();
 
@@ -318,7 +317,7 @@ class MappingController extends Controller
                                     ]);
     }
 
-    public function xml($nofppb,$datenow,$noteict,$notedir,$sitecode, $getdetail, $arr) {
+    public function xml($nofppb,$datenow,$noteict,$notedir,$sitecode, $getdetail, $arr,$site,$domain) {
         $xml = '
               <soapenv:Envelope xmlns="urn:schemas-qad-com:xml-services"
                 xmlns:qcom="urn:schemas-qad-com:xml-services:common"
@@ -340,7 +339,7 @@ class MappingController extends Controller
                       <qcom:ttContext>
                         <qcom:propertyQualifier>QAD</qcom:propertyQualifier>
                         <qcom:propertyName>domain</qcom:propertyName>
-                        <qcom:propertyValue>DJM</qcom:propertyValue>
+                        <qcom:propertyValue>'.$domain.'</qcom:propertyValue>
                       </qcom:ttContext>
                       <qcom:ttContext>
                         <qcom:propertyQualifier>QAD</qcom:propertyQualifier>
@@ -381,15 +380,15 @@ class MappingController extends Controller
                     <dsRequisition>
                       <requisition>
                         <operation>A</operation>
-                        <rqmShip>DJM-AC</rqmShip>
+                        <rqmShip>'.$site.'</rqmShip>
                         <rqmReqDate>'.$datenow.'</rqmReqDate>
                         <rqmNeedDate>'.$datenow.'</rqmNeedDate>
                         <rqmRqbyUserid>bta</rqmRqbyUserid>
                         <rqmEndUserid>ASA</rqmEndUserid>
                         <rqmRmks>'.$nofppb.'</rqmRmks>
                         <rqmCc>3601</rqmCc>
-                        <rqmSite>djm-ac</rqmSite>
-                        <rqmEntity>DJM</rqmEntity>
+                        <rqmSite>'.$site.'</rqmSite>
+                        <rqmEntity>'.$domain.'</rqmEntity>
                         <rqmProject>NOPRJECT</rqmProject>
                         <rqmCurr>idr</rqmCurr>
                         <rqmDirect>false</rqmDirect>
@@ -431,7 +430,7 @@ class MappingController extends Controller
                           <operation>A</operation>
                           <line>'.$no++.'</line>
                           <lYn>true</lYn>
-                          <rqdSite>DJM-AC</rqdSite>
+                          <rqdSite>'.trim($detail->sitecode).'</rqdSite>
                           <rqdPart>'.$detail->kodeitem.'</rqdPart>
                           <rqdReqQty>'.$detail->qty.'</rqdReqQty>
                           <rqdUm>'.trim($detail->satuan).'</rqdUm>

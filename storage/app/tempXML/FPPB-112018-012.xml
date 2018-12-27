@@ -7,7 +7,7 @@
                   <wsa:To>urn:services-qad-com:simulasi</wsa:To>
                   <wsa:MessageID>urn:services-qad-com::simulasi</wsa:MessageID>
                   <wsa:ReferenceParameters>
-                    <qcom:suppressResponseDetail>true</qcom:suppressResponseDetail>
+                    <qcom:suppressResponseDetail>false</qcom:suppressResponseDetail>
                   </wsa:ReferenceParameters>
                   <wsa:ReplyTo>
                     <wsa:Address>urn:services-qad-com:</wsa:Address>
@@ -61,11 +61,12 @@
                       <requisition>
                         <operation>A</operation>
                         <rqmShip>DJM-AC</rqmShip>
-                        <rqmReqDate>2018-11-21</rqmReqDate>
-                        <rqmNeedDate>2018-11-21</rqmNeedDate>
+                        <rqmReqDate>2018-12-06</rqmReqDate>
+                        <rqmNeedDate>2018-12-06</rqmNeedDate>
                         <rqmRqbyUserid>bta</rqmRqbyUserid>
-                        <rqmEndUserid>FJU</rqmEndUserid>
+                        <rqmEndUserid>ASA</rqmEndUserid>
                         <rqmRmks>FPPB-112018-012</rqmRmks>
+                        <rqmCc>3601</rqmCc>
                         <rqmSite>djm-ac</rqmSite>
                         <rqmEntity>DJM</rqmEntity>
                         <rqmProject>NOPRJECT</rqmProject>
@@ -83,6 +84,9 @@
                         <requisitionTransComment>
                           <operation>A</operation>
                           <cmtSeq>1</cmtSeq>
+                          <cmtCmmt>SP/FPPB-112018-012</cmtCmmt>
+                          <cmtCmmt></cmtCmmt>
+                          <cmtCmmt></cmtCmmt>
                           <cmtCmmt></cmtCmmt>
                           <prtOnQuote>false</prtOnQuote>
                           <prtOnSo>false</prtOnSo>
@@ -101,25 +105,26 @@
                           <prtOnIntern>false</prtOnIntern>
                         </requisitionTransComment><lineDetail>
                           <operation>A</operation>
-                          <line></line>
+                          <line>1</line>
                           <lYn>true</lYn>
                           <rqdSite>DJM-AC</rqdSite>
-                          <rqdPart>3111002102</rqdPart>
+                          <rqdPart>3111004006</rqdPart>
                           <rqdReqQty>1</rqdReqQty>
-                          <rqdUm>PC</rqdUm>
-                          <rqdPurCost>500000</rqdPurCost>
+                          <rqdUm>UN</rqdUm>
+                          <rqdPurCost>4000000</rqdPurCost>
                           <rqdNeedDate>2018-11-23</rqdNeedDate>
-                          <rqdAcct></rqdAcct>
                           <rqdProject>NOPRJECT</rqdProject>
-                          <desc1>KEYBOARD LAPTOP</desc1>
+                          <desc1>	BATTERY LAPTOP HP 2230S	</desc1>
                           <rqdLotRcpt>false</rqdLotRcpt>
                           <rqdUmConv>1</rqdUmConv>
-                          <rqdMaxCost>500000</rqdMaxCost>
+                          <rqdMaxCost>4000000</rqdMaxCost>
                           <lineCmmts>true</lineCmmts>
                             <lineDetailTransComment>
                               <operation>A</operation>
                               <cmtSeq>1</cmtSeq>
-                              <cmtCmmt>keyboard laptopnya rusak</cmtCmmt>
+                              <cmtCmmt>SP/FPPB-112018-012</cmtCmmt>
+                              <cmtCmmt> </cmtCmmt>
+                              <cmtCmmt>testttttt</cmtCmmt>
                               <prtOnQuote>true</prtOnQuote>
                               <prtOnSo>false</prtOnSo>
                               <prtOnInvoice>false</prtOnInvoice>
@@ -138,25 +143,26 @@
                             </lineDetailTransComment>
                         </lineDetail><lineDetail>
                           <operation>A</operation>
-                          <line></line>
+                          <line>2</line>
                           <lYn>true</lYn>
                           <rqdSite>DJM-AC</rqdSite>
-                          <rqdPart>3101003001</rqdPart>
-                          <rqdReqQty>1</rqdReqQty>
+                          <rqdPart>3101007101</rqdPart>
+                          <rqdReqQty>2</rqdReqQty>
                           <rqdUm>UN</rqdUm>
-                          <rqdPurCost>8000000</rqdPurCost>
-                          <rqdNeedDate>2018-11-22</rqdNeedDate>
-                          <rqdAcct></rqdAcct>
+                          <rqdPurCost>4000000</rqdPurCost>
+                          <rqdNeedDate>2018-11-30</rqdNeedDate>
                           <rqdProject>NOPRJECT</rqdProject>
-                          <desc1>LAPTOP HP COMPAQ 2230S 9AV</desc1>
+                          <desc1>	CPU ADMIN (SPEC.TERLAMPIR)	</desc1>
                           <rqdLotRcpt>false</rqdLotRcpt>
                           <rqdUmConv>1</rqdUmConv>
-                          <rqdMaxCost>8000000</rqdMaxCost>
+                          <rqdMaxCost>4000000</rqdMaxCost>
                           <lineCmmts>true</lineCmmts>
                             <lineDetailTransComment>
                               <operation>A</operation>
                               <cmtSeq>1</cmtSeq>
-                              <cmtCmmt>buat keperluan sysdev baru</cmtCmmt>
+                              <cmtCmmt>SP/FPPB-112018-012</cmtCmmt>
+                              <cmtCmmt> </cmtCmmt>
+                              <cmtCmmt>etest antena array sectoral</cmtCmmt>
                               <prtOnQuote>true</prtOnQuote>
                               <prtOnSo>false</prtOnSo>
                               <prtOnInvoice>false</prtOnInvoice>

@@ -13,17 +13,26 @@ class ReportMonitoringController extends Controller
     public function index()
     {
         $username = Auth::user()->username;
+		$role = Auth::user()->jabatan;
         $getdiv = DB::table('vw_profile_karyawan')
                         ->select('*')
                         ->where('employee_id_bias','=',$username)
                         ->first();
         $divuser = $getdiv->div_id_bias;
-
-        $datas  = DB::table('vw_listreport')
+		
+		if ($role == 'ict') {
+			$datas  = DB::table('vw_listreport')
+                    ->select('*')
+                    ->orderBy('notrx','asc')
+                    ->get();
+		} else {
+			$datas  = DB::table('vw_listreport')
                     ->select('*')
                     ->where('divcode','=',$divuser)
                     ->orderBy('notrx','asc')
                     ->get();
+		}
+        
 
         return view('fppb.listreport',['datas' => $datas]);
     }

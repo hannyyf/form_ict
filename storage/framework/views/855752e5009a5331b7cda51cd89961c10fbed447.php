@@ -286,7 +286,7 @@
                                                             <td style="text-align: center;"><?php echo e($data->qty); ?></td>
                                                             <td style="text-align: center;"><?php echo e($data->satuan); ?></td>
                                                             <td style="text-align: center;"><?php echo e($data->tglpakai); ?></td>
-                                                            <td style="text-align: center;"><?php echo e($data->notemanfaat); ?></td>
+                                                            <td style="text-align: left;"><?php echo e($data->notemanfaat); ?></td>
                                                     </tbody>
                                                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                 </table>

@@ -12,13 +12,14 @@
             '<tr>' +
                 '<td style="width: 3%"><input class="span11" type="text" name="no[]" style="width:100%;" value="'+i+'" required></td>' + 
                 '<td style="width: 25%">' +
-                '<select class="form-control jenisbarangc" name="jenisbarang[]" id="jenisbarang'+i+'" style="width: 100%" required>' +
-                    '<option value="">Pilih Product</option>' +
-                '<?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>' +
-                    '<option value="<?php echo e($product->idqad); ?>"><?php echo e($product->nmprod); ?> - <?php echo e($product->idqad); ?></option>' +
-                '<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>' +
-                    '<option value="other">Other</option>' +
-                '</select>' +
+                '<input class="span11" type="text" name="jenisbarang[]" id="jenisbarang" style="width:100%;"  required>' +
+                // '<select class="form-control jenisbarangc" name="jenisbarang[]" id="jenisbarang'+i+'" style="width: 100%" required>' +
+                //     '<option value="">Pilih Product</option>' +
+                // '<?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>' +
+                //     '<option value="<?php echo e($product->idqad); ?>"><?php echo e($product->nmprod); ?> - <?php echo e($product->idqad); ?></option>' +
+                // '<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>' +
+                //     '<option value="other">Other</option>' +
+                // '</select>' +
                 '<div style="margin-top: 5px">' +
                     '<input class="span11" type="text" name="product[]" id="product'+i+'" style="display: none; width:350px;">' +
                      '<input type="text" class="span11" name="kodeitem[]" id="kodeitem'+i+'" style="display: none;">' +
@@ -26,9 +27,15 @@
                 '</td>' +
                 '<td style="width: 5%"><input class="span11" type="text" name="qty[]" style="width:80%;" required></td>' +
                 '<td style="width: 4%">' +
-                        '<select class="form-control" name="satuan[]" id="satuan'+i+'" style="width: 100%" required>' +
-                            '<option value="">Pilih Satuan</option>' +
-                        '</select>' +
+                        // '<select class="form-control" name="satuan[]" id="satuan'+i+'" style="width: 100%" required>' +
+                        //     '<option value="">Pilih Satuan</option>' +
+                        // '</select>' +
+                        '<select class="form-control span11" name="satuan[]" id="satuan1" style="width:100%" required>' +
+                        '<option value="">Pilih Satuan</option>'+
+                        '<?php $__currentLoopData = $getuom; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $uom): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>'+
+                        '<option value="<?php echo e($uom->iduom); ?>"><?php echo e($uom->iduom); ?> - <?php echo e($uom->keterangan); ?></option>'+
+                        '<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>'+
+                    '</select>'+      
                 '</td>' +
                 '<td style="width: 5%"><input class="span11" type="date" name="tanggalpakai[]" required></td>' +
                 '<td style="width: 20%"><textarea class="span11" type="text" name="keterangan[]" rows="5" cols="40" required></textarea></td>' +
@@ -85,7 +92,7 @@
 
 <div class="container-fluid">
     <div class="row-fluid">
-        <form action="<?php echo e(url('/update')); ?>" method="post" class="form-horizontal"> 
+        <form action="<?php echo e(url('/update')); ?>" method="post" class="form-horizontal" enctype="multipart/form-data"> 
                 <?php echo e(csrf_field()); ?>
 
         <div class="span12">
@@ -153,8 +160,9 @@
                             <input class="span11" type="text" name="no[]" id="no" style="width:100%;" value="<?php echo e($data->seqid); ?>" required>
                         </td >
                         <td style="width: 25%">
-                             <select class="form-control jenisbarangc" name="jenisbarang[]" id="jenisbarang<?php echo e($data->seqid); ?>" style="width: 100%" required>
-                                <option value="<?php echo e($data->kodeitem); ?>"><?php echo e($data->jenisbarang); ?></option>
+                            <input class="span11" type="text" name="jenisbarang[]" id="jenisbarang" style="width:100%;" value = "<?php echo e($data->jenisbarang); ?>" required>
+                            <!--  <select class="form-control jenisbarangc" name="jenisbarang[]" id="jenisbarang<?php echo e($data->seqid); ?>" style="width: 100%" required>
+                                <option value="<?php echo e($data->kodeitem); ?>">C</option>
                                 <option disabled="true">Choose One</option>
                                 <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <option value="<?php echo e($product->idqad); ?>"><?php echo e($product->nmprod); ?> - <?php echo e($product->idqad); ?></option>
@@ -164,7 +172,7 @@
                             <div style="margin-top: 5px">
                                 <input type="text" name="product[]" id="product<?php echo e($data->seqid); ?>" style="display: none; width:100%" value="<?php echo e($data->jenisbarang); ?>">
                                 <input type="text" class="span11" name="kodeitem[]" id="kodeitem<?php echo e($data->seqid); ?>" style="display: none;">
-                            </div>
+                            </div> -->
                         </td>
                         <td style="width: 5%">
                             <input class="span11" type="text" name="qty[]" id="qty" style="width:80%;" value="<?php echo e($data->qty); ?>" required>
@@ -172,6 +180,10 @@
                         <td style="width: 4%">
                              <select class="form-control " name="satuan[]" id="satuan<?php echo e($data->seqid); ?>" style="width: 100%" required>
                                 <option value="<?php echo e($data->satuan); ?>"><?php echo e($data->satuan); ?></option>
+                                <option disabled="true">Pilih Satuan</option>
+                                <?php $__currentLoopData = $getuom; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $uom): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($uom->iduom); ?>"><?php echo e($uom->iduom); ?> - <?php echo e($uom->keterangan); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </td>
                         <td style="width: 3%">
@@ -184,6 +196,20 @@
                 </tbody>
                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </table>
+            </div>
+
+            <div class="control-group">
+                <?php if($header->lampiran == null): ?>
+                <div class="controls pull-left" style="margin: 10px" >
+                    <label for="file">Lampiran</label>
+                    <input type="file" name="filename" id="file" value="">
+                </div>
+                <?php else: ?>
+                <div class="controls pull-left" style="margin: 10px" >
+                    <label for="file">Lampiran</label>
+                    <a href="/uploads/<?php echo e($header->lampiran); ?>"> <?php echo e($header->lampiran); ?> </a>
+                </div>
+                <?php endif; ?>
             </div>
                 <div class="form-actions">
                   <button type="submit" class="btn btn-md btn-primary" name="action" value="update">Update</button>

@@ -43,15 +43,15 @@
             display: block;
             Margin: 0 auto !important;
             /* makes it centered */
-            max-width: 900px;
+            max-width: 950px;
             padding: 10px;
-            width: 580px; }
+            width: 900px; }
         /* This should also be a block element, so that it will fill 100% of the .container */
         .content {
             box-sizing: border-box;
             display: block;
             Margin: 0 auto;
-            max-width: 900px;
+            max-width: 950px;
             padding: 5px; }
         /* -------------------------------------
             HEADER, FOOTER, MAIN
@@ -62,7 +62,7 @@
             width: 100%; }
         .wrapper {
             box-sizing: border-box;
-            padding: 20px; }
+            padding: 10px; }
         .content-block {
             padding-bottom: 10px;
             padding-top: 10px;
@@ -286,7 +286,7 @@
                                                             <td style="text-align: center;"><?php echo e($data->qty); ?></td>
                                                             <td style="text-align: center;"><?php echo e($data->satuan); ?></td>
                                                             <td style="text-align: center;"><?php echo e($data->tglpakai); ?></td>
-                                                            <td style="text-align: center;"><?php echo e($data->notemanfaat); ?></td>
+                                                            <td style="text-align: left;"><?php echo e($data->notemanfaat); ?></td>
                                                     </tbody>
                                                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                 </table>

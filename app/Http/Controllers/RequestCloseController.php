@@ -85,19 +85,11 @@ class RequestCloseController extends Controller
                      ->get();
 
          // cek requester
-        $getrequester = DB::table('approvalstatus')
+        $getrequester = DB::table('vw_header')
                         ->select('*')
                         ->where('notrx','=',$request->nofppb)
-                        ->where('approvaltype','=',1)
                         ->first();
-        $requester = $getrequester->nik;
-
-        // cek email user dari master employee
-        $getemail = DB::table('vw_master_employee')
-                    ->select('*')
-                    ->where('employee_id_bias','=',$requester)
-                    ->first();
-        $emailrequester = $getemail->employee_email;
+        $emailrequester = $getrequester->employee_email;
 
         // case jika email di dbmastercontroll kosong ambil dari tabel user
           if(empty($emailrequester) || is_null($emailrequester)) {

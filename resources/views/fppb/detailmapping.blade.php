@@ -255,6 +255,17 @@ $.jMaskGlobals.watchDataMask = true;
                 </div>
 
                 <div class="control-group">
+                    <label class="control-label" style="text-align: left">Site :</label>
+                    <div class="controls">
+                        <select class="form-control " name="site" id="site" required>
+                            <option value="">Pilih Site</option>
+                            <option value="DJM-AC">DJM-AC</option>
+                            <option value="RBU-RB">RBU-RB</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group">
                     @if($header->lampiran == null)
                     <div class="controls pull-left" style="margin: 10px" >
                         <label for="file">Lampiran</label>

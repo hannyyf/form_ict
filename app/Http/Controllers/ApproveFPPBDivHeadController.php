@@ -152,18 +152,11 @@ class ApproveFPPBDivHeadController extends Controller
                     ]);
 
                      // cek requester
-                    $getrequester = DB::table('tr_fppb_header')
+                    $getrequester = DB::table('vw_header')
                                     ->select('*')
                                     ->where('notrx','=',$request->nofppb)
                                     ->first();
-                    $requester = $getrequester->requestedby;
-
-                    // cek email user dari master employee
-                    $getemail = DB::table('vw_master_employee')
-                                ->select('*')
-                                ->where('employee_id_bias','=',$requester)
-                                ->first();
-                    $emailrequester = $getemail->employee_email;
+                    $emailrequester = $getrequester->employee_email;
 
                     // case jika email di dbmastercontroll kosong ambil dari tabel user
                     if(empty($emailrequester) || is_null($emailrequester)) {

@@ -277,7 +277,7 @@
                                                         <th width="180px">Tanggal Pakai</th>
                                                         <th width="300px">Keterangan / Jenis Manfaat</th>
                                                         <th width="300px">Perkiraan Budget</th>
-                                                        <th width="300px">Kode Item</th>
+                                                      
                                                     </tr>
                                                     </thead>
                                                     <?php $__currentLoopData = $datafetch; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -288,9 +288,9 @@
                                                             <td style="text-align: center;"><?php echo e($data->qty); ?></td>
                                                             <td style="text-align: center;"><?php echo e($data->satuan); ?></td>
                                                             <td style="text-align: center;"><?php echo e($data->tglpakai); ?></td>
-                                                            <td style="text-align: center;"><?php echo e($data->notemanfaat); ?></td>
+                                                            <td style="text-align: left;"><?php echo e($data->notemanfaat); ?></td>
                                                             <td style="text-align: center;"><?php echo e($data->perkiraanbudget); ?></td>
-                                                            <td style="text-align: center;"><?php echo e($data->kodeitem); ?></td>
+                                                           
                                                         </tr>
                                                     </tbody>
                                                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

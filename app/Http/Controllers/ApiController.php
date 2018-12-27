@@ -16,7 +16,6 @@ class ApiController extends Controller
         $pass = $request->input('pass');
 
         $seluser = DB::select("SELECT * from users where username = '".$user."'");
-
         // return response()->json([$seluser]);
           $data = array();
         foreach ($seluser as $seluser) {
@@ -27,13 +26,11 @@ class ApiController extends Controller
         $val = '123456';
           // return $val;
 
-          $url = 'localhost:8000/login';
-      //$myvars = 'username='.$seluser->username.'&password='.$seluser->password;
-      $myvars = array('username' => $seluser->username, 'g_pass' => $val);
-
+          $url = 'http://ips.djabesmen.net/login';
+      $myvars = array('username' => $seluser->username, 'password' => $val);
       $_SESSION['portal'] = 'yes';
       echo'
-        <form style="display : none;" id="loginform" method="POST" action="http://localhost:8000/login">
+        <form style="display : none;" id="loginform" method="POST" action="http://ips.djabesmen.net/login">
         <input type="hidden" name="_token" value="ec5tcXtejW0ayMvHrIRePwLBrtxbemWPJ7EQM4OJVTeRn3BnQ6nUyx3CZdzt">
         <input type="text" name="identity" value="'.$user.'">  
         <input type="text" name="password" value="'.$val.'">  

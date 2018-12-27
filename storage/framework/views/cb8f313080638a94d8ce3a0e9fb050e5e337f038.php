@@ -36,7 +36,7 @@
                 <div class="controls">
                     <?php echo $header->div_nama; ?>
 
-                    <input type="text" name="divisi" id="divisi" readonly = "readonly" style="display:none;" value="<?php echo $header->div_nama; ?>"/>
+                    <input type="text" name="divisi" id="divisi" value="<?php echo $header->div_nama; ?>" style="display:none;" />
                 </div>
             </div>
 
@@ -63,7 +63,7 @@
                 <div class="controls">
                     <?php echo $header->deskripsi; ?>
 
-                    <input type="text" name="kategori" id="kategori" readonly = "readonly" style="display:none;" value="<?php echo $header->deskripsi; ?>"/>
+                    <input type="text" name="kategori" id="kategori"  value="<?php echo $header->deskripsi; ?>" style="display:none;" />
                 </div>
             </div>
              <div class="widget-box">

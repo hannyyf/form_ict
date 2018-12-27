@@ -214,20 +214,13 @@ class ApproveFPPBDirector extends Controller
                 }
         
                     // cek requester
-                    $getrequester = DB::table('tr_fppb_header')
+                    $getrequester = DB::table('vw_header')
                                     ->select('*')
                                     ->where('notrx','=',$request->nofppb)
                                     ->first();
-                    $requester = $getrequester->requestedby;
+                    $emailrequester = $getrequester->employee_email;
 
-                    // cek email user dari master employee
-                    $getemail = DB::table('vw_master_employee')
-                                ->select('*')
-                                ->where('employee_id_bias','=',$requester)
-                                ->first();
-                    $emailrequester = $getemail->employee_email;
-
-                    // case jika email di dbmastercontroll kosong ambil dari tabel user
+                     // case jika email di dbmastercontroll kosong ambil dari tabel user
                     if(empty($emailrequester) || is_null($emailrequester)) {
                         $user = DB::table('users')
                                 ->select('*')
@@ -236,36 +229,23 @@ class ApproveFPPBDirector extends Controller
                         $emailrequester = $user->email;
                     }
 
-                    // cek data appraiser dari master employee
+                    // cek data appraiser dari master_employee
                     $getappraiser = DB::table('vw_master_employee')
                                     ->select('*')
                                     ->where('employee_id_bias','=',$username)
                                     ->first();
                     $appraiser = $getappraiser->employee_name;
 
-                    // cek data div head
-                    $getdivhead = DB::table('approvalstatus')
-                                    ->select('*')
-                                    ->where('notrx','=',$request->nofppb)
-                                    ->where('approvaltype','=',2)
-                                    ->where('statustype','=','Approve')
-                                    ->first();
-                    $divhead = $getdivhead->nik;
-                    
-                    // cek email div head
-                    $getemaildivhead = DB::table('vw_master_employee')
-                                        ->select('*')
-                                        ->where('employee_id_bias','=',$divhead)
-                                        ->first();
-                    $emaildivhead = $getemaildivhead->employee_email;
-
-                    // case jika email di dbmastercontroll kosong ambil dari tabel user
-                    if(empty($emaildivhead) || is_null($emaildivhead)) {
-                        $user = DB::table('users')
+                    // cek data history approver
+                    $getlog = DB::table('vw_log')
                                 ->select('*')
-                                ->where('username','=',$divhead)
-                                ->first();
-                        $emaildivhead = $user->email;
+                                ->where('notrx','=',$request->nofppb)
+                                ->where('statustype','=','Approve')
+                                ->get();
+
+                    $emails = array();
+                    foreach ($getlog as $key => $value) {
+                        array_push($emails, $getlog[$key]->employee_email);
                     }
 
                     $detail = DB::table('tr_fppb_detail')
@@ -280,11 +260,11 @@ class ApproveFPPBDirector extends Controller
                             'reason'    => $request->reason,
                             'appraiser' => $appraiser,
                             'datafetch' => $detail
-                        ], function ($message) use ($request, $emailrequester, $detail, $appraiser, $emaildivhead) {
+                        ], function ($message) use ($request, $emailrequester, $detail, $appraiser, $emails) {
                             $message->subject('Notifikasi request FPPB nomor'.$request->nofppb);
                             $message->from('info@djabesmen.net', 'Info');
                             $message->to($emailrequester);
-                            $message->cc($emaildivhead);
+                            $message->cc($emails);
                         });
                     DB::commit();
                     return redirect()->route('approvedirector.index')->with('alert-success','Data FPPB dengan nomor '.$request->nofppb.' telah di reject. Notifikasi email akan disampaikan ke requester.');

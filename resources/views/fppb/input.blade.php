@@ -15,17 +15,6 @@
                 '<td style="width: 3%"><input class="span11" type="text" name="no[]" style="width:100%;" value="'+i+'" required></td>' + 
                 '<td style="width: 25%">' +
                  '<input class="span11" type="text" name="jenisbarang[]" id="jenisbarang" style="width:100%;" required>' +
-                // '<select class="form-control jenisbarangc" name="jenisbarang[]" id="jenisbarang'+i+'" style="width:100%" required>' +
-                //  '<option value="">Pilih Product</option>'+
-                // '@foreach($products as $product)' +
-                //     '<option value="{{ $product->idqad }}">{{ $product->nmprod }} - {{ $product->idqad }}</option>' +
-                // '@endforeach' +
-                //     '<option value="other">Other</option>' +
-                // '</select>' +
-                // '<div style="margin-top: 5px">' +
-                //     '<input class="span11" type="text" name="product[]" id="product'+i+'" style="display: none; width:80%;">' +
-                //     '<input type="text" class="span11" name="kodeitem[]" id="kodeitem'+i+'" style="display: none;">' +
-                // '</div>' +
                 '</td>' +
                 '<td style="width: 5%"><input class="span11" type="text" name="qty[]" id="qty" style="width:100%;" required></td>' +
                 '<td style="width: 4%">' +
@@ -187,7 +176,13 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="form-actions">
+				<div class="control-group">
+					<div class="controls pull-left" style="margin: 10px" >
+						<label for="file">Lampiran</label>
+						<input type="file" name="filename" id="file" value="">
+					</div>
+				</div>
+				<div class="form-actions">
                   <button type="submit" class="btn btn-md btn-primary" name="action" value="save">Save</button>
                   <button type="submit" class="btn btn-md btn-primary" name="action" value="send">Send</button>
                 </div>

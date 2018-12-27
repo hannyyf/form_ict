@@ -51,6 +51,12 @@
             </li>
         </ul>
     </li>
+    <li class=""><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+    <i class="icon icon-off"></i> <span class="text">Logout</span></a>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        {{ csrf_field() }}
+    </form>
+    </li>
   </ul>
 </div>
 <!--close-top-Header-menu-->

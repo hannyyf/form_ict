@@ -18,7 +18,8 @@
     <link rel="stylesheet" href="/assets/css/jquery.gritter.css" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+    
 </head>
 
 <body>
@@ -50,6 +51,13 @@
                 </form>
             </li>
         </ul>
+    </li>
+    <li class=""><a href="<?php echo e(route('logout')); ?>" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+    <i class="icon icon-off"></i> <span class="text">Logout</span></a>
+    <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
+        <?php echo e(csrf_field()); ?>
+
+    </form>
     </li>
   </ul>
 </div>
@@ -123,8 +131,11 @@
     <li>
         <a href="<?php echo e(url('/detailrequested')); ?>" title="Approve Request Close" class="tip-right"><i class="fas fa-user-check"></i><span>Approve Request Close</span></a>
     </li>
-     <li>
+    <li>
         <a href="<?php echo e(url('/report')); ?>" title="Report Monitoring" class="tip-right"><i class="icon icon-search"></i><span>Report Monitoring</span></a>
+    </li>
+    <li>
+        <a href="<?php echo e(route('transfer.index')); ?>" title="Transfer FPPB" class="tip-right"><i class="fas fa-exchange-alt"></i><span>Transfer FPPB</span></a>
     </li>
 
     <?php elseif(Auth::user()->jabatan == 'dic'): ?>
@@ -177,7 +188,9 @@
 <script src="/assets/js/select2.min.js"></script> 
 <script src="/assets/js/matrix.popover.js"></script> 
 <script src="/assets/js/jquery.dataTables.min.js"></script> 
-<script src="/assets/js/matrix.tables.js"></script> 
+<script src="/assets/js/matrix.tables.js"></script>
+ 
+
 
 <script type="text/javascript">
   // This function is called from the pop-up menus to transfer to

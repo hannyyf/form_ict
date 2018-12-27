@@ -55,6 +55,14 @@
                 </div>
             </div>
 
+            <div class="control-group">
+                <label class="control-label" style="text-align: left">No PR</label>
+                <div class="controls">
+                    <?php echo e($datafetch[0]->prnumber); ?>
+
+                </div>
+            </div>
+
             <div class="widget-box">
                 <div class="widget-content nopadding">
                     <table class="table table-bordered table-striped with-check" id="table-list" style="width: 100%">

@@ -11,27 +11,6 @@ $.jMaskGlobals.watchDataMask = true;
                 $('#btnproses').prop('disabled', false);
             }
         });
-
-    //     function tambahItem(line) {
-    //     var rowItem = $('#tableitem' + line);
-    //     var i = $('#tableitem'+line+ ' tr').size() + 1;
-    //     row = 
-    //         '<tr>' +
-    //             '<td style="width: 90%;padding: 0px"><select class="span11" name="kodeitem[]" id="kodeitem'+line+'" required>' +
-    //             '<option value="">--Pilih Kode Item--</option>'+
-    //                 '<?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>' +
-    //                     '<option value="<?php echo e($product->idqad); ?>"><?php echo e($product->nmprod); ?> - <?php echo e($product->idqad); ?></option>' +
-    //                 '<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>' +
-    //                 '</select>' +
-    //              '<div style="margin-top: 5px">' +
-    //                 '<input type="text" class="span11" name="linekodeitem[]" id="product'+line+'" value="'+line+'" style="display:none; width:350px;">' +
-    //             '</div>' +
-    //             '</td>' +
-    //         '</tr>'
-    //     rowItem.append(row); 
-    //     i++;
-    //     return false;
-    // };
     
     $('.addbudget').on('click', function() {
         var id = this.id;
@@ -76,12 +55,47 @@ $.jMaskGlobals.watchDataMask = true;
         return false;
     })
 });
-
     $(document).ready(function($){
         $('.budget').mask('000,000,000,000', {reverse: true});
         $('.qty').mask('0,000,000', {reverse: true});
     });
+</script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+<script type="text/javascript">
+    var $j = $.noConflict(true);
+   $j(document).on('change', '.selectpicker', function (e) {
+    var id = this.id;
+    var split = id.split('jenisbarang');
+    var line = split[1];
+    var b = $j('#jenisbarang' + line).val();
+    console.log('cek id value', b);
+    if (b == 'other') {
+        $j("#product"+line+"").show();
+        $j("#kodeitem"+line+"").val('');
+        
+    } else {
+        $j("#product"+line+"").hide();
+        $j("#kodeitem"+line+"").val(b);
+    };
+
+    /*fungsi menyesuaikan uom dengan jenis yang dipilih*/
+    var select = $j('#jenisbarang' + line).attr('id');
+    var value = $j('#jenisbarang' + line).val();
+    var dependent = $j('#jenisbarang' + line).data('dependent');
+    var _token = $j('input[name="_token"]').val();
+    console.log('cek select', select);
+    $.ajax({
+        url:"<?php echo e(route('requestfppb.fetch')); ?>",
+        method:"POST",
+        data:{select:select, value:value, _token: _token, dependent:dependent},
+        success:function(result)
+        {
+            $('#satuan' +line).html(result);
+        }
+    });
+});
 </script>
 <!--breadcrumbs-->
   <div id="content-header">
@@ -158,10 +172,16 @@ $.jMaskGlobals.watchDataMask = true;
                                 
                             </td >
                             <td style="width: 20%">
-                                <?php echo e($data->jenisbarang); ?>
+                                <!-- <?php echo e($data->jenisbarang); ?>
 
-                                <input class="span11" type="text" name="jenisbarang[]" id="jenisbarang" readonly = "readonly" style="display:none;" value="<?php echo e($data->jenisbarang); ?>">
-                                
+                                <input class="span11" type="text" name="jenisbarang[]" id="jenisbarang" readonly = "readonly" style="display:none;" value="<?php echo e($data->jenisbarang); ?>"> -->
+                            <select class="form-control selectpicker" name="jenisbarang[]" id="jenisbarang<?php echo e($data->seqid); ?>" style="width: 100%" data-show-subtext="true" data-live-search="true" required>
+                                <option value="<?php echo e($data->kodeitem); ?>"><?php echo e($data->jenisbarang); ?></option>
+                                <option disabled="true">Choose One</option>
+                                <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($product->idqad); ?>"><?php echo e($product->nmprod); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>                                
                             </td>
                             <td style="width: 4%">
                                 <?php echo e($data->qty); ?>
@@ -169,10 +189,17 @@ $.jMaskGlobals.watchDataMask = true;
                                 <input class="span11" type="text" name="qty[]" id="qty" readonly = "readonly" style="display:none;" value="<?php echo e($data->qty); ?>">
                                 
                             </td>
-                            <td style="width: 3%">
-                                <?php echo e($data->satuan); ?>
+                            <td style="width: 5%">
+                               <!--  <?php echo e($data->satuan); ?>
 
-                                <input class="span11" type="text" name="satuan[]" id="satuan" readonly = "readonly" style="display:none;" value="<?php echo e($data->satuan); ?>">
+                                <input class="span11" type="text" name="satuan[]" id="satuan" readonly = "readonly" style="display:none;" value="<?php echo e($data->satuan); ?>"> -->
+                            <select class="form-control " name="satuan[]" id="satuan<?php echo e($data->seqid); ?>" style="width: 100%"  data-show-subtext="true" data-live-search="true" required>
+                                <option value="<?php echo e($data->satuan); ?>"><?php echo e($data->satuan); ?></option>
+                                <option disabled="true">Pilih Satuan</option>
+                                <?php $__currentLoopData = $getuom; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $uom): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($uom->iduom); ?>"><?php echo e($uom->iduom); ?> - <?php echo e($uom->keterangan); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>
                             </td>
                             <td style="width:8%">
                                 <?php echo e($data->tglpakai); ?>
@@ -201,11 +228,11 @@ $.jMaskGlobals.watchDataMask = true;
                                         </tr>
                                     </table>
                                     <?php else: ?>
-                                    <input class="budget span11" type="text" name="budget[]" id="budget" value="<?php echo e($data->perkiraanbudget); ?>" readonly>
+                                    <input class="budget span11" type="text" name="budget[]" id="budget" value="<?php echo e($data->perkiraanbudget); ?>">
                                     <input type="text" class="span11" name="linebudget[]" id="budgetline" value="<?php echo e($data->seqid); ?>" style="display:none; width:350px;">
                                     <?php endif; ?>                   
                             </td>
-                            <td style="width: 20%;">
+                            <td style="width: 10%;">
                                  <?php if($data->kodeitem == '' || $data->kodeitem == null): ?>
                                     <table class="itemscode" id="tableitem<?php echo e($data->seqid); ?>">
                                         <tr>
@@ -227,7 +254,7 @@ $.jMaskGlobals.watchDataMask = true;
                                         </tr>
                                     </table>
                                     <?php else: ?>
-                                    <input type="text" name="kodeitem[]" id="kodeitem" value="<?php echo e($data->kodeitem); ?>" readonly>
+                                    <input type="text" name="kodeitem[]" id="kodeitem<?php echo e($data->seqid); ?>" value="<?php echo e($data->kodeitem); ?>"readonly style="width: 90%">
                                     <input type="text" class="span11" name="linekodeitem[]" id="product" value="<?php echo e($data->seqid); ?>" style="display:none; width:350px;">
                                  <?php endif; ?>
                             </td>
@@ -235,6 +262,31 @@ $.jMaskGlobals.watchDataMask = true;
                         </tbody>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </table>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" style="text-align: left">Site :</label>
+                    <div class="controls">
+                        <select class="form-control " name="site" id="site" required>
+                            <option value="">Pilih Site</option>
+                            <option value="DJM-AC">DJM-AC</option>
+                            <option value="RBU-RB">RBU-RB</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <?php if($header->lampiran == null): ?>
+                    <div class="controls pull-left" style="margin: 10px" >
+                        <label for="file">Lampiran</label>
+                        <input type="file" name="filename" id="file" value="">
+                    </div>
+                    <?php else: ?>
+                    <div class="controls pull-left" style="margin: 10px" >
+                        <label for="file">Lampiran</label>
+                        <a href="/uploads/<?php echo e($header->lampiran); ?>"> <?php echo e($header->lampiran); ?> </a>
+                    </div>
+                    <?php endif; ?>
                 </div>
                 <div class="form-actions">
                   <button type="submit" class="btn btn-md btn-primary" name="action" id="btnproses" value="approve">Process</button>

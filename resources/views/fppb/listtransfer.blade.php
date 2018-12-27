@@ -20,6 +20,7 @@
 
     $(document).ready(function(){
         var data = {!! json_encode($datas) !!};
+		console.log(data);
         if(data.length > 0) {
             $('#table-data').DataTable();
         }

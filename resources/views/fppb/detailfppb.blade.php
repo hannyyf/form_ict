@@ -35,7 +35,7 @@
                 <label class="control-label" style="text-align: left">Dari Bagian</label>
                 <div class="controls">
                     {!! $header->div_nama !!}
-                    <input type="text" name="divisi" id="divisi" readonly = "readonly" style="display:none;" value="{!! $header->div_nama !!}"/>
+                    <input type="text" name="divisi" id="divisi" value="{!! $header->div_nama !!}" style="display:none;" />
                 </div>
             </div>
 
@@ -59,7 +59,7 @@
                 <label class="control-label" style="text-align: left">Kategori</label>
                 <div class="controls">
                     {!! $header->deskripsi !!}
-                    <input type="text" name="kategori" id="kategori" readonly = "readonly" style="display:none;" value="{!! $header->deskripsi !!}"/>
+                    <input type="text" name="kategori" id="kategori"  value="{!! $header->deskripsi !!}" style="display:none;" />
                 </div>
             </div>
              <div class="widget-box">

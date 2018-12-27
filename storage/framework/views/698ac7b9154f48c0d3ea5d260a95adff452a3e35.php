@@ -260,8 +260,8 @@
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <p>Dear Requested,</p>
-                                        <p>FPPB yang sudah di request dengan nomor <b><?php echo e($nofppb); ?></b> sudah dibuatkan requisition dengan detail sebagai berikut :</p>
+                                        <p>Dear Requester,</p>
+                                        <p>FPPB yang sudah di request dengan nomor <b><?php echo e($nofppb); ?></b> sudah dibuatkan requisition dengan nomor <b> <?php echo e($datafetch[0]->prnumber); ?> </b>dengan detail sebagai berikut :</p>
 
                                         <table border="0" cellpadding="0" cellspacing="0">
                                             <tbody>
@@ -289,7 +289,7 @@
                                                             <td style="text-align: center;"><?php echo e($data->qty); ?></td>
                                                             <td style="text-align: center;"><?php echo e($data->satuan); ?></td>
                                                             <td style="text-align: center;"><?php echo e($data->tglpakai); ?></td>
-                                                            <td style="text-align: center;"><?php echo e($data->notemanfaat); ?></td>
+                                                            <td style="text-align: left;"><?php echo e($data->notemanfaat); ?></td>
                                                             <td style="text-align: center;"><?php echo e($data->perkiraanbudget); ?></td>
                                                             <td style="text-align: center;"><?php echo e($data->kodeitem); ?></td>
                                                         </tr>

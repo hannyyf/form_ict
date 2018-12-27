@@ -59,7 +59,7 @@ class RequestFPPBController extends Controller
 
         $getproduct = DB::table('vw_master_product')
                         ->select('*')
-                        ->where('groups','=','ICT')
+                        ->where('group','=','ICT')
                         ->orderBy('nmprod','ASC')
                         ->get();
 
@@ -352,7 +352,7 @@ class RequestFPPBController extends Controller
 
         $getproduct = DB::table('vw_master_product')
                     ->select('*')
-                    ->where('groups','=','ICT')
+                    ->where('group','=','ICT')
                     ->orderBy('nmprod','ASC')
                     ->get();
 

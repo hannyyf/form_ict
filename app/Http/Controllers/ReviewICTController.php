@@ -104,7 +104,8 @@ class ReviewICTController extends Controller
                         ->update([
                             'perkiraanbudget'  => $budget,
                             'kodeitem'         => $request->jenisbarang[$key],
-                            'jenisbarang'      => $getproduct->nmprod
+                            'jenisbarang'      => $getproduct->nmprod,
+                            'satuan'           => $getproduct->satuan
                          ]);
                 } else {
                     DB::table('tr_fppb_detail')
@@ -195,7 +196,7 @@ class ReviewICTController extends Controller
 
         $getproduct = DB::table('vw_master_product')
                     ->select('*')
-                    ->where('groups','=','ICT')
+                    ->where('group','=','ICT')
                     ->orderBy('nmprod','ASC')
                     ->get();
 
