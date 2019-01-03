@@ -61,8 +61,8 @@
                       <requisition>
                         <operation>A</operation>
                         <rqmShip>DJM-AC</rqmShip>
-                        <rqmReqDate>2018-11-28</rqmReqDate>
-                        <rqmNeedDate>2018-11-28</rqmNeedDate>
+                        <rqmReqDate>2018-11-27</rqmReqDate>
+                        <rqmNeedDate>2018-11-27</rqmNeedDate>
                         <rqmRqbyUserid>bta</rqmRqbyUserid>
                         <rqmEndUserid>ASA</rqmEndUserid>
                         <rqmRmks>FPPB-112018-005</rqmRmks>
@@ -105,46 +105,9 @@
                           <line>1</line>
                           <lYn>true</lYn>
                           <rqdSite>DJM-AC</rqdSite>
-                          <rqdPart>2102046901</rqdPart>
+                          <rqdPart>2103172195</rqdPart>
                           <rqdReqQty>1</rqdReqQty>
-                          <rqdUm>BH</rqdUm>
-                          <rqdPurCost>500000</rqdPurCost>
-                          <rqdNeedDate>2018-11-29</rqdNeedDate>
-                          <rqdAcct></rqdAcct>
-                          <rqdProject>NOPRJECT</rqdProject>
-                          <desc1>KEYBOARD LAPTOP</desc1>
-                          <rqdLotRcpt>false</rqdLotRcpt>
-                          <rqdUmConv>1</rqdUmConv>
-                          <rqdMaxCost>500000</rqdMaxCost>
-                          <lineCmmts>true</lineCmmts>
-                            <lineDetailTransComment>
-                              <operation>A</operation>
-                              <cmtSeq>1</cmtSeq>
-                              <cmtCmmt>KEBUTUHAN KARENA KEYBOARD YANG LAMA SUDAH RUSAK</cmtCmmt>
-                              <prtOnQuote>true</prtOnQuote>
-                              <prtOnSo>false</prtOnSo>
-                              <prtOnInvoice>false</prtOnInvoice>
-                              <prtOnPacklist>false</prtOnPacklist>
-                              <prtOnPo>true</prtOnPo>
-                              <prtOnRct>false</prtOnRct>
-                              <prtOnRtv>false</prtOnRtv>
-                              <prtOnShpr>false</prtOnShpr>
-                              <prtOnBol>false</prtOnBol>
-                              <prtOnCus>false</prtOnCus>
-                              <prtOnProb>false</prtOnProb>
-                              <prtOnSchedule>false</prtOnSchedule>
-                              <prtOnIsrqst>false</prtOnIsrqst>
-                              <prtOnDo>false</prtOnDo>
-                              <prtOnIntern>false</prtOnIntern>
-                            </lineDetailTransComment>
-                        </lineDetail><lineDetail>
-                          <operation>A</operation>
-                          <line>2</line>
-                          <lYn>true</lYn>
-                          <rqdSite>DJM-AC</rqdSite>
-                          <rqdPart>2102046901</rqdPart>
-                          <rqdReqQty>1</rqdReqQty>
-                          <rqdUm>BH</rqdUm>
+                          <rqdUm>UN</rqdUm>
                           <rqdPurCost>500000</rqdPurCost>
                           <rqdNeedDate>2018-11-29</rqdNeedDate>
                           <rqdAcct></rqdAcct>

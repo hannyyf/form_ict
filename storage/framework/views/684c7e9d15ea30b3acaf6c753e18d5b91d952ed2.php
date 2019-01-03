@@ -30,39 +30,31 @@
                 <?php echo e(csrf_field()); ?>
 
         <div class="span12">
-        <div class="control-group">
+            <div class="control-group">
                 <label class="control-label" style="text-align: left">Dari Bagian</label>
                 <div class="controls">
-                    <?php echo $header->div_nama; ?>
-
-                    <input type="text" name="divisi" id="divisi" readonly = "readonly" style="display:none;" value="<?php echo $header->div_nama; ?>"/>
+                    <input type="text" name="divisi" id="divisi" readonly = "readonly" style="width:300px;" value="<?php echo $header->div_nama; ?>"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" style="text-align: left">No FPPB</label>
                 <div class="controls">
-                    <?php echo $header->notrx; ?>
-
-                    <input type="text" name="nofppb" id="nofppb" value="<?php echo $header->notrx; ?>" style="display:none;"/>
+                    <input type="text" name="nofppb" id="nofppb" readonly = "readonly" value="<?php echo $header->notrx; ?>"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" style="text-align: left">Tanggal FPPB</label>
                 <div class="controls">
-                    <?php echo $header->dtfppb; ?>
-
-                    <input type="text" name="tglfppb" id="tglfppb"  value="<?php echo $header->dtfppb; ?>" style="display:none;"/>
+                    <input type="text" name="tglfppb" id="tglfppb" readonly = "readonly"  value="<?php echo $header->dtfppb; ?>"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" style="text-align: left">Kategori</label>
                 <div class="controls">
-                    <?php echo $header->deskripsi; ?>
-
-                    <input type="text" name="kategori" id="kategori" readonly = "readonly" style="display:none;" value="<?php echo $header->deskripsi; ?>"/>
+                    <input type="text" name="kategori" id="kategori" readonly = "readonly" style="width:300px;" value="<?php echo $header->deskripsi; ?>"/>
                 </div>
             </div>
              <div class="widget-box">
@@ -132,10 +124,10 @@
                     <textarea class="span11" type="text" name="reason" id="reason" rows="5" cols="40" placeholder="Alasan Reject"></textarea>
                 </div>
                 <div class="col-md-6 pull-left" style="margin-left: : 25px">
-                    <textarea class="span11" type="text" name="noteict" id="noteict" rows="5" cols="40" placeholder="Rekomendasi ICT"><?php echo $header->noteict;?></textarea>
+                    <textarea class="span11" type="text" name="noteict" id="noteict" rows="5" cols="50" placeholder="Rekomendasi ICT"><?php echo $header->noteict;?></textarea>
                 </div>
                 <div class="col-md-6 pull-left" style="margin-left: : 25px">
-                    <textarea class="span11" type="text" name="notedir" id="notedir" rows="5" cols="40" placeholder="Catatan Direktur" readonly><?php echo $header->notedir;?></textarea>
+                    <textarea class="span11" type="text" name="notedir" id="notedir" rows="5" cols="50" placeholder="Catatan Direktur"><?php echo $header->notedir;?></textarea>
                 </div>
 
                 <div class="col-md-6 pull-right" style="margin-right: 25px; margin-top: 10px" >

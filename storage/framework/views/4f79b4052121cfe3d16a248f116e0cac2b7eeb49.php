@@ -43,15 +43,15 @@
             display: block;
             Margin: 0 auto !important;
             /* makes it centered */
-            max-width: 950px;
+            max-width: 900px;
             padding: 10px;
-            width: 900px; }
+            width: 580px; }
         /* This should also be a block element, so that it will fill 100% of the .container */
         .content {
             box-sizing: border-box;
             display: block;
             Margin: 0 auto;
-            max-width: 950px;
+            max-width: 900px;
             padding: 5px; }
         /* -------------------------------------
             HEADER, FOOTER, MAIN
@@ -62,7 +62,7 @@
             width: 100%; }
         .wrapper {
             box-sizing: border-box;
-            padding: 10px; }
+            padding: 20px; }
         .content-block {
             padding-bottom: 10px;
             padding-top: 10px;
@@ -275,8 +275,8 @@
                                                         <th width="70px">Qty</th>
                                                         <th width="70px">Satuan</th>
                                                         <th width="180px">Tanggal Pakai</th>
-                                                        <th width="350px">Keterangan / Jenis Manfaat</th>
-                                                        <th width="200px">Perkiraan Budget</th>
+                                                        <th width="300px">Keterangan / Jenis Manfaat</th>
+                                                        <th width="300px">Perkiraan Budget</th>
                                                     </tr>
                                                     </thead>
                                                     <?php $__currentLoopData = $datafetch; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -287,7 +287,7 @@
                                                             <td style="text-align: center;"><?php echo e($data->qty); ?></td>
                                                             <td style="text-align: center;"><?php echo e($data->satuan); ?></td>
                                                             <td style="text-align: center;"><?php echo e($data->tglpakai); ?></td>
-                                                            <td style="text-align: left;"><?php echo e($data->notemanfaat); ?></td>
+                                                            <td style="text-align: center;"><?php echo e($data->notemanfaat); ?></td>
                                                             <td style="text-align: center;"><?php echo e($data->perkiraanbudget); ?></td>
                                                         </tr>
                                                     </tbody>

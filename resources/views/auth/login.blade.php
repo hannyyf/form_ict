@@ -9,16 +9,10 @@
         <link rel="stylesheet" href="/assets/css/matrix-login.css" />
         <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
-       <!--  <script>
-
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-      alert('Anda membuka aplikasi di Android, Silahkan login langsung di aplikasi ini');
-    }
-    else{
+	 <script>
       alert('silakan gunakan aplikasi Single Login untuk masuk ke aplikasi yang diinginkan');
       window.open('http://djmapp.djabesmen.net/', '_self');
-    }
-    </script> -->
+    </script> 
     </head>
     <body>
         <div id="loginbox">            

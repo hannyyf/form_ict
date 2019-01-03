@@ -1,8 +1,4 @@
 <?php $__env->startSection('content'); ?>
-<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-
 <script type="text/javascript">
     function filter() {
         var nofppb = $('#nofppb').val();
@@ -17,14 +13,6 @@
             }
         });
     }
-
-    $(document).ready(function(){
-        var data = <?php echo json_encode($datas); ?>;
-		console.log(data);
-        if(data.length > 0) {
-            $('#table-data').DataTable();
-        }
-    });
 </script>
 
 <!--breadcrumbs-->
@@ -39,7 +27,7 @@
         <div class="span12">
             <div class="widget-box">
                 <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
-                  <h5>Cari FPPB</h5>
+                  <h5>Periode FPPB</h5>
                 </div>
                 <div class="widget-content nopadding">
                   <form class="form-horizontal" action="<?php echo e(route('report.filter')); ?>" method="get">
@@ -63,7 +51,7 @@
                 <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
                 </div>
                 <div class="widget-content nopadding">
-                    <table id="table-data" class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
                             <th>No.</th>

@@ -11,25 +11,17 @@ $(document).ready(function(){
 			required:{
 				required:true
 			},
-			jenisbarang:{
+			email:{
 				required:true,
-				jenisbarang: true
+				email: true
 			},
-			qty:{
+			date:{
 				required:true,
-				qty: true
+				date: true
 			},
-			satuan:{
+			url:{
 				required:true,
-				satuan: true
-			},
-			tanggalpakai:{
-				required:true,
-				tanggalpakai: true
-			},
-			keterangan:{
-				required:true,
-				keterangan: true
+				url: true
 			}
 		},
 		errorClass: "help-inline",

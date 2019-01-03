@@ -7,7 +7,7 @@
                   <wsa:To>urn:services-qad-com:simulasi</wsa:To>
                   <wsa:MessageID>urn:services-qad-com::simulasi</wsa:MessageID>
                   <wsa:ReferenceParameters>
-                    <qcom:suppressResponseDetail>false</qcom:suppressResponseDetail>
+                    <qcom:suppressResponseDetail>true</qcom:suppressResponseDetail>
                   </wsa:ReferenceParameters>
                   <wsa:ReplyTo>
                     <wsa:Address>urn:services-qad-com:</wsa:Address>
@@ -61,10 +61,10 @@
                       <requisition>
                         <operation>A</operation>
                         <rqmShip>DJM-AC</rqmShip>
-                        <rqmReqDate>2018-11-28</rqmReqDate>
-                        <rqmNeedDate>2018-11-28</rqmNeedDate>
+                        <rqmReqDate>2018-11-22</rqmReqDate>
+                        <rqmNeedDate>2018-11-22</rqmNeedDate>
                         <rqmRqbyUserid>bta</rqmRqbyUserid>
-                        <rqmEndUserid>ASA</rqmEndUserid>
+                        <rqmEndUserid>FJU</rqmEndUserid>
                         <rqmRmks>FPPB-112018-008</rqmRmks>
                         <rqmSite>djm-ac</rqmSite>
                         <rqmEntity>DJM</rqmEntity>
@@ -83,7 +83,6 @@
                         <requisitionTransComment>
                           <operation>A</operation>
                           <cmtSeq>1</cmtSeq>
-                          <cmtCmmt></cmtCmmt>
                           <cmtCmmt></cmtCmmt>
                           <prtOnQuote>false</prtOnQuote>
                           <prtOnSo>false</prtOnSo>
@@ -105,22 +104,59 @@
                           <line>1</line>
                           <lYn>true</lYn>
                           <rqdSite>DJM-AC</rqdSite>
-                          <rqdPart>2102071020</rqdPart>
+                          <rqdPart>2105616053</rqdPart>
                           <rqdReqQty>1</rqdReqQty>
-                          <rqdUm>PC</rqdUm>
-                          <rqdPurCost>500000</rqdPurCost>
-                          <rqdNeedDate>2018-11-30</rqdNeedDate>
+                          <rqdUm>UN</rqdUm>
+                          <rqdPurCost>150000</rqdPurCost>
+                          <rqdNeedDate>2018-11-23</rqdNeedDate>
                           <rqdAcct></rqdAcct>
                           <rqdProject>NOPRJECT</rqdProject>
-                          <desc1>STOP KONTAK TIMER</desc1>
+                          <desc1>LAPTOP BARU</desc1>
                           <rqdLotRcpt>false</rqdLotRcpt>
                           <rqdUmConv>1</rqdUmConv>
-                          <rqdMaxCost>500000</rqdMaxCost>
+                          <rqdMaxCost>150000</rqdMaxCost>
                           <lineCmmts>true</lineCmmts>
                             <lineDetailTransComment>
                               <operation>A</operation>
                               <cmtSeq>1</cmtSeq>
-                              <cmtCmmt>test keterangan1</cmtCmmt>
+                              <cmtCmmt>test laptop baru um un</cmtCmmt>
+                              <prtOnQuote>true</prtOnQuote>
+                              <prtOnSo>false</prtOnSo>
+                              <prtOnInvoice>false</prtOnInvoice>
+                              <prtOnPacklist>false</prtOnPacklist>
+                              <prtOnPo>true</prtOnPo>
+                              <prtOnRct>false</prtOnRct>
+                              <prtOnRtv>false</prtOnRtv>
+                              <prtOnShpr>false</prtOnShpr>
+                              <prtOnBol>false</prtOnBol>
+                              <prtOnCus>false</prtOnCus>
+                              <prtOnProb>false</prtOnProb>
+                              <prtOnSchedule>false</prtOnSchedule>
+                              <prtOnIsrqst>false</prtOnIsrqst>
+                              <prtOnDo>false</prtOnDo>
+                              <prtOnIntern>false</prtOnIntern>
+                            </lineDetailTransComment>
+                        </lineDetail><lineDetail>
+                          <operation>A</operation>
+                          <line>2</line>
+                          <lYn>true</lYn>
+                          <rqdSite>DJM-AC</rqdSite>
+                          <rqdPart>2105616053</rqdPart>
+                          <rqdReqQty>1</rqdReqQty>
+                          <rqdUm>UN</rqdUm>
+                          <rqdPurCost>150000</rqdPurCost>
+                          <rqdNeedDate>2018-11-23</rqdNeedDate>
+                          <rqdAcct></rqdAcct>
+                          <rqdProject>NOPRJECT</rqdProject>
+                          <desc1>LAPTOP BARU</desc1>
+                          <rqdLotRcpt>false</rqdLotRcpt>
+                          <rqdUmConv>1</rqdUmConv>
+                          <rqdMaxCost>150000</rqdMaxCost>
+                          <lineCmmts>true</lineCmmts>
+                            <lineDetailTransComment>
+                              <operation>A</operation>
+                              <cmtSeq>1</cmtSeq>
+                              <cmtCmmt>test laptop baru um un</cmtCmmt>
                               <prtOnQuote>true</prtOnQuote>
                               <prtOnSo>false</prtOnSo>
                               <prtOnInvoice>false</prtOnInvoice>

@@ -97,6 +97,7 @@ class RequestFPPBController extends Controller
                     // cek nomor terakhir
                     $getlastdata    = DB::table('tr_fppb_header')
                                             ->select('*')
+											->orderBy('dtfppb','desc')
                                             ->orderBy('notrx','desc')
                                             ->first();
                     if (is_null($getlastdata)) {
@@ -187,6 +188,7 @@ class RequestFPPBController extends Controller
                     // cek nomor terakhir
                     $getlastdata    = DB::table('tr_fppb_header')
                                             ->select('*')
+                                            ->orderBy('dtfppb','desc')
                                             ->orderBy('notrx','desc')
                                             ->first();
                     if (is_null($getlastdata)) {

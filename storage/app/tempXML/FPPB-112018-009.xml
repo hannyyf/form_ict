@@ -7,7 +7,7 @@
                   <wsa:To>urn:services-qad-com:simulasi</wsa:To>
                   <wsa:MessageID>urn:services-qad-com::simulasi</wsa:MessageID>
                   <wsa:ReferenceParameters>
-                    <qcom:suppressResponseDetail>false</qcom:suppressResponseDetail>
+                    <qcom:suppressResponseDetail>true</qcom:suppressResponseDetail>
                   </wsa:ReferenceParameters>
                   <wsa:ReplyTo>
                     <wsa:Address>urn:services-qad-com:</wsa:Address>
@@ -61,10 +61,10 @@
                       <requisition>
                         <operation>A</operation>
                         <rqmShip>DJM-AC</rqmShip>
-                        <rqmReqDate>2018-11-28</rqmReqDate>
-                        <rqmNeedDate>2018-11-28</rqmNeedDate>
+                        <rqmReqDate>2018-11-22</rqmReqDate>
+                        <rqmNeedDate>2018-11-22</rqmNeedDate>
                         <rqmRqbyUserid>bta</rqmRqbyUserid>
-                        <rqmEndUserid>ASA</rqmEndUserid>
+                        <rqmEndUserid>FJU</rqmEndUserid>
                         <rqmRmks>FPPB-112018-009</rqmRmks>
                         <rqmSite>djm-ac</rqmSite>
                         <rqmEntity>DJM</rqmEntity>
@@ -83,7 +83,6 @@
                         <requisitionTransComment>
                           <operation>A</operation>
                           <cmtSeq>1</cmtSeq>
-                          <cmtCmmt></cmtCmmt>
                           <cmtCmmt></cmtCmmt>
                           <prtOnQuote>false</prtOnQuote>
                           <prtOnSo>false</prtOnSo>
@@ -105,14 +104,14 @@
                           <line>1</line>
                           <lYn>true</lYn>
                           <rqdSite>DJM-AC</rqdSite>
-                          <rqdPart>3101002001</rqdPart>
+                          <rqdPart>3101003001</rqdPart>
                           <rqdReqQty>1</rqdReqQty>
                           <rqdUm>UN</rqdUm>
                           <rqdPurCost>5000000</rqdPurCost>
-                          <rqdNeedDate>2018-11-30</rqdNeedDate>
+                          <rqdNeedDate>2018-11-23</rqdNeedDate>
                           <rqdAcct></rqdAcct>
                           <rqdProject>NOPRJECT</rqdProject>
-                          <desc1>COMPUTER INTEL PENTIUM 4	</desc1>
+                          <desc1>LAPTOP HP COMPAQ 2230S 9AV</desc1>
                           <rqdLotRcpt>false</rqdLotRcpt>
                           <rqdUmConv>1</rqdUmConv>
                           <rqdMaxCost>5000000</rqdMaxCost>
@@ -120,44 +119,7 @@
                             <lineDetailTransComment>
                               <operation>A</operation>
                               <cmtSeq>1</cmtSeq>
-                              <cmtCmmt>test kuy</cmtCmmt>
-                              <prtOnQuote>true</prtOnQuote>
-                              <prtOnSo>false</prtOnSo>
-                              <prtOnInvoice>false</prtOnInvoice>
-                              <prtOnPacklist>false</prtOnPacklist>
-                              <prtOnPo>true</prtOnPo>
-                              <prtOnRct>false</prtOnRct>
-                              <prtOnRtv>false</prtOnRtv>
-                              <prtOnShpr>false</prtOnShpr>
-                              <prtOnBol>false</prtOnBol>
-                              <prtOnCus>false</prtOnCus>
-                              <prtOnProb>false</prtOnProb>
-                              <prtOnSchedule>false</prtOnSchedule>
-                              <prtOnIsrqst>false</prtOnIsrqst>
-                              <prtOnDo>false</prtOnDo>
-                              <prtOnIntern>false</prtOnIntern>
-                            </lineDetailTransComment>
-                        </lineDetail><lineDetail>
-                          <operation>A</operation>
-                          <line>2</line>
-                          <lYn>true</lYn>
-                          <rqdSite>DJM-AC</rqdSite>
-                          <rqdPart>2105182022</rqdPart>
-                          <rqdReqQty>1</rqdReqQty>
-                          <rqdUm>PC</rqdUm>
-                          <rqdPurCost>1000000</rqdPurCost>
-                          <rqdNeedDate>2018-11-30</rqdNeedDate>
-                          <rqdAcct></rqdAcct>
-                          <rqdProject>NOPRJECT</rqdProject>
-                          <desc1>PLASTIK ANTI GORES 7"	</desc1>
-                          <rqdLotRcpt>false</rqdLotRcpt>
-                          <rqdUmConv>1</rqdUmConv>
-                          <rqdMaxCost>1000000</rqdMaxCost>
-                          <lineCmmts>true</lineCmmts>
-                            <lineDetailTransComment>
-                              <operation>A</operation>
-                              <cmtSeq>1</cmtSeq>
-                              <cmtCmmt>test agaim</cmtCmmt>
+                              <cmtCmmt>cek</cmtCmmt>
                               <prtOnQuote>true</prtOnQuote>
                               <prtOnSo>false</prtOnSo>
                               <prtOnInvoice>false</prtOnInvoice>

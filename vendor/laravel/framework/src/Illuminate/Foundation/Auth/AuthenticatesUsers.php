@@ -111,6 +111,12 @@ trait AuthenticatesUsers
      */
     public function logout(Request $request)
     {
+        // $this->guard()->logout();
+
+        // $request->session()->invalidate();
+
+        // return redirect('/login');
+		$this->guard()->logout();
         $request->session()->invalidate();
         $request->session()->flush();
         $request->session()->regenerate();
@@ -119,29 +125,6 @@ trait AuthenticatesUsers
                 window.close();
               </script>';
         return redirect('/');
-
-        // $this->guard()->logout();
-
-        // $request->session()->invalidate();
-
-        // return redirect('/login');
-        //  $this->guard()->logout();
-
-        // $request->session()->flush();
-
-        // $request->session()->regenerate();
-
-        // $cookie = \Cookie::forget('regu');
-        // $cookie = \Cookie::forget('tglori');
-        // $cookie = \Cookie::forget('tebal');
-        // $cookie = \Cookie::forget('shift');
-        // $cookie = \Cookie::forget('resep');
-        // $cookie = \Cookie::forget('bomcode');
-
-        // echo'<script type="text/javascript">
-        //         window.close();
-        //       </script>';
-        // return redirect('/');
     }
 
     /**

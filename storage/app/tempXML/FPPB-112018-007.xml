@@ -7,7 +7,7 @@
                   <wsa:To>urn:services-qad-com:simulasi</wsa:To>
                   <wsa:MessageID>urn:services-qad-com::simulasi</wsa:MessageID>
                   <wsa:ReferenceParameters>
-                    <qcom:suppressResponseDetail>false</qcom:suppressResponseDetail>
+                    <qcom:suppressResponseDetail>true</qcom:suppressResponseDetail>
                   </wsa:ReferenceParameters>
                   <wsa:ReplyTo>
                     <wsa:Address>urn:services-qad-com:</wsa:Address>
@@ -61,12 +61,11 @@
                       <requisition>
                         <operation>A</operation>
                         <rqmShip>DJM-AC</rqmShip>
-                        <rqmReqDate>2018-12-06</rqmReqDate>
-                        <rqmNeedDate>2018-12-06</rqmNeedDate>
+                        <rqmReqDate>2018-11-22</rqmReqDate>
+                        <rqmNeedDate>2018-11-22</rqmNeedDate>
                         <rqmRqbyUserid>bta</rqmRqbyUserid>
-                        <rqmEndUserid>ASA</rqmEndUserid>
+                        <rqmEndUserid>FJU</rqmEndUserid>
                         <rqmRmks>FPPB-112018-007</rqmRmks>
-                        <rqmCc>3601</rqmCc>
                         <rqmSite>djm-ac</rqmSite>
                         <rqmEntity>DJM</rqmEntity>
                         <rqmProject>NOPRJECT</rqmProject>
@@ -84,9 +83,6 @@
                         <requisitionTransComment>
                           <operation>A</operation>
                           <cmtSeq>1</cmtSeq>
-                          <cmtCmmt>SP/FPPB-112018-007</cmtCmmt>
-                          <cmtCmmt></cmtCmmt>
-                          <cmtCmmt></cmtCmmt>
                           <cmtCmmt></cmtCmmt>
                           <prtOnQuote>false</prtOnQuote>
                           <prtOnSo>false</prtOnSo>
@@ -108,23 +104,22 @@
                           <line>1</line>
                           <lYn>true</lYn>
                           <rqdSite>DJM-AC</rqdSite>
-                          <rqdPart>3111002102</rqdPart>
+                          <rqdPart>2105616053</rqdPart>
                           <rqdReqQty>1</rqdReqQty>
-                          <rqdUm>PC</rqdUm>
-                          <rqdPurCost>4000000</rqdPurCost>
-                          <rqdNeedDate>2018-11-29</rqdNeedDate>
+                          <rqdUm>BH</rqdUm>
+                          <rqdPurCost>3000000</rqdPurCost>
+                          <rqdNeedDate>2018-11-23</rqdNeedDate>
+                          <rqdAcct></rqdAcct>
                           <rqdProject>NOPRJECT</rqdProject>
-                          <desc1>KEYBOARD LAPTOP</desc1>
+                          <desc1>BATTERY LAPTOP HP PROBOOK 4320S</desc1>
                           <rqdLotRcpt>false</rqdLotRcpt>
                           <rqdUmConv>1</rqdUmConv>
-                          <rqdMaxCost>4000000</rqdMaxCost>
+                          <rqdMaxCost>3000000</rqdMaxCost>
                           <lineCmmts>true</lineCmmts>
                             <lineDetailTransComment>
                               <operation>A</operation>
                               <cmtSeq>1</cmtSeq>
-                              <cmtCmmt>SP/FPPB-112018-007</cmtCmmt>
-                              <cmtCmmt> </cmtCmmt>
-                              <cmtCmmt>testst</cmtCmmt>
+                              <cmtCmmt>test</cmtCmmt>
                               <prtOnQuote>true</prtOnQuote>
                               <prtOnSo>false</prtOnSo>
                               <prtOnInvoice>false</prtOnInvoice>
@@ -146,99 +141,22 @@
                           <line>2</line>
                           <lYn>true</lYn>
                           <rqdSite>DJM-AC</rqdSite>
-                          <rqdPart>3101003001</rqdPart>
-                          <rqdReqQty>2</rqdReqQty>
-                          <rqdUm>UN</rqdUm>
-                          <rqdPurCost>8000000</rqdPurCost>
-                          <rqdNeedDate>2018-11-28</rqdNeedDate>
-                          <rqdProject>NOPRJECT</rqdProject>
-                          <desc1>LAPTOP HP COMPAQ 2230S 9AV</desc1>
-                          <rqdLotRcpt>false</rqdLotRcpt>
-                          <rqdUmConv>1</rqdUmConv>
-                          <rqdMaxCost>8000000</rqdMaxCost>
-                          <lineCmmts>true</lineCmmts>
-                            <lineDetailTransComment>
-                              <operation>A</operation>
-                              <cmtSeq>1</cmtSeq>
-                              <cmtCmmt>SP/FPPB-112018-007</cmtCmmt>
-                              <cmtCmmt> </cmtCmmt>
-                              <cmtCmmt>testg 22222</cmtCmmt>
-                              <prtOnQuote>true</prtOnQuote>
-                              <prtOnSo>false</prtOnSo>
-                              <prtOnInvoice>false</prtOnInvoice>
-                              <prtOnPacklist>false</prtOnPacklist>
-                              <prtOnPo>true</prtOnPo>
-                              <prtOnRct>false</prtOnRct>
-                              <prtOnRtv>false</prtOnRtv>
-                              <prtOnShpr>false</prtOnShpr>
-                              <prtOnBol>false</prtOnBol>
-                              <prtOnCus>false</prtOnCus>
-                              <prtOnProb>false</prtOnProb>
-                              <prtOnSchedule>false</prtOnSchedule>
-                              <prtOnIsrqst>false</prtOnIsrqst>
-                              <prtOnDo>false</prtOnDo>
-                              <prtOnIntern>false</prtOnIntern>
-                            </lineDetailTransComment>
-                        </lineDetail><lineDetail>
-                          <operation>A</operation>
-                          <line>3</line>
-                          <lYn>true</lYn>
-                          <rqdSite>DJM-AC</rqdSite>
-                          <rqdPart>3111002102</rqdPart>
+                          <rqdPart>3104005004</rqdPart>
                           <rqdReqQty>1</rqdReqQty>
-                          <rqdUm>PC</rqdUm>
-                          <rqdPurCost>4000000</rqdPurCost>
-                          <rqdNeedDate>2018-11-29</rqdNeedDate>
-                          <rqdProject>NOPRJECT</rqdProject>
-                          <desc1>KEYBOARD LAPTOP</desc1>
-                          <rqdLotRcpt>false</rqdLotRcpt>
-                          <rqdUmConv>1</rqdUmConv>
-                          <rqdMaxCost>4000000</rqdMaxCost>
-                          <lineCmmts>true</lineCmmts>
-                            <lineDetailTransComment>
-                              <operation>A</operation>
-                              <cmtSeq>1</cmtSeq>
-                              <cmtCmmt>SP/FPPB-112018-007</cmtCmmt>
-                              <cmtCmmt> </cmtCmmt>
-                              <cmtCmmt>testst</cmtCmmt>
-                              <prtOnQuote>true</prtOnQuote>
-                              <prtOnSo>false</prtOnSo>
-                              <prtOnInvoice>false</prtOnInvoice>
-                              <prtOnPacklist>false</prtOnPacklist>
-                              <prtOnPo>true</prtOnPo>
-                              <prtOnRct>false</prtOnRct>
-                              <prtOnRtv>false</prtOnRtv>
-                              <prtOnShpr>false</prtOnShpr>
-                              <prtOnBol>false</prtOnBol>
-                              <prtOnCus>false</prtOnCus>
-                              <prtOnProb>false</prtOnProb>
-                              <prtOnSchedule>false</prtOnSchedule>
-                              <prtOnIsrqst>false</prtOnIsrqst>
-                              <prtOnDo>false</prtOnDo>
-                              <prtOnIntern>false</prtOnIntern>
-                            </lineDetailTransComment>
-                        </lineDetail><lineDetail>
-                          <operation>A</operation>
-                          <line>4</line>
-                          <lYn>true</lYn>
-                          <rqdSite>DJM-AC</rqdSite>
-                          <rqdPart>3101003001</rqdPart>
-                          <rqdReqQty>2</rqdReqQty>
                           <rqdUm>UN</rqdUm>
-                          <rqdPurCost>8000000</rqdPurCost>
-                          <rqdNeedDate>2018-11-28</rqdNeedDate>
+                          <rqdPurCost>3000000</rqdPurCost>
+                          <rqdNeedDate>2018-11-23</rqdNeedDate>
+                          <rqdAcct></rqdAcct>
                           <rqdProject>NOPRJECT</rqdProject>
-                          <desc1>LAPTOP HP COMPAQ 2230S 9AV</desc1>
+                          <desc1>MEMORY LAPTOP DDR 2 2GBPC5300/6400 VISIPRO</desc1>
                           <rqdLotRcpt>false</rqdLotRcpt>
                           <rqdUmConv>1</rqdUmConv>
-                          <rqdMaxCost>8000000</rqdMaxCost>
+                          <rqdMaxCost>3000000</rqdMaxCost>
                           <lineCmmts>true</lineCmmts>
                             <lineDetailTransComment>
                               <operation>A</operation>
                               <cmtSeq>1</cmtSeq>
-                              <cmtCmmt>SP/FPPB-112018-007</cmtCmmt>
-                              <cmtCmmt> </cmtCmmt>
-                              <cmtCmmt>testg 22222</cmtCmmt>
+                              <cmtCmmt>test lagi</cmtCmmt>
                               <prtOnQuote>true</prtOnQuote>
                               <prtOnSo>false</prtOnSo>
                               <prtOnInvoice>false</prtOnInvoice>

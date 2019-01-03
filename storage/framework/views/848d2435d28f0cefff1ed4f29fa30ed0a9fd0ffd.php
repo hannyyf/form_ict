@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
     <title>Form ICT</title>
@@ -17,16 +17,14 @@
     <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link rel="stylesheet" href="/assets/css/jquery.gritter.css" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
-    
+
 </head>
 
 <body>
 
 <!--Header-part-->
 <div id="header">
-  <!-- <h1>Header</h1> -->
+  <h1><a href="#" class="fa fa-align-justify"></a></h1>
 </div>
 <!--close-Header-part--> 
 
@@ -34,7 +32,7 @@
 <div id="user-nav" class="navbar navbar-inverse">
   <ul class="nav">
     <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="icon icon-user"></i> <span class="text"> Welcome <?php echo e(Auth::user()->name); ?></span><b class="caret"></b>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="icon icon-user"></i><span class="text">Welcome <?php echo e(Auth::user()->name); ?></span><b class="caret"></b>
         </a>
 
         <ul class="dropdown-menu" role="menu">
@@ -52,102 +50,92 @@
             </li>
         </ul>
     </li>
-    <li class=""><a href="<?php echo e(route('logout')); ?>" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-    <i class="icon icon-off"></i> <span class="text">Logout</span></a>
-    <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
-        <?php echo e(csrf_field()); ?>
-
-    </form>
-    </li>
   </ul>
 </div>
 <!--close-top-Header-menu-->
 
 <!--sidebar-menu-->
-<div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Menu</a>
+<div id="sidebar">
   <ul>
     <?php if(Auth::user()->jabatan == 'user'): ?>
     <li>
-        <a href="<?php echo e(url('requestfppb')); ?>" title="Request FPPB" class="tip-right"><i class="icon icon-plus"></i><span>Request FPPB</span></a>
+        <a href="<?php echo e(url('requestfppb')); ?>">Request FPPB</a>
     </li>
     <li>
-        <a href="<?php echo e(url('/detailrequested')); ?>" title="Approve Request Close FPPB" class="tip-right"><i class="fas fa-user-check"></i><span>Approve Request Close</span></a>
+        <a href="<?php echo e(url('/detailrequested')); ?>">Approve Request Close</a>
     </li>
      <li>
-        <a href="<?php echo e(url('/report')); ?>" title="Report Monitoring" class="tip-right"><i class="icon icon-search"></i><span>Report Monitoring</span></a>
+        <a href="<?php echo e(url('/report')); ?>">Report Monitoring</a>
     </li>
     <?php elseif(Auth::user()->jabatan == 'ictmanager'): ?>
-    <li>
-        <a href="<?php echo e(url('requestfppb')); ?>" title="Request FPPB" class="tip-right"><i class="icon icon-plus"></i><span>Request FPPB</span></a>
+     <li>
+        <a href="<?php echo e(url('requestfppb')); ?>">Request FPPB</a>
     </li>
     <li>
-        <a href="<?php echo e(url('approvedivhead')); ?>" title="Approve Div Head" class="tip-right"><i class="fas fa-check"></i><span>Approve FPPB Div Head</span></a>
+        <a href="<?php echo e(url('approvedivhead')); ?>">Approve FPPB Div Head</a>
     </li>
      <li>
-        <a href="<?php echo e(url('approveictmgr')); ?>" title="Approve ICT Manager" class="tip-right"><i class="fas fa-check-double"></i><span>Approve FPPB ICT Manager</span></a>
+        <a href="<?php echo e(url('approveictmgr')); ?>">Approve FPPB Div Head ICT</a>
     </li>
     <li>
-        <a href="<?php echo e(url('/detailrequested')); ?>" title="Approve Request Close" class="tip-right"><i class="fas fa-user-check"></i><span>Approve Request Close</span></a>
+        <a href="<?php echo e(url('/detailrequested')); ?>">Approve Request Close</a>
     </li>
-    <li>
-        <a href="<?php echo e(url('/report')); ?>" title="Report Monitoring" class="tip-right"><i class="icon icon-search"></i><span>Report Monitoring</span></a>
+     <li>
+        <a href="<?php echo e(url('/report')); ?>">Report Monitoring</a>
     </li>
 
     <?php elseif(Auth::user()->jabatan == 'divhead' || Auth::user()->jabatan == 'ictmanager' ): ?>
     <li>
-        <a href="<?php echo e(url('requestfppb')); ?>" title="Request FPPB" class="tip-right"><i class="icon icon-plus"></i><span>Request FPPB</span></a>
+        <a href="<?php echo e(url('requestfppb')); ?>">Request FPPB</a>
     </li>
     <li>
-        <a href="<?php echo e(url('approvedivhead')); ?>" title="Approve Div Head" class="tip-right"><i class="fas fa-check"></i><span>Approve FPPB Div Head</span></a>
+        <a href="<?php echo e(url('approvedivhead')); ?>">Approve FPPB Div Head</a>
     </li>
     <li>
-        <a href="<?php echo e(url('/detailrequested')); ?>" title="Approve Request Close" class="tip-right"><i class="fas fa-user-check"></i><span>Approve Request Close</span></a>
+        <a href="<?php echo e(url('/detailrequested')); ?>">Approve Request Close</a>
     </li>
     <li>
-        <a href="<?php echo e(url('/report')); ?>" title="Report Monitoring" class="tip-right"><i class="icon icon-search"></i><span>Report Monitoring</span></a>
+        <a href="<?php echo e(url('/report')); ?>">Report Monitoring</a>
     </li>
 
     <?php elseif(Auth::user()->jabatan == 'director'): ?>
      <li>
-        <a href="<?php echo e(url('approvedirector')); ?>" title="Approve Director" class="tip-right"><i class="fas fa-check"></i><span>Approve FPPB Director</span></a>
+        <a href="<?php echo e(url('approvedirector')); ?>">Approve FPPB Director</a>
     </li>
-   <!--  <li>
-        <a href="<?php echo e(url('/report')); ?>" title="Report Monitoring" class="tip-right"><i class="icon icon-search"></i><span>Report Monitoring</span></a>
-    </li> -->
+    <li>
+        <a href="<?php echo e(url('/report')); ?>">Report Monitoring</a>
+    </li>
 
     <?php elseif(Auth::user()->jabatan == 'ict'): ?>
     <li>
-    <a href="<?php echo e(url('requestfppb')); ?>" title="Request FPPB" class="tip-right"><i class="icon icon-plus"></i><span>Request FPPB</span></a>
+      <a href="<?php echo e(url('requestfppb')); ?>">Request FPPB</a>
     </li>
     <li>
-      <a href="<?php echo e(url('reviewict')); ?>" title="Review ICT" class="tip-right"><i class="fa fa-check-square"></i><span>Review ICT</span></a>
+      <a href="<?php echo e(url('reviewict')); ?>">Review ICT</a>
     </li>
     <li>
-      <a href="<?php echo e(url('mappingict')); ?>" title="Mapping dan Generate PR" class="tip-right"><i class="far fa-copy"></i><span>Mapping dan Generate PR</span></a>
+      <a href="<?php echo e(url('mappingict')); ?>">Mapping dan Generate PR</a>
     </li>
     <li>
-      <a href="<?php echo e(url('serahterima')); ?>" title="Request Close" class="tip-right"><i class="fa fa-times-circle" aria-hidden="true"></i><span>Request Close</span></a>
+      <a href="<?php echo e(url('serahterima')); ?>">Request Close</a>
     </li>
     <li>
-        <a href="<?php echo e(url('/detailrequested')); ?>" title="Approve Request Close" class="tip-right"><i class="fas fa-user-check"></i><span>Approve Request Close</span></a>
+        <a href="<?php echo e(url('/detailrequested')); ?>">Approve Request Close</a>
     </li>
-    <li>
-        <a href="<?php echo e(url('/report')); ?>" title="Report Monitoring" class="tip-right"><i class="icon icon-search"></i><span>Report Monitoring</span></a>
-    </li>
-    <li>
-        <a href="<?php echo e(route('transfer.index')); ?>" title="Transfer FPPB" class="tip-right"><i class="fas fa-exchange-alt"></i><span>Transfer FPPB</span></a>
+     <li>
+        <a href="<?php echo e(url('/report')); ?>">Report Monitoring</a>
     </li>
 
     <?php elseif(Auth::user()->jabatan == 'dic'): ?>
-    <li>
-        <a href="<?php echo e(url('approvedirector')); ?>" title="Approve Director" class="tip-right"><i class="fas fa-check"></i><span>Approve FPPB Director</span></a>
+     <li>
+        <a href="<?php echo e(url('approvedirector')); ?>">Approve FPPB Director</a>
     </li>
     <li>
-        <a href="<?php echo e(url('approvedic')); ?>" title="Approve DIC" class="tip-right"><i class="fas fa-check-double"></i><span>Approve FPPB DIC</span></a>
+        <a href="<?php echo e(url('approvedic')); ?>">Approve FPPB DIC</a>
     </li>
-   <!--  <li>
-        <a href="<?php echo e(url('/report')); ?>" title="Report Monitoring" class="tip-right"><i class="icon icon-search"></i><span>Report Monitoring</span></a>
-    </li> -->
+    <li>
+        <a href="<?php echo e(url('/report')); ?>">Report Monitoring</a>
+    </li>
     
     <?php endif; ?>
   </ul>
@@ -188,9 +176,7 @@
 <script src="/assets/js/select2.min.js"></script> 
 <script src="/assets/js/matrix.popover.js"></script> 
 <script src="/assets/js/jquery.dataTables.min.js"></script> 
-<script src="/assets/js/matrix.tables.js"></script>
- 
-
+<script src="/assets/js/matrix.tables.js"></script> 
 
 <script type="text/javascript">
   // This function is called from the pop-up menus to transfer to

@@ -6,15 +6,6 @@
         $('.budget').mask('000,000,000,000', {reverse: true});
         $('.qty').mask('0,000,000', {reverse: true});
     });
-
-    function change_checkbox(el){
-        var i;
-        if(el.checked){
-            $('#btnRequestClose').prop('disabled',false);
-        }else{
-            $('#btnRequestClose').prop('disabled',true);
-        }
-    }
 </script>
 <!--breadcrumbs-->
   <div id="content-header">
@@ -30,42 +21,33 @@
                 <?php echo e(csrf_field()); ?>
 
         <div class="span12">
-        <div class="control-group">
-                <label class="control-label" style="text-align: left">Dari Bagian</label>
+            <div class="control-group">
+                <label class="control-label" style="text-align: left">Dari Bagian :</label>
                 <div class="controls">
-                    <?php echo $header->div_nama; ?>
-
-                    <input type="text" name="divisi" id="divisi" readonly = "readonly" style="display:none;" value="<?php echo $header->div_nama; ?>"/>
+                    <input type="text" name="divisi" id="divisi" readonly = "readonly" style="width:300px;" value="<?php echo $header->div_nama; ?>"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <label class="control-label" style="text-align: left">No FPPB</label>
+                <label class="control-label" style="text-align: left">No FPPB :</label>
                 <div class="controls">
-                    <?php echo $header->notrx; ?>
-
-                    <input type="text" name="nofppb" id="nofppb" value="<?php echo $header->notrx; ?>" style="display:none;"/>
+                    <input type="text" name="nofppb" id="nofppb" readonly = "readonly" value="<?php echo $header->notrx; ?>"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <label class="control-label" style="text-align: left">Tanggal FPPB</label>
+                <label class="control-label" style="text-align: left">Tanggal FPPB :</label>
                 <div class="controls">
-                    <?php echo $header->dtfppb; ?>
-
-                    <input type="text" name="tglfppb" id="tglfppb"  value="<?php echo $header->dtfppb; ?>" style="display:none;"/>
+                    <input type="text" name="tglfppb" id="tglfppb" readonly = "readonly"  value="<?php echo $header->dtfppb; ?>"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <label class="control-label" style="text-align: left">Kategori</label>
+                <label class="control-label" style="text-align: left">Kategori :</label>
                 <div class="controls">
-                    <?php echo $header->deskripsi; ?>
-
-                    <input type="text" name="kategori" id="kategori" readonly = "readonly" style="display:none;" value="<?php echo $header->deskripsi; ?>"/>
+                    <input type="text" name="kategori" id="kategori" readonly = "readonly" style="width:300px;" value="<?php echo $header->deskripsi; ?>"/>
                 </div>
             </div>
-
 
             <div class="widget-box">
                 <div class="widget-content nopadding">
@@ -87,7 +69,7 @@
                         <tbody id="listitem">
                         <tr>
                             <td style="width: 3%">
-                                <input type="checkbox" value="<?php echo e($data->seqid); ?>" name="selected[]" class="selected" id="selected<?php echo e($data->seqid); ?>" onchange="change_checkbox(this)">
+                                <input type="checkbox" value="<?php echo e($data->seqid); ?>"" name="selected[]">
                             </td>
                             <td style="width: 2%">
                                 <?php echo e($data->seqid); ?>
@@ -123,13 +105,14 @@
                                 <textarea class="span11" type="text" name="keterangan[]" id="keterangan" rows="5" cols="40" readonly ="readonly" style="display:none;"><?php echo $data->notemanfaat;?></textarea>
                             </td>
                             <td style="width: 10%">
-                                <label class="budget"><?php echo e($data->perkiraanbudget); ?></label>
-                                <input class="budget span11" type="text" name="budget[]" id="budget" style="display:none;" value="<?php echo e($data->perkiraanbudget); ?>" >
+                                <label class="budget"> <?php echo e($data->perkiraanbudget); ?> </label>
+                                <input class="budget span11" type="text" name="budget[]" id="budget" value="<?php echo e($data->perkiraanbudget); ?>" readonly ="readonly" style="display:none;">
                             </td>
                             <td style="width: 15%">
                                 <?php $__currentLoopData = $kodeitems; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kodeitem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <?php if($data->seqid == $kodeitem->seqid): ?>
-                                <?php echo e($kodeitem->kodeitem); ?> <br>
+                                <?php echo e($kodeitem->kodeitem); ?>
+
                                 
                                 <input class="span11" type="text" name="kodeitem[]" id="kodeitem" value="<?php echo e($kodeitem->kodeitem); ?>" style="display:none;" readonly="readonly">
                                 <?php endif; ?>
@@ -141,7 +124,7 @@
                     </table>
                 </div>
                 <div class="form-actions">
-                  <button type="submit" class="btn btn-md btn-primary request" name="action" value="approve" id="btnRequestClose" disabled>Request Close</button>
+                  <button type="submit" class="btn btn-md btn-primary" name="action" value="approve">Request Close</button>
                 </div>
 
                 <div class="col-md-4 pull-right" style="margin-right: 25px" >

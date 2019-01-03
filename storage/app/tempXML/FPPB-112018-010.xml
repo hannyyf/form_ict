@@ -7,7 +7,7 @@
                   <wsa:To>urn:services-qad-com:simulasi</wsa:To>
                   <wsa:MessageID>urn:services-qad-com::simulasi</wsa:MessageID>
                   <wsa:ReferenceParameters>
-                    <qcom:suppressResponseDetail>false</qcom:suppressResponseDetail>
+                    <qcom:suppressResponseDetail>true</qcom:suppressResponseDetail>
                   </wsa:ReferenceParameters>
                   <wsa:ReplyTo>
                     <wsa:Address>urn:services-qad-com:</wsa:Address>
@@ -61,10 +61,10 @@
                       <requisition>
                         <operation>A</operation>
                         <rqmShip>DJM-AC</rqmShip>
-                        <rqmReqDate>2018-11-29</rqmReqDate>
-                        <rqmNeedDate>2018-11-29</rqmNeedDate>
+                        <rqmReqDate>2018-11-22</rqmReqDate>
+                        <rqmNeedDate>2018-11-22</rqmNeedDate>
                         <rqmRqbyUserid>bta</rqmRqbyUserid>
-                        <rqmEndUserid>ASA</rqmEndUserid>
+                        <rqmEndUserid>FJU</rqmEndUserid>
                         <rqmRmks>FPPB-112018-010</rqmRmks>
                         <rqmSite>djm-ac</rqmSite>
                         <rqmEntity>DJM</rqmEntity>
@@ -83,8 +83,7 @@
                         <requisitionTransComment>
                           <operation>A</operation>
                           <cmtSeq>1</cmtSeq>
-                          <cmtCmmt></cmtCmmt>
-                          <cmtCmmt></cmtCmmt>
+                          <cmtCmmt>rekomendasi oleh ict</cmtCmmt>
                           <prtOnQuote>false</prtOnQuote>
                           <prtOnSo>false</prtOnSo>
                           <prtOnInvoice>false</prtOnInvoice>
@@ -105,22 +104,22 @@
                           <line>1</line>
                           <lYn>true</lYn>
                           <rqdSite>DJM-AC</rqdSite>
-                          <rqdPart>2102096301</rqdPart>
+                          <rqdPart>2105616053</rqdPart>
                           <rqdReqQty>1</rqdReqQty>
-                          <rqdUm>UN</rqdUm>
-                          <rqdPurCost>800000</rqdPurCost>
-                          <rqdNeedDate>2018-11-29</rqdNeedDate>
+                          <rqdUm>BH</rqdUm>
+                          <rqdPurCost>100000000</rqdPurCost>
+                          <rqdNeedDate>2018-11-23</rqdNeedDate>
                           <rqdAcct></rqdAcct>
                           <rqdProject>NOPRJECT</rqdProject>
-                          <desc1>BRIKER BOX AR1100	</desc1>
+                          <desc1>BATTERY LAPTOP HP PROBOOK 4320S</desc1>
                           <rqdLotRcpt>false</rqdLotRcpt>
                           <rqdUmConv>1</rqdUmConv>
-                          <rqdMaxCost>800000</rqdMaxCost>
+                          <rqdMaxCost>100000000</rqdMaxCost>
                           <lineCmmts>true</lineCmmts>
                             <lineDetailTransComment>
                               <operation>A</operation>
                               <cmtSeq>1</cmtSeq>
-                              <cmtCmmt>tessst</cmtCmmt>
+                              <cmtCmmt>cek saja yah</cmtCmmt>
                               <prtOnQuote>true</prtOnQuote>
                               <prtOnSo>false</prtOnSo>
                               <prtOnInvoice>false</prtOnInvoice>
@@ -142,22 +141,22 @@
                           <line>2</line>
                           <lYn>true</lYn>
                           <rqdSite>DJM-AC</rqdSite>
-                          <rqdPart>2102096301</rqdPart>
+                          <rqdPart>3111004007</rqdPart>
                           <rqdReqQty>1</rqdReqQty>
                           <rqdUm>UN</rqdUm>
-                          <rqdPurCost>800000</rqdPurCost>
-                          <rqdNeedDate>2018-11-29</rqdNeedDate>
+                          <rqdPurCost>9000000</rqdPurCost>
+                          <rqdNeedDate>2018-11-24</rqdNeedDate>
                           <rqdAcct></rqdAcct>
                           <rqdProject>NOPRJECT</rqdProject>
-                          <desc1>BRIKER BOX AR1100	</desc1>
+                          <desc1>BATTERY LAPTOP HP HSTNN-OB37</desc1>
                           <rqdLotRcpt>false</rqdLotRcpt>
                           <rqdUmConv>1</rqdUmConv>
-                          <rqdMaxCost>800000</rqdMaxCost>
+                          <rqdMaxCost>9000000</rqdMaxCost>
                           <lineCmmts>true</lineCmmts>
                             <lineDetailTransComment>
                               <operation>A</operation>
                               <cmtSeq>1</cmtSeq>
-                              <cmtCmmt>tessst</cmtCmmt>
+                              <cmtCmmt>case 2, 2 item yang sudah ada kode item</cmtCmmt>
                               <prtOnQuote>true</prtOnQuote>
                               <prtOnSo>false</prtOnSo>
                               <prtOnInvoice>false</prtOnInvoice>

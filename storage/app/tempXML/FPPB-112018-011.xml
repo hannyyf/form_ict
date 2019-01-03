@@ -105,22 +105,207 @@
                           <line>1</line>
                           <lYn>true</lYn>
                           <rqdSite>DJM-AC</rqdSite>
-                          <rqdPart>2102022016</rqdPart>
-                          <rqdReqQty>2</rqdReqQty>
+                          <rqdPart>3101000204</rqdPart>
+                          <rqdReqQty>3</rqdReqQty>
                           <rqdUm>PC</rqdUm>
-                          <rqdPurCost>5000000</rqdPurCost>
-                          <rqdNeedDate>2018-11-29</rqdNeedDate>
+                          <rqdPurCost>16000000</rqdPurCost>
+                          <rqdNeedDate>2018-12-30</rqdNeedDate>
                           <rqdAcct></rqdAcct>
                           <rqdProject>NOPRJECT</rqdProject>
-                          <desc1>CONVERTER MICRO HDMI TO VGA + HDMI	</desc1>
+                          <desc1>ANTENA TL ANT 2415D 2,4 GHZ</desc1>
                           <rqdLotRcpt>false</rqdLotRcpt>
                           <rqdUmConv>1</rqdUmConv>
-                          <rqdMaxCost>5000000</rqdMaxCost>
+                          <rqdMaxCost>16000000</rqdMaxCost>
                           <lineCmmts>true</lineCmmts>
                             <lineDetailTransComment>
                               <operation>A</operation>
                               <cmtSeq>1</cmtSeq>
-                              <cmtCmmt>test</cmtCmmt>
+                              <cmtCmmt>test 1</cmtCmmt>
+                              <prtOnQuote>true</prtOnQuote>
+                              <prtOnSo>false</prtOnSo>
+                              <prtOnInvoice>false</prtOnInvoice>
+                              <prtOnPacklist>false</prtOnPacklist>
+                              <prtOnPo>true</prtOnPo>
+                              <prtOnRct>false</prtOnRct>
+                              <prtOnRtv>false</prtOnRtv>
+                              <prtOnShpr>false</prtOnShpr>
+                              <prtOnBol>false</prtOnBol>
+                              <prtOnCus>false</prtOnCus>
+                              <prtOnProb>false</prtOnProb>
+                              <prtOnSchedule>false</prtOnSchedule>
+                              <prtOnIsrqst>false</prtOnIsrqst>
+                              <prtOnDo>false</prtOnDo>
+                              <prtOnIntern>false</prtOnIntern>
+                            </lineDetailTransComment>
+                        </lineDetail><lineDetail>
+                          <operation>A</operation>
+                          <line>2</line>
+                          <lYn>true</lYn>
+                          <rqdSite>DJM-AC</rqdSite>
+                          <rqdPart>3101002002</rqdPart>
+                          <rqdReqQty>2</rqdReqQty>
+                          <rqdUm>BH</rqdUm>
+                          <rqdPurCost>17000000</rqdPurCost>
+                          <rqdNeedDate>2019-01-31</rqdNeedDate>
+                          <rqdAcct></rqdAcct>
+                          <rqdProject>NOPRJECT</rqdProject>
+                          <desc1>CPU PABX TDA PANASONIC</desc1>
+                          <rqdLotRcpt>false</rqdLotRcpt>
+                          <rqdUmConv>1</rqdUmConv>
+                          <rqdMaxCost>17000000</rqdMaxCost>
+                          <lineCmmts>true</lineCmmts>
+                            <lineDetailTransComment>
+                              <operation>A</operation>
+                              <cmtSeq>1</cmtSeq>
+                              <cmtCmmt>test 2</cmtCmmt>
+                              <prtOnQuote>true</prtOnQuote>
+                              <prtOnSo>false</prtOnSo>
+                              <prtOnInvoice>false</prtOnInvoice>
+                              <prtOnPacklist>false</prtOnPacklist>
+                              <prtOnPo>true</prtOnPo>
+                              <prtOnRct>false</prtOnRct>
+                              <prtOnRtv>false</prtOnRtv>
+                              <prtOnShpr>false</prtOnShpr>
+                              <prtOnBol>false</prtOnBol>
+                              <prtOnCus>false</prtOnCus>
+                              <prtOnProb>false</prtOnProb>
+                              <prtOnSchedule>false</prtOnSchedule>
+                              <prtOnIsrqst>false</prtOnIsrqst>
+                              <prtOnDo>false</prtOnDo>
+                              <prtOnIntern>false</prtOnIntern>
+                            </lineDetailTransComment>
+                        </lineDetail><lineDetail>
+                          <operation>A</operation>
+                          <line>3</line>
+                          <lYn>true</lYn>
+                          <rqdSite>DJM-AC</rqdSite>
+                          <rqdPart>3101000004</rqdPart>
+                          <rqdReqQty>2</rqdReqQty>
+                          <rqdUm>PC</rqdUm>
+                          <rqdPurCost>40000</rqdPurCost>
+                          <rqdNeedDate>2018-11-30</rqdNeedDate>
+                          <rqdAcct></rqdAcct>
+                          <rqdProject>NOPRJECT</rqdProject>
+                          <desc1>Printer</desc1>
+                          <rqdLotRcpt>false</rqdLotRcpt>
+                          <rqdUmConv>1</rqdUmConv>
+                          <rqdMaxCost>40000</rqdMaxCost>
+                          <lineCmmts>true</lineCmmts>
+                            <lineDetailTransComment>
+                              <operation>A</operation>
+                              <cmtSeq>1</cmtSeq>
+                              <cmtCmmt>test 3</cmtCmmt>
+                              <prtOnQuote>true</prtOnQuote>
+                              <prtOnSo>false</prtOnSo>
+                              <prtOnInvoice>false</prtOnInvoice>
+                              <prtOnPacklist>false</prtOnPacklist>
+                              <prtOnPo>true</prtOnPo>
+                              <prtOnRct>false</prtOnRct>
+                              <prtOnRtv>false</prtOnRtv>
+                              <prtOnShpr>false</prtOnShpr>
+                              <prtOnBol>false</prtOnBol>
+                              <prtOnCus>false</prtOnCus>
+                              <prtOnProb>false</prtOnProb>
+                              <prtOnSchedule>false</prtOnSchedule>
+                              <prtOnIsrqst>false</prtOnIsrqst>
+                              <prtOnDo>false</prtOnDo>
+                              <prtOnIntern>false</prtOnIntern>
+                            </lineDetailTransComment>
+                        </lineDetail><lineDetail>
+                          <operation>A</operation>
+                          <line>4</line>
+                          <lYn>true</lYn>
+                          <rqdSite>DJM-AC</rqdSite>
+                          <rqdPart>3101000202</rqdPart>
+                          <rqdReqQty>2</rqdReqQty>
+                          <rqdUm>PC</rqdUm>
+                          <rqdPurCost>460000</rqdPurCost>
+                          <rqdNeedDate>2018-11-30</rqdNeedDate>
+                          <rqdAcct></rqdAcct>
+                          <rqdProject>NOPRJECT</rqdProject>
+                          <desc1>Printer</desc1>
+                          <rqdLotRcpt>false</rqdLotRcpt>
+                          <rqdUmConv>1</rqdUmConv>
+                          <rqdMaxCost>460000</rqdMaxCost>
+                          <lineCmmts>true</lineCmmts>
+                            <lineDetailTransComment>
+                              <operation>A</operation>
+                              <cmtSeq>1</cmtSeq>
+                              <cmtCmmt>test 3</cmtCmmt>
+                              <prtOnQuote>true</prtOnQuote>
+                              <prtOnSo>false</prtOnSo>
+                              <prtOnInvoice>false</prtOnInvoice>
+                              <prtOnPacklist>false</prtOnPacklist>
+                              <prtOnPo>true</prtOnPo>
+                              <prtOnRct>false</prtOnRct>
+                              <prtOnRtv>false</prtOnRtv>
+                              <prtOnShpr>false</prtOnShpr>
+                              <prtOnBol>false</prtOnBol>
+                              <prtOnCus>false</prtOnCus>
+                              <prtOnProb>false</prtOnProb>
+                              <prtOnSchedule>false</prtOnSchedule>
+                              <prtOnIsrqst>false</prtOnIsrqst>
+                              <prtOnDo>false</prtOnDo>
+                              <prtOnIntern>false</prtOnIntern>
+                            </lineDetailTransComment>
+                        </lineDetail><lineDetail>
+                          <operation>A</operation>
+                          <line>5</line>
+                          <lYn>true</lYn>
+                          <rqdSite>DJM-AC</rqdSite>
+                          <rqdPart>3101000102</rqdPart>
+                          <rqdReqQty>2</rqdReqQty>
+                          <rqdUm>PC</rqdUm>
+                          <rqdPurCost>5000</rqdPurCost>
+                          <rqdNeedDate>2018-11-30</rqdNeedDate>
+                          <rqdAcct></rqdAcct>
+                          <rqdProject>NOPRJECT</rqdProject>
+                          <desc1>Printer</desc1>
+                          <rqdLotRcpt>false</rqdLotRcpt>
+                          <rqdUmConv>1</rqdUmConv>
+                          <rqdMaxCost>5000</rqdMaxCost>
+                          <lineCmmts>true</lineCmmts>
+                            <lineDetailTransComment>
+                              <operation>A</operation>
+                              <cmtSeq>1</cmtSeq>
+                              <cmtCmmt>test 3</cmtCmmt>
+                              <prtOnQuote>true</prtOnQuote>
+                              <prtOnSo>false</prtOnSo>
+                              <prtOnInvoice>false</prtOnInvoice>
+                              <prtOnPacklist>false</prtOnPacklist>
+                              <prtOnPo>true</prtOnPo>
+                              <prtOnRct>false</prtOnRct>
+                              <prtOnRtv>false</prtOnRtv>
+                              <prtOnShpr>false</prtOnShpr>
+                              <prtOnBol>false</prtOnBol>
+                              <prtOnCus>false</prtOnCus>
+                              <prtOnProb>false</prtOnProb>
+                              <prtOnSchedule>false</prtOnSchedule>
+                              <prtOnIsrqst>false</prtOnIsrqst>
+                              <prtOnDo>false</prtOnDo>
+                              <prtOnIntern>false</prtOnIntern>
+                            </lineDetailTransComment>
+                        </lineDetail><lineDetail>
+                          <operation>A</operation>
+                          <line>6</line>
+                          <lYn>true</lYn>
+                          <rqdSite>DJM-AC</rqdSite>
+                          <rqdPart>2104050003</rqdPart>
+                          <rqdReqQty>4</rqdReqQty>
+                          <rqdUm>PC</rqdUm>
+                          <rqdPurCost>100000</rqdPurCost>
+                          <rqdNeedDate>2018-11-29</rqdNeedDate>
+                          <rqdAcct></rqdAcct>
+                          <rqdProject>NOPRJECT</rqdProject>
+                          <desc1>DAK KABEL OVAL 50 X 15</desc1>
+                          <rqdLotRcpt>false</rqdLotRcpt>
+                          <rqdUmConv>1</rqdUmConv>
+                          <rqdMaxCost>100000</rqdMaxCost>
+                          <lineCmmts>true</lineCmmts>
+                            <lineDetailTransComment>
+                              <operation>A</operation>
+                              <cmtSeq>1</cmtSeq>
+                              <cmtCmmt>test 4</cmtCmmt>
                               <prtOnQuote>true</prtOnQuote>
                               <prtOnSo>false</prtOnSo>
                               <prtOnInvoice>false</prtOnInvoice>
