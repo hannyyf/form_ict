@@ -10,6 +10,13 @@ use Mail;
 
 class ReportMonitoringController extends Controller
 {
+
+    public function connectqaddjm(){
+        $conn =  odbc_connect('QAD42','sysprogress','s',SQL_CUR_USE_ODBC)or die('Could not connect: ' . odbc_error());
+
+        return $conn;
+    }
+
     public function index()
     {
         $username = Auth::user()->username;
@@ -32,7 +39,6 @@ class ReportMonitoringController extends Controller
                     ->orderBy('notrx','asc')
                     ->get();
 		}
-        
 
         return view('fppb.listreport',['datas' => $datas]);
     }
@@ -52,7 +58,7 @@ class ReportMonitoringController extends Controller
 
     public function edit($notrx)
     {
-        $data       = DB::table('vw_transaksi')
+        $datas       = DB::table('vw_transaksi')
                      ->select('*')
                      ->where('notrx','=',$notrx)
                      ->get();
@@ -68,21 +74,20 @@ class ReportMonitoringController extends Controller
                      ->orderBy('dtfrom','asc')
                      ->get();
 
-       $kodeitems  = DB::table('generate_pr')
-                        ->select('*')
+        $kodeitems  = DB::table('generate_pr')
+                        ->select('kodeitem', 'seqid')
                         ->where('notrx','=',$notrx)
                         ->get();
 
-
         return view('fppb.detailreport',[
-                                    'datafetch' => $data,
+                                    'datafetch' => $datas,
                                     'header'    => $dataheader,
                                     'datalog'   => $datalog,
-                                    'kodeitems' => $kodeitems
+                                    'kodeitems' => $kodeitems,
                                     ]);
     }
 
-     public function editTransfer($notrx)
+    public function editTransfer($notrx)
     {
         $data       = DB::table('vw_transaksi')
                      ->select('*')
@@ -148,7 +153,7 @@ class ReportMonitoringController extends Controller
         echo $output;
     }
 
-     public function updateKategori(Request $request) {
+    public function updateKategori(Request $request) {
         DB::table('tr_fppb_header')
             ->where('notrx','=',$request->nofppbmodal)
             ->update([
@@ -181,5 +186,86 @@ class ReportMonitoringController extends Controller
             });
 
         return redirect()->route('transfer.index')->with('alert-success','Data FPPB dengan nomor '.$request->nofppbmodal.' Berhasil di Transfer ! ');
+    }
+
+    public function getdetail(Request $request) {
+        $kodeitem   = $request->get('kodeitem');
+        $nopr       = $request->get('nopr');
+        
+        $con = $this->connectqaddjm();
+        $query = odbc_exec($con,"select a.rqd_nbr, a.rqd_line, b.pod_nbr, c.prh_line, c.prh_receiver, c.prh_rcp_date, d.po_ord_date from PUB.rqd_det a 
+            left join PUB.pod_det b ON (a.rqd_nbr = b.pod_req_nbr and a.rqd_line = b.pod_req_line)
+            left join PUB.prh_hist c ON (b.pod_nbr = c.prh_nbr and b.pod_line = c.prh_line)
+            left join PUB.po_mstr d ON (d.po_nbr = b.pod_nbr)
+            where a.rqd_nbr = '".$nopr."' and a.rqd_part = '".$kodeitem."'");
+        // where a.rqd_nbr = 'R1805050' and a.rqd_part = '2105013002' ");
+
+        $myarr = array();
+        while( $data=odbc_fetch_array($query)) {
+            array_push($myarr, $data);
+        };
+        $no = 1;
+        if(empty($myarr)) {
+
+            $output = '<tr>
+                        <td colspan="7">Belum ada kode item yang di mapping</td>
+                        </tr>';
+        } else {
+            $output = '<tr>
+                            <td>'.$no++.'</td>
+                            <td>'.$kodeitem.'</td>
+                            <td>'.$nopr.'</td>
+                            <td>'.$myarr[0]['pod_nbr'].'</td>
+                            <td>'.$myarr[0]['po_ord_date'].'</td>
+                            <td>'.$myarr[0]['prh_receiver'].'</td>
+                            <td>'.$myarr[0]['prh_rcp_date'].'</td>
+                        </tr>';
+        }
+        
+
+        echo $output;
+    }
+
+    public function getdetailpr(Request $request) {
+        $nopr       = $request->get('nopr');
+        
+        $con = $this->connectqaddjm();
+        $query = odbc_exec($con,"select a.rqd_nbr, a.rqd_line, a.rqd_part, b.pod_nbr, c.prh_line, c.prh_receiver, c.prh_rcp_date, d.po_ord_date from PUB.rqd_det a 
+            left join PUB.pod_det b ON (a.rqd_nbr = b.pod_req_nbr and a.rqd_line = b.pod_req_line)
+            left join PUB.prh_hist c ON (b.pod_nbr = c.prh_nbr and b.pod_line = c.prh_line)
+            left join PUB.po_mstr d ON (d.po_nbr = b.pod_nbr)
+            where a.rqd_nbr = '".$nopr."'");
+        // where a.rqd_nbr = 'R1805050' and a.rqd_part = '2105013002' ");
+
+        $myarr = array();
+        while( $data=odbc_fetch_array($query)) {
+            array_push($myarr, $data);
+        };
+        $no = 1;
+        if(empty($myarr)) {
+
+            $output = '<tr>
+                        <td colspan="7">Belum ada kode item yang di mapping</td>
+                        </tr>';
+        } else {
+
+                $output = '<div style="display:none">';
+            foreach ($myarr as $key => $value) {
+                $output .= '<tr>
+                            <td>'.$no++.'</td>
+                            <td>'.$myarr[$key]['rqd_part'].'</td>
+                            <td>'.$myarr[$key]['rqd_nbr'].'</td>
+                            <td>'.$myarr[$key]['pod_nbr'].'</td>
+                            <td>'.$myarr[$key]['po_ord_date'].'</td>
+                            <td>'.$myarr[$key]['prh_receiver'].'</td>
+                            <td>'.$myarr[$key]['prh_rcp_date'].'</td>
+                        </tr>';
+            }
+                $output .= '</div>';
+        }
+        
+
+        echo $output;
+
     }
 }

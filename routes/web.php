@@ -67,3 +67,5 @@ Route::get('/find', 'ReportMonitoringController@findTransfer')->name('transfer.f
 Route::get('detailtransfer/{notrx}','ReportMonitoringController@editTransfer');
 Route::get('/kategori', 'ReportMonitoringController@getKategori')->name('transfer.loadkategori');
 Route::post('/updatekategori','ReportMonitoringController@updateKategori')->name('transfer.updatekategori');
+Route::get('/getdetail', 'ReportMonitoringController@getdetail')->name('report.detail');
+Route::get('/getdetailpr', 'ReportMonitoringController@getdetailpr')->name('report.detailpr');

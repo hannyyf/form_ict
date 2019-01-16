@@ -1,5 +1,19 @@
 @extends('base')
 @section('content')
+<style type="text/css">
+    #loadingmessage {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: white url('/basicloader.gif') center center no-repeat;
+    }
+    
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.min.js"></script>
 <script type="text/javascript">
@@ -8,14 +22,61 @@
         $('.qty').mask('0,000,000', {reverse: true});
     });
 </script>
-<!--breadcrumbs-->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var $j = $.noConflict();
+        var nopr    = {!! json_encode($datafetch[0]->prnumber)!!}
+        $j('.btndetail').click(function() {
+            $('#loadingmessage').show();  // show the loading message.
+            var kodeitem = this.id;
+            var _token = $j('input[name="_token"]').val();
+            $.ajax({
+                    url:"{{ route('report.detail') }}",
+                    method:"GET",
+                    data:{kodeitem:kodeitem, nopr:nopr},
+                    success:function(result)
+                    {
+                        $j("#table-detail").html(result);
+                        $j("#myModal").modal('show');
+                        $('#loadingmessage').hide(); // hide the loading message
+                    },
+                    error: function(response) {
+                        $('#loadingmessage').hide(); // hide the loading message
+                        console.log(response.status + " " + response.statusText);
+                    }
+                });
+        });
+
+        $j('.btndetailpr').click(function() {
+            $('#loadingmessage').show();  // show the loading message.
+            var _token = $j('input[name="_token"]').val();
+            $.ajax({
+                    url:"{{ route('report.detailpr') }}",
+                    method:"GET",
+                    data:{nopr:nopr},
+                    success:function(result)
+                    {
+                        $j("#table-detail").html(result);
+                        $j("#myModal").modal('show');
+                        $('#loadingmessage').hide(); // hide the loading message
+                    },
+                    error: function(response) {
+                        $('#loadingmessage').hide(); // hide the loading message
+                        console.log(response.status + " " + response.statusText);
+                    }
+                });
+        });
+
+    });
+</script>
+
+<!--breadcrumbs-->   
   <div id="content-header">
     <div id="breadcrumb"> <a href="{{ url('/index') }}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="{{ url('report') }}" class="tip-bottom">Report Monitoring</a><a href="#" class="current">Detail</a></div>
     <h1>Detail</h1>
   </div>
 <!--End-breadcrumbs-->
-
-
 <div class="container-fluid">
     <div class="row-fluid">
         <form class="form-horizontal"> 
@@ -55,7 +116,9 @@
             <div class="control-group">
                 <label class="control-label" style="text-align: left">No PR</label>
                 <div class="controls">
-                    {{ $datafetch[0]->prnumber }}
+                    {{ $datafetch[0]->prnumber }} 
+                    <u><a class="btndetailpr" href="#" id="{{ $datafetch[0]->prnumber }}" style="color: #0023cc">Detail PR</a></u>
+
                 </div>
             </div>
 
@@ -79,41 +142,39 @@
                         <tr>
                             <td style="width: 2%">
                                 {{ $data->seqid }}
-                                <input class="span11" type="text" name="no[]" id="no" style="display:none;" value="{{ $data->seqid }}">
+                                
                                 
                             </td >
                             <td style="width: 20%">
                                 {{ $data->jenisbarang }}
-                                <input class="span11" type="text" name="jenisbarang[]" id="jenisbarang" readonly = "readonly" style="display:none;" value="{{ $data->jenisbarang }}">
+                               
                                 
                             </td>
                             <td style="width: 4%">
                                 {{ $data->qty }}
-                                <input class="span11" type="text" name="qty[]" id="qty" readonly = "readonly" style="display:none;" value="{{ $data->qty }}">
+                               
                                 
                             </td>
                             <td style="width: 3%">
                                 {{ $data->satuan }}
-                                <input class="span11" type="text" name="satuan[]" id="satuan" readonly = "readonly" style="display:none;" value="{{ $data->satuan }}">
+                               
                             </td>
                             <td style="width:8%">
                                 {{ $data->tglpakai }}
-                                <input class="span11" type="text" name="tanggalpakai[]" id="tanggalpakai" value="{{ $data->tglpakai }}" style="display:none;">
+                               
                             </td>
                             <td style="width: 25%">
                                 {{ $data->notemanfaat}}
-                                <textarea class="span11" type="text" name="keterangan[]" id="keterangan" rows="5" cols="40" readonly ="readonly" style="display:none;"><?php echo $data->notemanfaat;?></textarea>
+                               
                             </td>
                             <td style="width: 10%">
                                 <label class="budget">{{ $data->perkiraanbudget }}</label>
-                                <input class="budget span11" type="text" name="budget[]" id="budget" value="{{ $data->perkiraanbudget }}" readonly ="readonly" style="display:none;">
+                                
                             </td>
                             <td style="width: 15%">
                                 @foreach ($kodeitems as $kodeitem)
                                 @if ($data->seqid == $kodeitem->seqid)
-                                {{ $kodeitem->kodeitem }} <br>
-                                
-                                <input class="span11" type="text" name="kodeitem[]" id="kodeitem" value="{{ $kodeitem->kodeitem }}" style="display:none;" readonly="readonly">
+                                <u><b><a class="btndetail" href="#" id="{{ $kodeitem->kodeitem }}" style="color: #0023cc">{{ $kodeitem->kodeitem }}</a></b></u><br>
                                 @endif
                                 @endforeach
                             </td>
@@ -145,6 +206,47 @@
             </div>
         </div>
         </form>
-    </div>    
+    </div>
+    
 </div>
+<div id='loadingmessage' style='display:none'>
+   <!--  <img src='/animation.gif' class="loading-image"/> -->
+</div> 
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog-md">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Detail Kode Item</h4>
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive">
+             <table id="table-data" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th style="text-align: center">No</th>
+                    <th style="text-align: center">Kode Item</th>
+                    <th style="text-align: center">No PR</th>
+                    <th style="text-align: center">No PO</th>
+                    <th style="text-align: center">Tgl PO</th>
+                    <th style="text-align: center">No PO Receipt</th>
+                    <th style="text-align: center">Tgl PO Receipt</th>
+                </tr>
+                </thead>
+                <tbody id="table-detail">
+                </tbody>
+                
+            </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+</div>
+<!-- modal end -->
 @endsection
